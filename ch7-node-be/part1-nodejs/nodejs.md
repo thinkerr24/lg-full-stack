@@ -74,3 +74,28 @@ npm config set registry https://registry.npmjs.org
 ### node项目默认入口文件 package.json "main": "index.js",
 node index.js or node foldername
 
+### 模块查找规则
+1.带路径
+const server = require('./server');
+a.同级目录的server.js
+b.同级目录的server.json
+c.server目录的package.json main(默认index.js)
+
+2.不带路径
+const server = require('server');
+按nodule.paths顺序
+
+### I/O模型
+同/异步I/O 区别: CPU是否等待I/O结果
+Node采用异步非阻塞I/O模型
+
+## 进程与线程
+### JS单线程OR多线程 
+libuv
+一个主线程+线程池中4个线程，前者执行同步代码，后者执行异步代码  
+`const crypto = require("crypto");   
+ for (let i = 0; i < 2; i++) {
+  crypto.pbkdf2Sync("srcret", "salt", 10000, 512, "sha512"); // sync
+  // crypto.pbkdf2('srcret', 'salt', 10000, 512, 'sha512') // async
+}
+`
