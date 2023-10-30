@@ -99,3 +99,124 @@ libuv
   // crypto.pbkdf2('srcret', 'salt', 10000, 512, 'sha512') // async
 }
 `
+
+## 回调
+callback -> call then back, 调用后返回
+在主函数b中调用参数函数a，参数函数调用完成后返回主函数继续执行主函数中的代码   
+`
+function a() {
+    console.log('a is running')
+}
+function b(callback) {
+    console.log('b start');
+    callback(); // a is running
+    console.log('b end');
+}
+b(a);
+`
+>为什么在B函数中不直接调用A函数而要通过参数的方式传递进去?
+通常在编写应用程序时，B函数都是语言内部或者其他开发者定义好的，我们看不到内部代码或者说不能直接在他内部代码中插入我们的代码，而我们又想介入程序的执行，此时就可以通过回调函
+数的方式将我们的逻辑传递给 B 函数，B 函数在内部再来调用这个回调函数。
+
+```
+function readFile(filePath, defaultCoding = "utf-8") {
+  return new Promise(function (resolve, reject) {
+    fs.readFile(filePath, defaultCoding, function (error, data) {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+}
+// solution 1
+readFile("./a.txt")
+  .then(function (data) {
+    console.log(data);
+    return readFile("./b.txt");
+  })
+  .then(function (data) {
+    console.log(data);
+    return readFile("./c.txt");
+  })
+  .then(function (data) {
+    console.log(data);
+  })
+  .catch(function (error) {
+    console.error(error);
+  });
+
+  // solution 2
+  Promise.allSettled([
+  readFile("./a.txt"),
+  readFile("./b.txt"),
+  readFile("./c.txt"),
+])
+  .then(function (data) {
+    console.log(data);
+  })
+  .catch(function (error) {
+    console.error(error);
+  });
+
+readAPromise.then(function(result) {
+    console.log(result);
+}).catch(function(error) {
+    console.error(error);
+});
+// solution 3
+const fs = require("fs");
+
+function readFile(filePath, defaultCoding = "utf-8") {
+  return new Promise(function (resolve, reject) {
+    fs.readFile(filePath, defaultCoding, function (error, data) {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+}
+
+(async function() {
+  const aFile = await readFile('./a.txt');
+  const bFile = await readFile('./b.txt');
+  const cFile = await readFile('./c.txt');
+  console.log(aFile, bFile, cFile);
+})();
+  ```
+
+### 异步函数
+```
+async function f() {
+  return "a";
+}
+
+// console.log(f()); // Promise { 'a' }
+f()
+  .then(function (data) {
+    console.log(data); // a
+  })
+  .catch(function (error) {
+    console.error(error);
+  });
+```
+
+#### 使用promisify方法
+去掉readFile Promise函数中的回调
+```
+const fs = require("fs");
+const promisify = require('util').promisify;
+const readFile = promisify(fs.readFile);
+
+async function readAllFile() {
+  const aFile = await readFile("./a.txt", "utf-8");
+  const bFile = await readFile("./b.txt", "utf-8");
+  const cFile = await readFile("./c.txt", "utf-8");
+  return [aFile, bFile, cFile];
+}
+
+readAllFile().then(([a, b, c]) => console.log(a, b, c));
+```
