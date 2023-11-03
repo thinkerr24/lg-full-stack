@@ -220,3 +220,33 @@ async function readAllFile() {
 
 readAllFile().then(([a, b, c]) => console.log(a, b, c));
 ```
+
+## 事件循环
+>1.NodeJS是事件驱动的，可以将异步API的回调函数理解为事件处理函数。同步代码在主线程执行，异步代码在C++维护的那个线程池中执行，管理异步代码中的回调函数什么时候回到主线程中调用的机制就叫事件循环。
+
+#### 6个阶段
+Timers->Pending callbacks-> Idle/Prepare -> IO Poll -> Check -> Closing callbacks
+
+### 宏任务和微任务
+宏: setTimeout, setInterval, setImmediate, I/O
+微: Promise.then, Promise.catch, Promise.finnay, process.nextTick
+
+区别:
+1.宏的回调函数放宏任务队列，微放微队列
+2.优先级 nextTick > 微 > 宏
+
+Node应用启动后，并不会立即进入事件循环，而是先从上到下执行，同步API先执行，异步API交给C++维护的线程执行，异步API的回调函数被注册到对于的事件队列中，当所有输入代码执行完成后，开始进入事件循环
+
+`
+console.log('start');
+
+setTimeout(() => {
+  console.log('1')
+}, 0);
+
+setTimeout(() => {
+  console.log('1')
+}, 0);
+
+console.log('end'); // start end 1 2
+`
