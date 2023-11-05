@@ -239,14 +239,59 @@ Node应用启动后，并不会立即进入事件循环，而是先从上到下�
 
 `
 console.log('start');
-
 setTimeout(() => {
   console.log('1')
 }, 0);
-
 setTimeout(() => {
   console.log('1')
 }, 0);
-
 console.log('end'); // start end 1 2
+`
+
+### process.nextThick方法
+> 此方法的回调函数优先级最高，会在事件循环之前调用；如果希望异步任务尽早执行，就可以使用process.nextThick
+`
+const fs = require('fs');
+function readFile(fileName, callback) {
+  if (typeof fileName !== "string") {
+    // If here, it's not async completely
+    // return callback(new TypeError('file name must be string type'));
+    // After change
+    return process.nextTick(
+      callback,
+      new TypeError("file name must be string type")
+    );
+  }
+  fs.readFile(fileName, (err, data) => {
+    if (err) {
+      return callback(err);
+    }
+    return callback(null, data);
+  });
+}
+`
+
+### setImmediate
+> 宏任务，表立即执行，事件循环的check阶段(不会阻塞主线程，也不会阻塞事件循环)，适合处理大量的计算任务
+
+`// Block main thread
+function sleep(delay) {
+    // Mock 
+    const pre = Date.now();
+    while(Date.now() - pre < delay) {
+        continue;
+    }
+}
+// Condition 1
+// console.time('c1')
+// console.log('start 1');
+// sleep(3000);
+// console.log('end 1');
+// console.timeEnd('c1');
+// Condition 2
+console.time('c2');
+console.log('start 2');
+setImmediate(sleep, 3000); // block c++ thread
+console.log('end 2');
+console.timeEnd('c2');
 `
