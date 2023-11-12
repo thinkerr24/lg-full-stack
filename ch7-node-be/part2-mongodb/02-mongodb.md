@@ -166,6 +166,8 @@ https://www.mongodb.com/docs/manual/reference/operator/query/
 
 指定从查询返回的项目字段
 
+查询空字段或缺字段
+
 ### 更新
 
 db.collection.updateOne(filter, update, options)
@@ -183,6 +185,18 @@ db.collection.deleteOne({})
 
 
 ## Nodejs + MongoDB
+在服务端操作 [MongoDB](https://www.mongodb.com/docs/drivers/)
 
+在[Node.js](https://www.mongodb.com/docs/drivers/node/current/)中操作MongoDB
+
+### First Try
+init npm project + install [mongodb](https://www.npmjs.com/package/mongodb) package, then refer the site
+
+### 接口规范
+
+一个文章CRUD项目 with RESTful接口 article-bed
 
 > mongod --dbpath="C:\mysoftware\installation\mongodb-win32-x86_64-2012plus-4.2.24\data"
+
+`const uri = "mongodb+srv://thinkerr24:nQEyQpTpYZH6t8Aw@cluster0.mcltnpy.mongodb.net/?retryWrites=true&w=majority";
+`
