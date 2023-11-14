@@ -40,3 +40,24 @@ Express 不对 Node.js 已有的特性进行二次抽象，只是在它之上又
 ## Express 基本使用
 
 ### Hello, World
+
+mkdir myapp <br />
+npm init -y <br />
+npm i express <br />
+app.js: <br/>
+`const express = require("express");
+const app = express();
+const port = 3001;
+// for post req.body(undefined) parse
+app.use(express.json());
+app.get("/", (req, res) => {
+res.send("<h1>Hello</h1>");
+});
+app.get("/hello", (req, res) => {
+res.json({
+msg: "hello Json",
+});
+});
+app.listen(port, () => {
+console.log("server running at port 3001");
+});`
