@@ -61,3 +61,61 @@ msg: "hello Json",
 app.listen(port, () => {
 console.log("server running at port 3001");
 });`
+
+### 路由基础
+
+路由指确定应用程序如何响应客户端对特定端点的请求，该特定端点是 URI(或路径)+特定的 HTTP 请求方法(GET, POST,PUT, DELETE 等) <br />
+每个路由可以具有一个或多个处理程序函数，这些函数在匹配该路由时执行。路由定义采用以下结构:<br/>`app.METHOD(PATH, HANDLER)` <br/>
+app 是 Express 实例;METHOD 是小写的 HTTP 请求方法;PATH 是服务器上的路径;HANDLER 是当路由匹配时执行的功能
+
+## 请求与响应
+
+Express 应用使用路由回调函数的参数:request 和 response 对象来处理请求和响应的数据，对象名简写为 req 和 res
+`app.get('/', function(request, response) {
+    // TO DO
+});
+`
+Express 不对 Node.js 已有的特性进行二次抽象，只是在它之上扩展了 web 应用所需的基本功能 <br/>
+
+1.内部使用的还是 http 模块 <br/> 2.请求对象继承自 http.IncomingMessage <br/>3.响应对象继承自:http.ServerResponse <br/>
+Express 拓展了 HTTP 模块中的请求和响应对象
+
+### 请求对象
+
+req 对象代表 HTTP 请求，并具有请求查询字符串，参数，正文，HTTP 标头等属性 <br/>
+console.log(req.url); // 地址 / <br/>
+console.log(req.method); // 方法 GET <br/>
+console.log(req.headers); // 请求头
+{
+'content-type': 'application/json',
+'user-agent': 'PostmanRuntime/7.28.4',
+accept: '_/_',
+'postman-token': '6cc617b8-e833-4f52-88c0-26efaf53b24d',
+host: 'localhost:3001',
+'accept-encoding': 'gzip, deflate, br',
+connection: 'keep-alive',
+'content-length': '160'
+}
+
+### 响应对象
+
+res 对象表示 Express 应用在收到 HTTP 请求时发送的 HTTP 响应
+`//res.statusCode = 201; // 设置响应码
+  // res.write("a");
+  // res.write("b");
+  // res.write("c");
+  // res.end(); // print 'abc' on page
+  // res.end("Abc"); // print 'Abc'
+  // res.send("<h2>123</h2>");
+  // res.cookie("foo", "bar");
+  //res.status(201).send({ msg:"I'm OK"});
+ `
+
+## 案例
+
+通过创建一个简单的 CRUD 接口服务来掌握 Express 的基本用法 <br/>
+GET /todos <br/>
+GET /todos/:id //动态路径, ":id""表示一个任意的数据, 比如 1 2 ...100 通过"req.params.id" 获取<br/>
+POST /todos <br/>
+PATCH /todos/:id <br/>
+DELETE /todos/:id <br/>
