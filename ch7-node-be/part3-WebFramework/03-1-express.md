@@ -119,3 +119,44 @@ GET /todos/:id //动态路径, ":id""表示一个任意的数据, 比如 1 2 ...
 POST /todos <br/>
 PATCH /todos/:id <br/>
 DELETE /todos/:id <br/>
+
+## Express 中间件
+
+基本用法 <br/>
+案例: 给每个请求方法加上日志功能(req.method+req.url+Date.now()) <br/>
+这种通用型功能可以使用中间件，避免代码污染业务代码 <br/>
+中间件的顺序很重要，因为请求来了(代码)都是从上往下执行，使用 app.use 中间件要写在所有请求方法前 <br/>
+`const app = express();
+const myLogger = (req) => console.log(req.method, req.url, Date.now());
+
+// req 请求对象
+// res 响应对象
+// next 下一个中间件
+app.use((req, res, next) => {
+myLogger(req);
+next(); // 这一行要加，不然不会走到匹配的那个路径方法中
+});
+app.get('/', (req, res) => res.send('get /'));
+app.get('/about', (req, res) => res.send('get /about'));
+`
+
+### 中间件基本概念
+
+Express 的最大特色，也是最主要的一个设计就是中间件。一个 Express 应用就是由许许多多的中间件来完成的。<br/>
+通过现实中的自来水厂的净水流程来理解:<br/>
+![自来水厂的净水流程](./img/purification-water.png)
+中间每一个环节就是一个中间件，这样既提高了生产效率也提高了保证了可维护性
+
+Express 中间件和 AOP<b> 面向切面编程</b>几乎是一个意思，就是都要结果的步骤，<b>不去修改自己的代码，以此来拓展或者处理一些功能<b/>
+例子:农场的水果包装流水线一开始只有下面三个步骤:
+![flow1](./img/fruit-flow1.png)
+为了提高销量，再加两道新工序且不干扰已有的流程，同时如果没有增加收益可以随时撤销新工序:
+![flow2](./img/fruit-flow2.png)
+
+### AOP(Aspect Oriented Programming)面向切面编程
+
+1.将日志记录，性能统计，安全控制，事务处理，异常处理等代码从业务逻辑代码中划分出来，通过对这些行为的分离，我们希望可以<b>将它们独立到非指导业务的方法中，进而改变这些行为的时候不影响业务逻辑的代码。<b/> <br/>
+
+2.利用 AOP 可以对业务逻辑的各个部分进行隔离，从而使得<b>业务逻辑各部分之间的耦合度降低, 提高程序的可重用性，同时提高了开发的效率和可维护性。<b/>
+![aop](./img/aop.png)
+总结:就是在现有代码程序中，在程序生命周期或者横向流程中<span bgcolor="#D1EEEE">加上/减去</span>一个或多个功能，不影响原有功能。
