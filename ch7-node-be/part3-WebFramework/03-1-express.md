@@ -144,7 +144,7 @@ app.get('/about', (req, res) => res.send('get /about'));
 
 Express 的最大特色，也是最主要的一个设计就是中间件。一个 Express 应用就是由许许多多的中间件来完成的。<br/>
 通过现实中的自来水厂的净水流程来理解:<br/>
-![自来水厂的净水流程](./img/purification-water.png)
+![自来水厂的净水流程](./img/purification-water.png) <br/>
 中间每一个环节就是一个中间件，这样既提高了生产效率也提高了保证了可维护性
 
 Express 中间件和 AOP<b> 面向切面编程</b>几乎是一个意思，就是都要结果的步骤，<b>不去修改自己的代码，以此来拓展或者处理一些功能<b/>
@@ -160,3 +160,53 @@ Express 中间件和 AOP<b> 面向切面编程</b>几乎是一个意思，就是
 2.利用 AOP 可以对业务逻辑的各个部分进行隔离，从而使得<b>业务逻辑各部分之间的耦合度降低, 提高程序的可重用性，同时提高了开发的效率和可维护性。<b/>
 ![aop](./img/aop.png)
 总结:就是在现有代码程序中，在程序生命周期或者横向流程中<span bgcolor="#D1EEEE">加上/减去</span>一个或多个功能，不影响原有功能。
+
+### 中间件函数
+
+在 Express 中，中间件就是一个可访问请求对象、响应对象和调用 next 方法的函数。<br/>
+![express-middleware](./img/express-middleware.png)
+<br/>
+在中间件函数中可以执行以下任务:<br/>
+
+<ul>
+<li>执行任何代码</li>
+<li>修改request或response对象
+</li>
+<li>结束请求响应周期</li>
+<li>调用下一个中间件</li>
+</ul>
+<br/>
+
+![modify-req-or-res](./img/modify-req-or-res.png) <br/>
+注意:如果当前的中间件功能没有结束请求-响应周期，则必须调用 next()将控制权传递给下一个中间件功能。否则，该请求将被挂起(pending)。
+
+## Express 中间件分类
+
+<ul>
+<li>应用程序级别中间件</li>
+<li>路由级别中间件</li>
+<li>错误中间件</li>
+<li>内置中间件</li>
+<li>第三方中间件</li>
+</ul>
+
+### 应用程序级别中间件
+
+不关心请求路径(匹配 any 路径) <br/>
+`app.use((req, res, next) => {
+  console.log('Logger time:', Date.now())
+  next();
+});`
+
+限定请求路径(匹配/user/xxx) <br/>
+`app.use('/user/:id', (req, res, next) => {
+  console.log('request method:', req.method);
+  next();
+})`
+
+限定请求方法+请求路径(匹配 GET 方法 + path 为/user/xxx) <br/>
+`app.get('/user/:id', (req, res, next) => {
+  res.send('USER');
+})`
+
+多个处理函数
