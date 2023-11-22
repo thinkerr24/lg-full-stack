@@ -210,3 +210,52 @@ Express 中间件和 AOP<b> 面向切面编程</b>几乎是一个意思，就是
 })`
 
 多个处理函数
+`app.use('/user/:id', (req, res, next) => {
+console.log('Request URL:', req.originalUrl);
+next(); // 跑到当前中间件紧接着的下一个回调函数
+},  (req, res, next) => {
+  console.log('Request Type:', req.method);
+  next(); // 脱离当前中间件，寻找下一个
+})`
+
+为同一个路径定义多个处理中间件
+`app.get('/user/:id', (req, res, next) => {
+console.log('ID:', req.params.id);
+next(); 
+},  (req, res, next) => {
+  res.send('User Info'); // execute
+});
+app.get('/user/:id', (req, res, next) => {
+  res.end(req.params.id); // won't execute
+});
+`
+
+跳过中间件剩下功能，使用 next('route')
+`app.use('/user/:id', (req, res, next) => {
+  if (req.params.id === 0) {
+    next('route');
+  } else {
+    next();
+  }
+},  (req, res, next) => {
+  res.send('use xxx'); // will not execute when req.params.id === 0
+});
+app.get('/user/:id', (req, res, next) => {
+  res.send('get xxx'); // // will  execute when req.params.id === 0
+});
+`
+
+中间件可以在数组中声明为可重用——子堆栈数组
+`function logOriginalUrl(req, res, next) {
+  console.log(req.originalUrl);
+  next();
+}
+function logMethod(req, res, next) {
+  console.log(req.method);
+  next();
+}
+const logStuff = [logOriginalUrl, logMethod];
+app.get('/user/:id', logStuff, (req, res, next) => {
+  res.send('User Info');
+});
+`
