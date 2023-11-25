@@ -92,7 +92,7 @@ app.patch("/todos/:id", async (req, res) => {
 
 app.delete("/todos/:id", async (req, res) => {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
     const db = await getDb();
     const index = db.todos.findIndex((todo) => String(todo.id) === id);
     if (index > -1) {
@@ -102,11 +102,31 @@ app.delete("/todos/:id", async (req, res) => {
     } else {
       res.status(404).end();
     }
-  } catch(err) {
-    res.status(500).json({
-      error: err.message,
-    });
+  } catch (err) {
+    // res.status(500).json({
+    //   error: err.message,
+    // });
+    /**如果将如何内容传递给next()函数，除'route'之外, Express都会将当前请求视为错误，并将跳过所有剩余的无错误处理路由和中间件函数
+     * 1.next() 往后匹配下一个中间件
+     * 2.next('route') 往后匹配当前中间件堆栈的下一个
+     * 3.next(任意数据)
+     */
+    next(err);
   }
+});
+
+// 通常会在所有路由之后匹配处理 404 内容
+// 请求进来从上到下依次匹配
+app.use((req, res, next) => {
+  res.status(404).send("404 Not Found.");
+});
+
+// 在所有的中间件之后挂载错误处理中间件
+app.use((err, req, res, next) => {
+  console.log("error:", err);
+  res.status(500).json({
+    error: err.message,
+  });
 });
 
 app.listen(3001, () => console.log("express server running at port 3001"));

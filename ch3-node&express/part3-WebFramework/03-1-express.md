@@ -259,3 +259,91 @@ app.get('/user/:id', logStuff, (req, res, next) => {
   res.send('User Info');
 });
 `
+
+### 路由级别中间件
+
+路由器级别的中间件与应用程序级中间件的工作方式相同，只不过它绑定到的实例 <br/>
+`const router = express.router();` <br/>
+使用 router.use()和 router.METHOD()函数加载路由器级中间件
+
+### 错误处理中间件
+
+与其他中间件函数定义方式相同，区别在于使用四个参数(始终)<br/>
+(err, req, res, next) <br/>
+`app.use(function(err, req, res, next) {
+console.error(err.stack);
+res.status(500).send('Somthing broke!');
+});`
+
+#### 中间件处理 404
+
+`app.use((req, res, next) => {
+  res.status(404).sned('404 NOT FOUND!');
+})`
+
+#### 内置中间件
+
+Express 本身提供的中间件函数
+`express.json() 解析Content-Type为application/json格式的请求体
+express.urlencoded 解析Content-Type为application/x-www.form-urlencoded格式的请求体
+ express.raw() 解析Content-Type为application/octet-stream格式的请求体
+express.text() 解析Content-Type为text/plain格式的请求体
+ express.static() 托管静态资源文件`
+
+#### 第三方中间件
+
+在 4.x 版本后剔除，需要的自己加
+https://expressjs.com/en/resources/middleware.html
+https://github.com/orgs/expressjs/repositories
+
+## Express 路由 summary
+
+特俗的路由方法 app.all 用于为所有 HTTP 请求方法的路径记载中间件功能
+例如无论 GET/POST/PUT/DELETE 还是 http 模块支持的其他方法，都会对路由/secret
+的请求执行以下处理程序
+`app.all('/secret', (req, res, next) => {
+  console.log('Accessing the secret section......');
+  next(); // pass control to the next handler
+ })` <br/>
+
+### 路由路径
+
+路由路径与请求方法结合，定义了可以进行请求的端点。路由路径可以是<b>字符串，字符串模式或正则表达式</b>。
+字符?,+,\*和()是他们的正则表达式的对应的子集。连字符(-)和点(.)由基于字符串的路径按字面意义进行解释。如果需要$在路径字符串中使用美元字符(), 要将其转义([并在括号中])。例如，"/data/$book"处用于
+请求的路径字符串将为"/data/([\$])book"。
+Express 使用[path-to-regexp](https://www.npmjs.com/package/path-to-regexp)，查询字符串不是路由路径的一部分。
+
+"/" match root path <br/>
+"/random.txt" match "/random.txt" <br/>
+"/ab?cd" match /acd or /abcd <br/>
+"/ab+cd" match /abcd, /abbcd, /abbbcd ... <br/>
+"/ab\*cd" match /abxcd, /abAnycd, /ab123cd ... <br/>
+"/ab(cd)?e" match /abe, /abcde <br/>
+/a/ match contain <b>any</b> 'a' route:app.get(/a/, (req, res) => {}) <br/>
+/.*fly$/ match ending with fly paths:app.get(/.*fly$/, (req, res) => {}) <br/>
+
+### 路径参数
+
+ref:[express guide routing](https://expressjs.com/en/guide/routing.html) <br/>
+:xxx req.params.xxx
+
+Route path: /users/:userId/book/:bookId <br/>
+Request URL: http://localhost:3000/users/34/books/8989 <br/>
+req.params: {"userId": "34", "bookId": "8989"} <br/>
+
+Route path: /flights/:from-:to <br/>
+Request URL: http://localhost:3000/flights/LAX-SFO <br/>
+req.params: {"from": "LAX", "to": "SFO"} <br/>
+
+增加变量类型限定，使用括号()加正则的方式 <br/>
+Route path: /user/:userId(\\d+) <br/>
+Request URL: http://localhost:3000/user/432<br/>
+req.params: {"userId": "432"} <br/>
+
+### 路由处理程序
+
+app.route() 链式路由 <br/>
+`app.route('/book').get((req, res) => {
+}).post((req, res) => {
+}).put((req, res) => {
+});`
