@@ -40,7 +40,22 @@ class Applcation {
   }
 
   // 构造上下文对象
-  createContext() {}
+  createContext(req, res) {
+    // 一个实例会处理多个请求，而不同请求应拥有不同的上下文对象，为了避免请求期间的数据交叉污染，这里又对数据做了一份拷贝
+    const context = Object.create(this.context);
+    const request = (context.request = Object.create(this.request));
+    const response = (context.response = Object.create(this.response));
+
+    context.app = request.app = response.app = this;
+    context.req = request.req = response.req = req;
+    context.res = request.res = response.res = res;
+    request.ctx = response.ctx = context;
+    request.response = response;
+    response.request = request;
+    context.originalUrl = request.originalUrl = req.url;
+    context.state = {};
+    return context;
+  }
 
   callback() {
     const fnMiddleware = this.compose(this.middleware);
