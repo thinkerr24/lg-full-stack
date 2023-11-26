@@ -64,7 +64,7 @@ class Applcation {
       const newContext = this.createContext();
       fnMiddleware(newContext)
         .then(() => {
-          console.log("end");
+          // console.log("end");
           res.end("My Koa");
         })
         .catch((err) => {
