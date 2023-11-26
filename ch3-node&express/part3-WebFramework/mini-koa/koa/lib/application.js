@@ -61,13 +61,14 @@ class Applcation {
     const fnMiddleware = this.compose(this.middleware);
     const handleRequest = (req, res) => {
       // 每个请求都会创建一个独立的Context上下文对象，它们之间不会互相污染
-      const newContext = this.createContext();
+      const newContext = this.createContext(req, res);
       fnMiddleware(newContext)
         .then(() => {
-          // console.log("end");
-          res.end("My Koa");
+          // res.end("My Koa");
+          res.end(newContext.body);
         })
         .catch((err) => {
+          console.log("err:", err);
           res.end("error message");
         });
     };
