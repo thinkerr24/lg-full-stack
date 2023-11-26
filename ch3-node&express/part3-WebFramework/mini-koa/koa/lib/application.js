@@ -1,4 +1,5 @@
 const http = require("http");
+const { Stream } = require("stream");
 const context = require("./context");
 const request = require("./request");
 const response = require("./response");
@@ -65,7 +66,8 @@ class Applcation {
       fnMiddleware(newContext)
         .then(() => {
           // res.end("My Koa");
-          res.end(newContext.body);
+          // res.end(newContext.body);
+          respond(newContext);
         })
         .catch((err) => {
           console.log("err:", err);
@@ -73,6 +75,22 @@ class Applcation {
         });
     };
     return handleRequest;
+  }
+}
+
+function respond(ctx) {
+  const { body, res } = ctx;
+  if (body === null) {
+    res.statusCode = 204;
+    res.end();
+  }
+  if (typeof body === "string") return res.end(body);
+  if (Buffer.isBuffer(body)) return res.end(body);
+  if (body instanceof Stream) return body.pipe(res);
+  if (typeof body === "number") return res.end(body + "");
+  if (typeof body === "object") {
+    const jsonStr = JSON.stringify(body);
+    res.end(jsonStr);
   }
 }
 
