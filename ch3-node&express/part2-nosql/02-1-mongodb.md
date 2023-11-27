@@ -1,6 +1,6 @@
 # Mongodb
 
-Link: https://www.yuque.com/lipengzhou/mongodb?# 《MongoDB 教程》
+Link: [《MongoDB 教程》](https://www.yuque.com/lipengzhou/mongodb?#)
 
 ## NoSQL
 
@@ -10,17 +10,17 @@ MongoDB 使用场景: 1.大量低价值数据且性能要求高; 2.用作缓存�
 
 ### 安装
 
-官网安装 community 版(zip 包)
-解压后将 bin 目录配置到 path 环境变量中
-mongod --version
+官网安装 community 版(zip 包) <br/>
+解压后将 bin 目录配置到 path 环境变量中<br/>
+mongod --version<br/>
 mongo --version
 
 ### 启动与停止 MongoDB 服务
 
-mongod --dbpath="数据存储目录" 默认占用本地 27017 端口
+mongod --dbpath="数据存储目录" 默认占用本地 27017 端口<br/>
 mongod --dbpath="C:\mysoftware\installation\mongodb-win32-x86_64-2012plus-4.2.24\data"
 
-新开一个控制台 cmd
+新开一个控制台 cmd<br/>
 mongo
 '>'
 不要跨盘符访问
@@ -30,18 +30,20 @@ mongo
 不用单独下，直接运行命令 mongo，如需指定端口: mongo --port 28015
 提供了一个 JS 执行环境，可以直接 1 + 1
 连接远程:
-mongo "mongodb://bob@mongodb0.example.com:28015/?authSource=admin"
+`mongo "mongodb://bob@mongodb0.example.com:28015/?authSource=admin"`
 
-mongo --host mongodb://bob@mongodb0.example.com:28015
+`mongo --host mongodb://bob@mongodb0.example.com:28015`
 
-mongo --host mongodb://bob@mongodb0.example.com --port 28015
+`mongo --host mongodb://bob@mongodb0.example.com --port 28015`
 
-mongo --username bob --password --authenticationDatabase admin --host mongodb0.example.com
+`mongo --username bob --password --authenticationDatabase admin --host mongodb0.example.com`
 
 ##### 基本命令
 
+```
 show dbs; db; use database; show collections ...
 db.users.insert({name: 'Ray', age: 26})
+```
 
 退出: exit; quit(); Ctrl+c
 
@@ -50,10 +52,10 @@ db.users.insert({name: 'Ray', age: 26})
 MongoDB 是文档型数据库，存储的数据是 JSON 格式
 可以把 MongoDB 数据库想象为一个超级大对象，对象中有不同的集合，集合中有不同的文档
 
-MongoDB RDB
-Collection Table
-Document Row
-Field Column
+MongoDB RDB <br/>
+Collection Table <br/>
+Document Row <br/>
+Field Column <br/>
 
 #### 数据库
 
@@ -98,43 +100,55 @@ nosqlbooster/Navicat/MongoDB Compass/Studio 3T
 
 #### 插入
 
+```bash
 db.collection.insertOne({}) // return id
 db.collection.insertMany([]) // return ids
 db.collection.insertOne() // not recommend
+```
 
 ### 查询
 
-`db.inventory.insertMany([
+```bash
+db.inventory.insertMany([
    { item: "journal", qty: 25, size: { h: 14, w: 21, uom: "cm" }, status: "A" },
    { item: "notebook", qty: 50, size: { h: 8.5, w: 11, uom: "in" }, status: "A" },
    { item: "paper", qty: 100, size: { h: 8.5, w: 11, uom: "in" }, status: "D" },
    { item: "planner", qty: 75, size: { h: 22.85, w: 30, uom: "cm" }, status: "D" },
    { item: "postcard", qty: 45, size: { h: 10, w: 15.25, uom: "cm" }, status: "A" }
-]);`
-db.collection.find(query, projection) // query(Optional):使用查询操作符指定查询条件；
+]);
+```
+
+`db.collection.find(query, projection)` // query(Optional):使用查询操作符指定查询条件；<br/>
 projection(Optional):使用投影操作符指定返回的键，查询时返回文档中所有的键值，一般省略
 
 db.collection.findOne() // 查询第一个满足匹配条件的
 
 指定返回哪些字段:
-`db.inventory.find({}, {
+
+```bash
+db.inventory.find({}, {
     item: 1,
     qty: 1
 })`
-相等条件查询:
-`db.inventory.find({
+#相等条件查询:
+db.inventory.find({
     status: 'A'
 })
-`
+```
 
 AND 查询(status = 'A' && qty < 30):
-`db.inventory.find({
+
+```bash
+db.inventory.find({
     status: 'A',
     qty: {$lt: 30}
 })
-`
+```
+
 OR 查询(status = 'A' || qty < 30)
-`{
+
+```json
+{
   "_id": "654babc6acd15495a22df20d",
   "item": "journal",
   "qty": 25,
@@ -145,13 +159,17 @@ OR 查询(status = 'A' || qty < 30)
   },
   "status": "A"
 }
-`
+```
+
 AND + OR(status = 'A' && (qty < 30||item start with p))
-`db.inventory.find({
+
+```bash
+db.inventory.find({
   status: "A",
   $or: [ { qty: { $lt: 30 } }, { item: /^p/ } ]
 })
-`
+```
+
 查询操作符
 $gte $ne $nin, $and $nor
 https://www.mongodb.com/docs/manual/reference/operator/query/
@@ -170,33 +188,42 @@ https://www.mongodb.com/docs/manual/reference/operator/query/
 
 ### 更新
 
+```bash
 db.collection.updateOne(filter, update, options)
 db.collection.updateMany(filter, update, options)
 db.collection.replaceOne(filter, update, options)
 
-`db.cn.updateMany(
+db.cn.updateMany(
   {age: {$lt: 18}},
   {$set: {status: "reject"}}
-)`
+)
+```
 
 ### 删除
+
+```
 db.collection.deleteMany({})
 db.collection.deleteOne({})
-
+```
 
 ## Nodejs + MongoDB
+
 在服务端操作 [MongoDB](https://www.mongodb.com/docs/drivers/)
 
-在[Node.js](https://www.mongodb.com/docs/drivers/node/current/)中操作MongoDB
+在[Node.js](https://www.mongodb.com/docs/drivers/node/current/)中操作 MongoDB
 
 ### First Try
+
 init npm project + install [mongodb](https://www.npmjs.com/package/mongodb) package, then refer the site
 
 ### 接口规范
 
-一个文章CRUD项目 with RESTful接口 article-bed
+一个文章 CRUD 项目 with RESTful 接口 article-bed
 
 > mongod --dbpath="C:\mysoftware\installation\mongodb-win32-x86_64-2012plus-4.2.24\data"
 
-`const uri = "mongodb+srv://thinkerr24:nQEyQpTpYZH6t8Aw@cluster0.mcltnpy.mongodb.net/?retryWrites=true&w=majority";
-`
+```js
+// 使用cloud.mongodb上免费云mongodb数据库连接字符串
+const uri =
+  "mongodb+srv://thinkerr24:nQEyQpTpYZH6t8Aw@cluster0.mcltnpy.mongodb.net/?retryWrites=true&w=majority";
+```

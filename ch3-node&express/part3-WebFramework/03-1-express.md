@@ -45,22 +45,25 @@ mkdir myapp <br />
 npm init -y <br />
 npm i express <br />
 app.js: <br/>
-`const express = require("express");
+
+```js
+const express = require("express");
 const app = express();
 const port = 3001;
 // for post req.body(undefined) parse
 app.use(express.json());
 app.get("/", (req, res) => {
-res.send("<h1>Hello</h1>");
+  res.send("<h1>Hello</h1>");
 });
 app.get("/hello", (req, res) => {
-res.json({
-msg: "hello Json",
-});
+  res.json({
+    msg: "hello Json",
+  });
 });
 app.listen(port, () => {
-console.log("server running at port 3001");
-});`
+  console.log("server running at port 3001");
+});
+```
 
 ### 路由基础
 
@@ -71,10 +74,13 @@ app 是 Express 实例;METHOD 是小写的 HTTP 请求方法;PATH 是服务器�
 ## 请求与响应
 
 Express 应用使用路由回调函数的参数:request 和 response 对象来处理请求和响应的数据，对象名简写为 req 和 res
-`app.get('/', function(request, response) {
-    // TO DO
+
+```js
+app.get("/", function (request, response) {
+  // TO DO
 });
-`
+```
+
 Express 不对 Node.js 已有的特性进行二次抽象，只是在它之上扩展了 web 应用所需的基本功能 <br/>
 
 1.内部使用的还是 http 模块 <br/> 2.请求对象继承自 http.IncomingMessage <br/>3.响应对象继承自:http.ServerResponse <br/>
@@ -83,6 +89,8 @@ Express 拓展了 HTTP 模块中的请求和响应对象
 ### 请求对象
 
 req 对象代表 HTTP 请求，并具有请求查询字符串，参数，正文，HTTP 标头等属性 <br/>
+
+```js
 console.log(req.url); // 地址 / <br/>
 console.log(req.method); // 方法 GET <br/>
 console.log(req.headers); // 请求头
@@ -96,20 +104,23 @@ host: 'localhost:3001',
 connection: 'keep-alive',
 'content-length': '160'
 }
+```
 
 ### 响应对象
 
 res 对象表示 Express 应用在收到 HTTP 请求时发送的 HTTP 响应
-`//res.statusCode = 201; // 设置响应码
-  // res.write("a");
-  // res.write("b");
-  // res.write("c");
-  // res.end(); // print 'abc' on page
-  // res.end("Abc"); // print 'Abc'
-  // res.send("<h2>123</h2>");
-  // res.cookie("foo", "bar");
-  //res.status(201).send({ msg:"I'm OK"});
- `
+
+```js
+//res.statusCode = 201; // 设置响应码
+// res.write("a");
+// res.write("b");
+// res.write("c");
+// res.end(); // print 'abc' on page
+// res.end("Abc"); // print 'Abc'
+// res.send("<h2>123</h2>");
+// res.cookie("foo", "bar");
+//res.status(201).send({ msg:"I'm OK"});
+```
 
 ## 案例
 
@@ -126,19 +137,21 @@ DELETE /todos/:id <br/>
 案例: 给每个请求方法加上日志功能(req.method+req.url+Date.now()) <br/>
 这种通用型功能可以使用中间件，避免代码污染业务代码 <br/>
 中间件的顺序很重要，因为请求来了(代码)都是从上往下执行，使用 app.use 中间件要写在所有请求方法前 <br/>
-`const app = express();
+
+```js
+const app = express();
 const myLogger = (req) => console.log(req.method, req.url, Date.now());
 
 // req 请求对象
 // res 响应对象
 // next 下一个中间件
 app.use((req, res, next) => {
-myLogger(req);
-next(); // 这一行要加，不然不会走到匹配的那个路径方法中
+  myLogger(req);
+  next(); // 这一行要加，不然不会走到匹配的那个路径方法中
 });
-app.get('/', (req, res) => res.send('get /'));
-app.get('/about', (req, res) => res.send('get /about'));
-`
+app.get("/", (req, res) => res.send("get /"));
+app.get("/about", (req, res) => res.send("get /about"));
+```
 
 ### 中间件基本概念
 
@@ -193,60 +206,90 @@ Express 中间件和 AOP<b> 面向切面编程</b>几乎是一个意思，就是
 ### 应用程序级别中间件
 
 不关心请求路径(匹配 any 路径) <br/>
-`app.use((req, res, next) => {
-  console.log('Logger time:', Date.now())
+
+```js
+app.use((req, res, next) => {
+  console.log("Logger time:", Date.now());
   next();
-});`
+});
+```
 
 限定请求路径(匹配/user/xxx) <br/>
-`app.use('/user/:id', (req, res, next) => {
-  console.log('request method:', req.method);
+
+```js
+app.use("/user/:id", (req, res, next) => {
+  console.log("request method:", req.method);
   next();
-})`
+});
+```
 
 限定请求方法+请求路径(匹配 GET 方法 + path 为/user/xxx) <br/>
-`app.get('/user/:id', (req, res, next) => {
-  res.send('USER');
-})`
+
+```js
+app.get("/user/:id", (req, res, next) => {
+  res.send("USER");
+});
+```
 
 多个处理函数
-`app.use('/user/:id', (req, res, next) => {
-console.log('Request URL:', req.originalUrl);
-next(); // 跑到当前中间件紧接着的下一个回调函数
-},  (req, res, next) => {
-  console.log('Request Type:', req.method);
-  next(); // 脱离当前中间件，寻找下一个
-})`
+
+```js
+app.use(
+  "/user/:id",
+  (req, res, next) => {
+    console.log("Request URL:", req.originalUrl);
+    next(); // 跑到当前中间件紧接着的下一个回调函数
+  },
+  (req, res, next) => {
+    console.log("Request Type:", req.method);
+    next(); // 脱离当前中间件，寻找下一个
+  }
+);
+```
 
 为同一个路径定义多个处理中间件
-`app.get('/user/:id', (req, res, next) => {
-console.log('ID:', req.params.id);
-next(); 
-},  (req, res, next) => {
-  res.send('User Info'); // execute
-});
-app.get('/user/:id', (req, res, next) => {
+
+```js
+app.get(
+  "/user/:id",
+  (req, res, next) => {
+    console.log("ID:", req.params.id);
+    next();
+  },
+  (req, res, next) => {
+    res.send("User Info"); // execute
+  }
+);
+app.get("/user/:id", (req, res, next) => {
   res.end(req.params.id); // won't execute
 });
-`
+```
 
 跳过中间件剩下功能，使用 next('route')
-`app.use('/user/:id', (req, res, next) => {
-  if (req.params.id === 0) {
-    next('route');
-  } else {
-    next();
+
+```js
+app.use(
+  "/user/:id",
+  (req, res, next) => {
+    if (req.params.id === 0) {
+      next("route");
+    } else {
+      next();
+    }
+  },
+  (req, res, next) => {
+    res.send("use xxx"); // will not execute when req.params.id === 0
   }
-},  (req, res, next) => {
-  res.send('use xxx'); // will not execute when req.params.id === 0
+);
+app.get("/user/:id", (req, res, next) => {
+  res.send("get xxx"); // // will  execute when req.params.id === 0
 });
-app.get('/user/:id', (req, res, next) => {
-  res.send('get xxx'); // // will  execute when req.params.id === 0
-});
-`
+```
 
 中间件可以在数组中声明为可重用——子堆栈数组
-`function logOriginalUrl(req, res, next) {
+
+```js
+function logOriginalUrl(req, res, next) {
   console.log(req.originalUrl);
   next();
 }
@@ -255,10 +298,10 @@ function logMethod(req, res, next) {
   next();
 }
 const logStuff = [logOriginalUrl, logMethod];
-app.get('/user/:id', logStuff, (req, res, next) => {
-  res.send('User Info');
+app.get("/user/:id", logStuff, (req, res, next) => {
+  res.send("User Info");
 });
-`
+```
 
 ### 路由级别中间件
 
@@ -270,25 +313,30 @@ app.get('/user/:id', logStuff, (req, res, next) => {
 
 与其他中间件函数定义方式相同，区别在于使用四个参数(始终)<br/>
 (err, req, res, next) <br/>
-`app.use(function(err, req, res, next) {
-console.error(err.stack);
-res.status(500).send('Somthing broke!');
-});`
+
+```js
+app.use(function (err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send("Somthing broke!");
+});
+```
 
 #### 中间件处理 404
 
-`app.use((req, res, next) => {
-  res.status(404).sned('404 NOT FOUND!');
-})`
+```js
+app.use((req, res, next) => {
+  res.status(404).sned("404 NOT FOUND!");
+});
+```
 
 #### 内置中间件
 
-Express 本身提供的中间件函数
-`express.json() 解析Content-Type为application/json格式的请求体
-express.urlencoded 解析Content-Type为application/x-www.form-urlencoded格式的请求体
- express.raw() 解析Content-Type为application/octet-stream格式的请求体
-express.text() 解析Content-Type为text/plain格式的请求体
- express.static() 托管静态资源文件`
+Express 本身提供的中间件函数 <br/>
+express.json() 解析 Content-Type 为 application/json 格式的请求体 <br/>
+express.urlencoded 解析 Content-Type 为 application/x-www.form-urlencoded 格式的请求体 <br/
+express.raw() 解析 Content-Type 为 application/octet-stream 格式的请求体 <br/
+express.text() 解析 Content-Type 为 text/plain 格式的请求体 <br/
+express.static() 托管静态资源文件`
 
 #### 第三方中间件
 
@@ -301,10 +349,13 @@ https://github.com/orgs/expressjs/repositories
 特俗的路由方法 app.all 用于为所有 HTTP 请求方法的路径记载中间件功能
 例如无论 GET/POST/PUT/DELETE 还是 http 模块支持的其他方法，都会对路由/secret
 的请求执行以下处理程序
-`app.all('/secret', (req, res, next) => {
-  console.log('Accessing the secret section......');
+
+```js
+app.all("/secret", (req, res, next) => {
+  console.log("Accessing the secret section......");
   next(); // pass control to the next handler
- })` <br/>
+});
+```
 
 ### 路由路径
 
@@ -343,7 +394,11 @@ req.params: {"userId": "432"} <br/>
 ### 路由处理程序
 
 app.route() 链式路由 <br/>
-`app.route('/book').get((req, res) => {
-}).post((req, res) => {
-}).put((req, res) => {
-});`
+
+```js
+app
+  .route("/book")
+  .get((req, res) => {})
+  .post((req, res) => {})
+  .put((req, res) => {});
+```
