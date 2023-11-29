@@ -174,3 +174,79 @@ Content-Type: applcation/json
 ### 跨域处理
 
 可以在服务端设置[CORS](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS)允许客户端跨域资源请求
+
+## 创建项目
+
+```bash
+mkdir realworld-api-express
+cd realworld-api-express
+npm init -y
+npm i express
+code .
+```
+
+新建 app.js
+
+```js
+const express = require("express");
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.get("/", (req, res) => {
+  res.send("<h2>Hello, World!");
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running at http://localhost:${PORT}`);
+});
+```
+
+```bash
+nodemon app.js
+```
+
+![preview](./img/express-helloworld.png)
+
+指定 process.env.PORT:<br/>
+对于类 UNIX 系统(Apple or Linux)
+
+```bash
+# once
+PORT=3001 nodemon app.js
+# forever
+export PORT=1234
+nodemon app.js
+ app.js
+```
+
+对于 Windows，可以
+
+```bash
+set PORT=1234
+nodemon app.js
+```
+
+也可以修改 package.json 中的 scripts:
+(如果用 [express-generator](https://www.npmjs.com/package/express-generator)生产的项目，那就将<b>app.js</b> 替换成<b>./bin/www</b>)
+
+```JSON
+  "scripts": {
+    "start": "set PORT=3001 && nodemon app.js"
+  },
+```
+
+也可以考虑使用[dot-env](https://www.npmjs.com/package/dot-env)
+
+### 目录结构
+
+```bash
+   config #配置文件目录
+        config.default.js
+   controller #用于解析用户的输入，处理后返回相应的结果
+   model #数据持久层
+   middleware #用于编写中间件
+   router #用于配置URL路由规则
+   util #工具模块
+   app.js #用于自定义启动时的初始化工作
+```
