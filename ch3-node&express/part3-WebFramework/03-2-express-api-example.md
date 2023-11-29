@@ -101,7 +101,76 @@ HTTP 状态码是一个三位数，分成五个类别([100 多种](https://devel
 常见的有(括号中是该状态码对应的 HTTP 动词):
 
 <ul>
-<li></li>
-<li></li>
-<li></li>
+<li>200 OK-[*]: 服务器成功返回用户请求的数据，该操作是幂等的(Idempotent)</li>
+<li>201 CREATED-[POST]: 用户新建或修改数据成功</li>
+<li>202 Accepted-[*]: 表示一个请求已经进入后台排队(异步任务) </li>
+<li>204 NO CONTENT-[DELETE]: 用户删除数据成功</li>
+<li>400Bad Request-[POST/PUT/PATCH]: 由于被认为是客户端错误（例如，错误的请求语法、无效的请求消息帧或欺骗性的请求路由），服务器无法或不会处理请求，该操作是幂等的</li>
+<li>401 Unauthorized -[*]: 表示用户没有权限(令牌、用户名、密码错误)</li>
+<li>403 Forbidden -[*]:客户端没有访问内容的权限；也就是说，它是未经授权的，因此服务器拒绝提供请求的资源 (与 401 Unauthorized 不同，服务器知道客户端的身份)</li>
+<li>404 NOT FOUND -[*]: 用户发出的请求针对的是不存在的记录，服务器没有进行操作，该操作是幂等的</li>
+<li>406 Not Acceptable -[GET]: 用户请求的格式不可得(比如用户请求的JSON格式，但是只有XML格式)</li>
+<li>410 Gone -[GET]: 用户请求的资源被永远删除，且不会再得到</li>
+<li>422 Unprocesable entity - [POST/PUT/PATCH]: 请求格式正确，但由于语义错误而无法遵循</li>
+<li>429 Too Many Requests: 用户在给定的时间内发送了太多请求（"限制请求速率"）</li>
+<li>500 Internal Server Error -[*]: 服务器遇到了不知道如何处理的情况</li>
 </ul>
+
+### 返回接口
+
+API 返回的数据格式，不应该是纯文本，而应该是应该 JSON 对象，因为这样才能返回标准的结构化数据。所以，服务器回应的 HTTP 头的 Content-Type 属性要设为 application/json。
+
+针对不同操作，服务器向用户返回的结果应该符合以下规范:
+
+<ul>
+<li>GET /collection: 返回资源对象的列表(数组)</li>
+<li>GET /collection/resource: 返回单个资源对象</li>
+<li>POST /collection: 返回新生成的资源对象</li>
+<li>PUT /collection/resource: 返回完整的资源对象</li>
+<li>PATCH /collection/resource: 返回完整的资源对象</li>
+<li>DELETE /collection/resource: 返回一个空文档</li>
+</ul>
+
+### 错误处理
+
+一种不恰当的做法:发生错误还返回 200 状态码，把错误信息放在数据体里
+
+```
+HTTP/1.1 200 OK
+Content-Type: applcation/json
+
+{
+    "status": "failure",
+    "data": {
+        "error": "xxxx"
+    }
+}
+```
+
+上面代码中，解析数据体之后才能得知操作失败 <br/>
+正确的做法是，状态码反映发生的错误，具体错误信息放在数据体里返回。例子:
+
+```
+HTTP/1.1 400 Bad Request
+Content-Type: applcation/json
+
+{
+    "status": "Invalid payload",
+    "data": {
+        "error": "This field is required."
+    }
+}
+```
+
+### 身份认证
+
+基于[JWT](https://jwt.io/)的接口权限认证
+
+<ul>
+<li>字段名: Authorization</li>
+<li>字段值: Bearer token数据</li>
+</ul>
+
+### 跨域处理
+
+可以在服务端设置[CORS](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS)允许客户端跨域资源请求
