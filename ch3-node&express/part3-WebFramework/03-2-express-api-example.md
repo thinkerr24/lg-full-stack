@@ -250,3 +250,24 @@ nodemon app.js
    util #工具模块
    app.js #用于自定义启动时的初始化工作
 ```
+
+### 配置常见中间件
+
+##### 解析请求体
+
+<ul>
+<li>express.json()</li>
+<li>express.urlencoded()</li>
+</ul>
+
+##### 日志输出
+
+[morgan()](https://www.npmjs.com/package/morgan)
+
+##### 为客户端提供跨域资源请求
+
+[cors()](https://www.npmjs.com/package/cors)
+
+如何知道 cors 配置成功，在 response headers 里有这样一项:
+Access-Control-Allow-Origin: \*
+![cros-valid](./img/cros-valid.png)
