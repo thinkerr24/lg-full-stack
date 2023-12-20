@@ -447,3 +447,60 @@ Authorization: Bearer <token>
 ```bash
 npm install jsonwebtoken
 ```
+
+#### 使用 jsonwebtoken
+
+[github](https://github.com/auth0/node-jsonwebtoken)
+
+```js
+const jwt = require("jsonwebtoken");
+
+// 生成jwt(同步)
+// const token = jwt.sign(
+//   {
+//     foo: "bar",
+//   },
+//   "fgasddfiuiqrra"
+// );
+
+// console.log(token);
+/*
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIiLCJpYXQiOjE3MDMwODI5ODJ9.klHhHSPdxlivTl5btf_rE7wQsl-zQcHOCqOKEHpeVUg
+*/
+
+// 异步生成
+// jwt.sign(
+//   {
+//     foo: "bar",
+//   },
+//   "fgasddfiuiqrra",
+//   (err, token) => {
+//     if (err) {
+//       return console.log("Fail to generate token");
+//     } else {
+//       console.log(token);
+//     }
+//   }
+// );
+
+// 验证jwt(如果token或者secret不对，就会报错)
+// const result = jwt.verify(
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIiLCJpYXQiOjE3MDMwODMxNzZ9.zx0A9zIj6YEF93ecVPSV1X1DD5xrhxTn_-7hkdJV5gE",
+//   "fgasddfiuiqrra"
+// );
+// console.log(result);
+// { foo: 'bar', iat: 1703083176 }
+
+// 异步版本
+jwt.verify(
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIiLCJpYXQiOjE3MDMwODMxNzZ9.zx0A9zIj6YEF93ecVPSV1X1DD5xrhxTn_-7hkdJV5gE",
+  "fgasddfiuiqrra",
+  (err, decode) => {
+    if (err) {
+      console.log("Failed to verify:", err);
+    } else {
+      console.log(decode.foo);
+    }
+  }
+);
+```
