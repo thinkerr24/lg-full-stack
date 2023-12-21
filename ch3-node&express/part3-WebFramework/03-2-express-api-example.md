@@ -504,3 +504,72 @@ jwt.verify(
   }
 );
 ```
+
+用户登录-生成 token 并发送到客户端
+
+```js
+// config
+module.exports = {
+  jwtSecret: "FKk53W4noA9I+A",
+};
+
+// util
+const jwt = require("jsonwebtoken");
+const { promisify } = require("util");
+
+exports.sign = promisify(jwt.sign);
+exports.verify = promisify(jwt.verify);
+exports.decode = promisify(jwt.decode);
+
+// userController.login
+const user = req.user.toJSON();
+const token = await jwt.sign(
+  {
+    userId: user._id,
+  },
+  jwtSecret
+);
+// 设置过期时间
+/*jwt.sign({
+  data: 'foobar'
+}, 'secret', { expiresIn: 60 * 60 }); // 1 hour
+*/
+
+delete user.password;
+res.status(200).json({
+  ...user,
+  token,
+});
+```
+
+使用中间件统一处理 JWT 身份认证
+![req set headers](./img/req-set-headers.png)
+
+```js
+// router:
+router.get("/user", auth, userCtl.getCurrentUser);
+// auth.js
+module.exports = async (req, res, next) => {
+  // 从请求获取token数据
+  let token = req.headers["authorization"];
+  token = token ? token.split("Bearer ")[1] : null;
+  if (!token) {
+    return res.status(401).end();
+  }
+  try {
+    const decodedToken = await verify(token, jwtSecret);
+    //   decodedToken: {userId: 'xxxx', iat: yyyy}
+    // 具体业务
+    const user = getCurrentUser(userId);
+    req.user = user;
+    next();
+  } catch (err) {
+    return res.status(401).end();
+  }
+  // 验证token是否有效
+  // 无效 -> 响应401状态码
+  // 有效 -> 把用户信息读取出来挂载到req请求对象上，继续往后执行
+};
+```
+
+![postman-api-unified-auth](./img/postman-unified-auth.png)
