@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue illustration</title>
+</head>
+
+<body>
+    <!-- 要被挂载的id为app的div元素 -->
+    <div id="app">
+        <span>{{num}}</span> <br />
+        <button @click="num++">+</button>
+        <button @click="num--">-</button>
+        <br />
+        <div>
+            contentArr: {{contentArr}}
+        </div>
+        <!-- methods example -->
+        <p>{{fn(str1)}}</p>
+    </div>
+    <script src="lib/vue2.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                num: 1,
+                contentArr: ["content1", "content2", "content3"],
+                str1: 'a-b-c'
+            },
+            methods: {
+                fn(value) {
+                    //console.log('this:', this); // vue instance
+                    // this.fn1();
+                    return value.split('-').join('');
+                },
+                fn1() {
+                    // pass
+                }
+            }
+        });
+        // console.log(vm.$data.num); vm.$mount() vm.$el
+        // console.log('vm:', vm); // vue instance
+    </script>
+</body>
+
+</html>

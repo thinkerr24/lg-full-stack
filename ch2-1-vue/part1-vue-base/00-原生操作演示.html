@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jquery</title>
+</head>
+
+<body>
+    <span class="val"></span> <br />
+    <button class="btn">+</button>
+    <button class="btn">-</button>
+    <script src="./lib/jquery-3.7.1.js"></script>
+    <script>
+        let num = 1;
+        // native way
+
+        // const valEle = document.getElementsByClassName('val')[0];
+        const valEle = document.querySelector('.val');
+        valEle.innerText = num;
+        document.getElementsByTagName('button')[0].addEventListener('click', () => {
+            num++;
+            valEle.innerText = num;
+        });
+        document.getElementsByClassName('btn')[1].addEventListener('click', () => {
+            num--;
+            valEle.innerText = num;
+        });
+        // jquery way
+        // $('.val')[0].innerText = num;
+        // $('#plus-btn').on('click', () => {
+        //     num++;
+        //     $('.val')[0].innerText = num;
+        // });
+        // $('#minus-btn').on('click', () => {
+        //     num--;
+        //     $('.val')[0].innerText = num;
+        // });
+    </script>
+</body>
+
+</html>
