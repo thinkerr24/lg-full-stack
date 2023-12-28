@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js directives</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>此内容会随数据自动更改: {{content}}</p>
+        <p v-once>此内容不会随数据自动更改: {{content}}</p>
+        <button @click="fn">更改内容(v-once)</button> <br />
+        <p v-text='content_text'>这是p标签的原始内容</p>
+        <p v-html="content_html">这段内容会被覆盖</p>
+        <p :title="title">标签内容</p>
+        <input type="text" v-model="inputVal" @change="inputFn" /> <br />
+
+        <p class="p-item" :class="cls1">Class绑定标签内容</p>
+        <p :class="{b: isB, c: isC, 'class-d': true}">class绑定特殊情况1</p>
+        <p :class="['a', {b: isB}, 'c']">class绑定特殊情况2</p>
+
+        <p :style="styleObj">style绑定标签内容1</p>
+        <p style="color: blue" :style="styleObj">style绑定标签内容2</p>
+        <p :style="[styleObj1, styleObj2]">style绑定标签内容3-数组绑定</p>
+
+    </div>
+    <script src="lib/vue2.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                content: 'init content',
+                content_text: 'content-text',
+                content_html: '<b>777<b/>',
+                title: '这是title属性内容',
+                inputVal: '这是输入框内容',
+                cls1: 'x',
+                isB: true,
+                isC: false,
+                styleObj: {
+                    width: "200px",
+                    height: "100px",
+                    backgroundColor: 'lightpink',
+                    border: "1px solid #ccc",
+                },
+                styleObj1: {
+                    height: "100px",
+                    width: "200px",
+                },
+                styleObj2: {
+                    color: "red",
+                    border: "1px solid #ccc",
+                },
+            },
+            methods: {
+                fn() {
+                    this.content = Math.random();
+                },
+                inputFn() {
+                    console.log('this.inputVal:', this.inputVal);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

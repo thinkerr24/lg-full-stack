@@ -234,3 +234,253 @@ const vm = new Vue({
   },
 });
 ```
+
+## Vue.js 指令(Directives)
+
+指令的本质就是 HTML 自定义属性
+Vue.js 的指令就是以<code>v-</code>开头的自定义属性
+
+### 内容处理
+
+<ul>
+<li>v-once</li>
+<li>v-text</li>
+<li>v-hmtl</li>
+</ul>
+
+###### v-once 指令
+
+使元素内部的插值表达式只生效一次。
+
+```html
+<div id="app">
+  <p>此内容会随数据自动更改: {{content}}</p>
+  <p v-once>此内容不会随数据自动更改: {{content}}</p>
+</div>
+```
+
+```js
+const vm = new Vue({
+  el: "#app",
+  data: {
+    content: "init content",
+  },
+});
+```
+
+###### v-text 指令
+
+元素内容整体替换为指定纯文本数据，如果有原始文本也会被替换。
+
+```html
+<div id="app">
+  <p v-text="content">这段内容会被覆盖</p>
+</div>
+```
+
+###### v-html 指令
+
+元素内容整体替换为指定的 html 文本(也会覆盖原始内容)
+
+```html
+<div id="app">
+  <p v-html="content">这段内容会被覆盖</p>
+</div>
+```
+
+```js
+const vm = new Vue({
+  el: "#app",
+  data: {
+    content: "<span>new content</span>",
+  },
+});
+```
+
+#### 属性绑定
+
+<ul>
+<li>v-bind绑定</li>
+<li>Class绑定</li>
+<li>Style绑定</li>
+</ul>
+
+##### v-bind 指令
+
+v-bind 指令用于动态绑定 HTML 属性
+
+```html
+<div id="app">
+  <p v-bind:title="title">标签内容</p>
+  <!--简写形式-->
+  <p :title="title">标签内容</p>
+</div>
+```
+
+```js
+const vm = new Vue({
+  el: "#app",
+  data: {
+    title: "这是title属性内容",
+  },
+});
+```
+
+```html
+<!--result:-->
+<p title="这是title属性内容">标签内容</p>
+```
+
+与插值表达式类似，v-bind 中也允许使用表达式
+
+```html
+<div id="app">
+  <p :class="'demo' + 3">标签内容</p>
+  <p :class="prefix + num"></p>
+</div>
+```
+
+```js
+const vm = new Vue({
+  el: "#app",
+  data: {
+    prefix: "demo",
+    num: 5,
+  },
+});
+```
+
+如果需要一次绑定多个属性，还可以绑定对象
+
+```html
+<div id="app">
+  <p v-bind="attrObj">p标签的内容</p>
+</div>
+```
+
+```js
+const vm = new Vue({
+  el: "#app",
+  data: {
+    attrObj: {
+      id: "box",
+      title: "box-title",
+      class: "item-box",
+      "data-title": "这是data-title的内容",
+    },
+  },
+});
+```
+
+##### Class 绑定
+
+class 是 HTML 属性，可以通过 v-bind 进行绑定，并且可以与 class 属性共存。
+
+```html
+<div id="app">
+  <p v-bind:class="cls">标签内容1</p>
+  <p class="a" :class="cls">标签内容2</p>
+</div>
+```
+
+```js
+const vm = new Vue({
+  el: "#app",
+  data: {
+    cls: "x",
+  },
+});
+```
+
+对于 class 绑定，Vue.js 中还提供了特殊处理方式<br/>
+ex1:
+
+```html
+<div id="app">
+  <p :class="{b: isB, c: isC, 'class-d': true}"></p>
+</div>
+```
+
+```js
+const vm = new Vue({
+  el: "#app",
+  data: {
+    isB: true,
+    isC: false,
+  },
+});
+```
+
+```html
+<!--result-->
+<p class="b class-d"></p>
+```
+
+ex2:
+
+```html
+<div id="app">
+  <p :class="['a', {b: isB}, 'c']"></p>
+</div>
+```
+
+```js
+const vm = new Vue({
+  el: "#app",
+  data: {
+    isB: true,
+});
+```
+
+```html
+<!--result-->
+<p class="a b c"></p>
+```
+
+##### Style 绑定
+
+style 是 HTML 属性，可以通过 v-bind 进行绑定，并且可以与 style 属性共存。
+
+```html
+<div id="app">
+  <p :style="styleObj">style绑定标签内容1</p>
+  <p style="color: blue" :style="styleObj">style绑定标签内容2</p>
+</div>
+```
+
+```js
+const vm = new Vue({
+  el: "#app",
+  data: {
+    styleObj: {
+      width: "200px",
+      height: "100px",
+      border: "1px solid #ccc",
+    },
+  },
+});
+```
+
+当我们希望给元素绑定多个样式对象时，可以设置成数组，可用于公共样式
+
+```html
+<div id="app">
+  <p :style="[styleObj1, styleObj2]">style绑定标签内容3-数组绑定</p>
+</div>
+```
+
+```js
+const vm = new Vue({
+  el: "#app",
+  data: {
+    styleObj1: {
+      height: "100px",
+      width: "200px",
+    },
+    styleObj2: {
+      color: "red",
+      border: "1px solid #ccc",
+    },
+  },
+});
+```
