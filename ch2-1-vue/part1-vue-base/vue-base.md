@@ -484,3 +484,40 @@ const vm = new Vue({
   },
 });
 ```
+
+#### 渲染指令
+
+<ul>
+<li>v-for</li>
+<li>v-show</li>
+<li>v-if</li>
+</ul>
+
+##### v-for
+
+v-for 指令用于遍历数据渲染结构，常用的数组与对象均可遍历:
+
+```html
+<div id="root">
+  <ul>
+    <li v-for="item in arr">{{item}}</li>
+  </ul>
+  <ul>
+    <li v-for="value in obj">{{value}}</li>
+  </ul>
+</div>
+```
+
+```js
+new Vue({
+  el: "#app",
+  data: {
+    arr: ["content1", "content2", "content3"],
+    obj: {
+      content1: "内容1",
+      content2: "内容2",
+      content3: "内容3",
+    },
+  },
+});
+```

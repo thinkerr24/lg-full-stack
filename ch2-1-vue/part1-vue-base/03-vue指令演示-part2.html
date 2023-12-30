@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js directives, 渲染指令</title>
+    <style>
+        ul {
+            list-style-type: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <!-- <li v-for="item in arr">{{item}}</li> -->
+            <li v-for="(item,index) in arr">{{index + 1}}:{{item}}</li>
+        </ul>
+        <ul>
+            <!-- <li v-for="value in obj">{{value}}</li> -->
+            <li v-for="(value, key, index) in obj">{{index}}.{{key}}:{{value}}</li>
+        </ul>
+
+        <ul>
+            <li v-for="(item, index) in 5">索引值:{{index}}, 第{{item}}个元素</li>
+        </ul>
+    </div>
+    <script src="lib/vue2.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: function () {
+                return {
+                    arr: ["content1", "content2", "content3"],
+                    obj: {
+                        content1: "内容1",
+                        content2: "内容2",
+                        content3: "内容3",
+                    },
+                };
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>
