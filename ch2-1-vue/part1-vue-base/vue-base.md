@@ -540,5 +540,36 @@ new Vue({
     <span>标签内容1</span>
     <span>标签内容2</span>
   </template>
-</app>
+</div>
 ```
+
+##### v-show
+
+用于控制元素显示与隐藏，适用于显示隐藏频繁切换时使用
+note: <template>无法使用 v-show 指令，因为 v-show 底层是通过改变 display 是否为 none 来 hide 元素的，因为 template 不是真实 dom 元素。
+
+```html
+<div id="app">
+  <p v-show="true">这个元素会显示</p>
+  <p v-show="false">这个元素不会显示</p>
+</div>
+```
+
+##### v-if
+
+用于根据条件控制元素的创建与移除。和 v-show 区别
+
+```html
+<div id="app">
+  <p v-if="false">这个元素不会创建</p>
+  <p v-else-if="true">这个元素会创建</p>
+  <p v-else>这个元素不会创建</p>
+</div>
+```
+
+note:
+
+<ul>
+<li>给使用v-if的同类型元素绑定不同的key</li>
+<li>出于性能考虑，应避免将v-if与v-for(优先级更高)应用于同一标签</li>
+</ul>

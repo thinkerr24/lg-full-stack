@@ -40,6 +40,26 @@
         <template v-for="item in obj">
             <span>{{item}}</span> <br />
         </template>
+
+        <br />
+        <!--vm.isTextShow = false;-->
+        <span v-show="isTextShow">元素会显示吗?</span>
+
+        <br />
+        <!--v-if v-else-if v-else-->
+        <p v-if="flag">这是标签内容v-if=true</p>
+        <p v-else-if="!flag">这是标签内容v-else-if=true</p>
+        <p v-else-if="true">这是标签内容v-else-if=true 但是已经有一个匹配了, 所以不会执行</p>
+        <p v-else>这是标签内容, 当前面的v-if, v-else-if都为false的时候匹配</p>
+
+        <br />
+        <!-- vm.keyFlag=false;(不加key的情况下)-->
+        <div v-if="keyFlag" :key="'username'">
+            第一个输入框: <input type="text" />
+        </div>
+        <div v-else :key="'email'">
+            第二个输入框: <input type="text" />
+        </div>
     </div>
     <script src="lib/vue2.js"></script>
     <script>
@@ -67,7 +87,10 @@
                             id: 3,
                             value: 3
                         },
-                    ]
+                    ],
+                    isTextShow: true,
+                    flag: false,
+                    keyFlag: true
                 };
             },
             methods: {
