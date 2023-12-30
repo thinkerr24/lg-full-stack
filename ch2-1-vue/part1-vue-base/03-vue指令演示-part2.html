@@ -26,6 +26,20 @@
         <ul>
             <li v-for="(item, index) in 5">索引值:{{index}}, 第{{item}}个元素</li>
         </ul>
+
+        <!-- input 1, 2, 3 in input 1 2 3 and then vm.brr.reverse(), find: 3:input1, 2:input2, 1:input3 -->
+        <ul>
+            <!-- <li v-for="item in brr">输入框{{item}}: <input type="text" /></li> -->
+            <li v-for="item in brr" :key="item">输入框{{item}}: <input type="text" /></li>
+        </ul>
+
+        <ul>
+            <li v-for="item in itemList" :key="item.id">输入框{{item.value}}: <input type="text" /></li>
+        </ul>
+        <!-- template只是展位，不会被render成html dom元素，表示一个看不见的区域并且不需要设置key-->
+        <template v-for="item in obj">
+            <span>{{item}}</span> <br />
+        </template>
     </div>
     <script src="lib/vue2.js"></script>
     <script>
@@ -39,6 +53,21 @@
                         content2: "内容2",
                         content3: "内容3",
                     },
+                    brr: [1, 2, 3],
+                    itemList: [
+                        {
+                            id: 1,
+                            value: 2
+                        },
+                        {
+                            id: 2,
+                            value: 3
+                        },
+                        {
+                            id: 3,
+                            value: 3
+                        },
+                    ]
                 };
             },
             methods: {

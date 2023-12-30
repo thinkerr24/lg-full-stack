@@ -521,3 +521,24 @@ new Vue({
   },
 });
 ```
+
+使用 v-for 指令的同时，应始终指定<b>唯一</b>的 key 属性，可以提高渲染性能并避免问题。
+
+```html
+<div id="app">
+  <ul>
+    <li v-for="item in items" :key="item.id">{{item.value}}</li>
+  </ul>
+</div>
+```
+
+通过<template>标签设置模板占位符，可以将部分元素或内容作为整体进行操作。
+
+```html
+<div id="app">
+  <template v-for="item in items">
+    <span>标签内容1</span>
+    <span>标签内容2</span>
+  </template>
+</app>
+```
