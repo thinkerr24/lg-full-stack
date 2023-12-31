@@ -573,3 +573,50 @@ note:
 <li>给使用v-if的同类型元素绑定不同的key</li>
 <li>出于性能考虑，应避免将v-if与v-for(优先级更高)应用于同一标签</li>
 </ul>
+
+#### 事件处理
+
+v-on 指令，用于进行元素的事件绑定
+
+```html
+<div id="app">
+  <p>{{content}}</p>
+  <button v-on:click="content='新 content'">改变内容</button>
+  <button @click="content='new content'">按钮</button>
+</div>
+```
+
+```js
+const vm = new Vue({
+  el: "#app",
+  data: {
+    content: "默认内容",
+  },
+});
+```
+
+事件程序代码较多时，可以在 methods 中设置函数，并设置为事件处理程序。<br/>
+设置事件处理程序后，可以从参数中接收事件对象。
+
+```js
+const vm = new Vue({
+  el: "#app",
+  data: {
+    content: "默认内容",
+  },
+  methods: {
+    fn(event) {
+      console.log(event);
+    },
+  },
+});
+```
+
+在视图中可以通过$event 访问事件对象。
+
+```html
+<div id="app">
+  <p>{{content}}</p>
+  <button @click="fn(content, $event)">按钮</button>
+</div>
+```
