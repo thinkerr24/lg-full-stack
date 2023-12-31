@@ -620,3 +620,26 @@ const vm = new Vue({
   <button @click="fn(content, $event)">按钮</button>
 </div>
 ```
+
+#### 表达输入绑定
+
+##### v-model 指令，用于给<input>、<textarea>及<select>元素设置双向数据绑定
+
+```html
+<div id="app">
+  <p>元素内容为:{{value}}</p>
+  <input type="text" v-model="value" />
+</div>
+```
+
+##### 单选按钮的双向数据绑定方式如下
+
+```html
+<div id="app">
+  <p>radio数据为:{{value3}}</p>
+  <input type="radio" id="one" value="1" v-model="value3" />
+  <label for="one">选项1</label>
+  <input type="radio" id="two" value="2" v-model="value3" />
+  <label for="two">选项2</label>
+</div>
+```
