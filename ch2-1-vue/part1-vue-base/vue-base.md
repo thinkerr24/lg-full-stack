@@ -632,7 +632,9 @@ const vm = new Vue({
 </div>
 ```
 
-##### 单选按钮的双向数据绑定方式如下
+##### 单选按钮的双向数据绑定
+
+v-model 绑定同一个 data
 
 ```html
 <div id="app">
@@ -642,4 +644,42 @@ const vm = new Vue({
   <input type="radio" id="two" value="2" v-model="value3" />
   <label for="two">选项2</label>
 </div>
+```
+
+##### 复选框
+
+分为单个和多个选项两种选项，书写方式不同。
+
+```html
+<div id="app">
+  <p>单个checkbox选中的数据为: {{value4}}</p>
+  <input type="checkbox" id="single-cb" value="隐私条例" v-model="value4" />
+  <label for="single-cb">选项</label>
+
+  <p>多个checkbox选中的数据为: {{value5}}</p>
+  <input
+    type="checkbox"
+    id="multiple-cb-one"
+    value="选项一内容"
+    v-model="value5"
+  />
+  <label for="multiple-cb-one">选项一</label>
+  <input
+    type="checkbox"
+    id="multiple-cb-two"
+    value="选项二内容"
+    v-model="value5"
+  />
+  <label for="multiple-cb-two">选项二</label>
+</div>
+```
+
+```js
+const vm = new Vue({
+  el: "#app",
+  data: {
+    value4: false,
+    value5: [],
+  },
+});
 ```
