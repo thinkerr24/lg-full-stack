@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js decorator</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <a @click.prevent href="https://www.baidu.com">链接1</a> -->
+        <a @click.prevent="fn" href="https://www.baidu.com">链接2</a>
+    </div>
+    <script src="lib/vue2.js"></script>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+            },
+            methods: {
+                fn() {
+                    console.log('这是a标签的点击事件.');
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

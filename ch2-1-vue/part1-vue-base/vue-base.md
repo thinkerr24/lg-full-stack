@@ -621,9 +621,11 @@ const vm = new Vue({
 </div>
 ```
 
-#### 表达输入绑定
+#### 表单输入绑定
 
-##### v-model 指令，用于给<input>、<textarea>及<select>元素设置双向数据绑定
+##### v-model 指令
+
+用于给<code><input></code>、<code><textarea></code>及<code><select></code>元素设置双向数据绑定
 
 ```html
 <div id="app">
@@ -715,3 +717,27 @@ const vm = new Vue({
   },
 });
 ```
+
+#### 修饰符
+
+修饰符是以点开头的指令后缀，用于给当前指令设置特殊操作。
+
+<ul>
+  <li>事件修饰符</li>
+  <li>按键修饰符</li>
+  <li>系统修饰符</li>
+  <li>鼠标修饰符</li>
+  <li>v-model修饰符</li>
+</ul>
+
+##### 事件修饰符
+
+<ul>
+  <li>.prevent修饰符</li>
+  <li>.stop修饰符</li>
+  <li>.once修饰符</li>
+</ul>
+
+###### .prevent 修饰符
+
+用于阻止默认事件行为，相当于 event.preventDefault()
