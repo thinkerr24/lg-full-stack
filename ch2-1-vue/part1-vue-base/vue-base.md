@@ -741,3 +741,7 @@ const vm = new Vue({
 ###### .prevent 修饰符
 
 用于阻止默认事件行为，相当于 event.preventDefault()
+
+###### .stop 修饰符
+
+用于阻止事件传播，相当于 event.stopPropagation()

@@ -5,12 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vue.js decorator</title>
+    <style>
+        #stop-div {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #ccc
+        }
+    </style>
 </head>
 
 <body>
     <div id="app">
+        <!-- .prevent -->
         <!-- <a @click.prevent href="https://www.baidu.com">链接1</a> -->
         <a @click.prevent="fn" href="https://www.baidu.com">链接2</a>
+
+        <!-- .stop -->
+        <div id="stop-div" @click="fn1">
+            <!-- <button @click="fn2">冒泡按钮</button> -->
+            <!-- 两个修饰符，链式调用 -->
+            <a @click.prevent.stop="fn" href="https://www.baidu.com">stop 链接</a>
+            <!-- <button @click.stop="fn2">冒泡按钮</button> -->
+        </div>
     </div>
     <script src="lib/vue2.js"></script>
     <script>
@@ -21,6 +37,12 @@
             methods: {
                 fn() {
                     console.log('这是a标签的点击事件.');
+                },
+                fn1() {
+                    console.log('div的点击事件')
+                },
+                fn2() {
+                    console.log('button的点击事件')
                 }
             }
         });
