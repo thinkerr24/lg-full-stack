@@ -27,6 +27,17 @@
             <a @click.prevent.stop="fn" href="https://www.baidu.com">stop 链接</a>
             <!-- <button @click.stop="fn2">冒泡按钮</button> -->
         </div>
+
+        <!-- .once -->
+        <button @click.once="fn3">.once按钮</button>
+        <hr />
+        <!-- 按键修饰符 -->
+        <!-- 49是数字1的keycode，这里表示只有输入1的时候才会触发fn4方法-->
+        <input type="text" @keyup.49="fn4" />
+        <!-- 只有输入'a'才触发-->
+        <input type="text" @keyup.a="fn4" />
+        <!-- esc 或 a 或 c -->
+        <input type="text" @keyup.esc.a.c="fn4" />
     </div>
     <script src="lib/vue2.js"></script>
     <script>
@@ -43,6 +54,12 @@
                 },
                 fn2() {
                     console.log('button的点击事件')
+                },
+                fn3() {
+                    console.log('.once button 被点击!')
+                },
+                fn4(event) {
+                    console.log('输入了对应内容:', event);
                 }
             }
         });

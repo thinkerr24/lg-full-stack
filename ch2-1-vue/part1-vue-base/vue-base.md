@@ -720,7 +720,8 @@ const vm = new Vue({
 
 #### 修饰符
 
-修饰符是以点开头的指令后缀，用于给当前指令设置特殊操作。
+修饰符是以点开头的指令后缀，用于给当前指令设置特殊操作。<br/>
+更多见[官网](https://cn.vuejs.org/guide/essentials/event-handling.html#event-modifiers)
 
 <ul>
   <li>事件修饰符</li>
@@ -745,3 +746,12 @@ const vm = new Vue({
 ###### .stop 修饰符
 
 用于阻止事件传播，相当于 event.stopPropagation()
+
+###### .once 修饰符
+
+用于设置事件只会触发一次
+
+##### 按键修饰符
+
+按键码: 指将按键的按键码作为修饰符使用以标识按键的操作方式。<br/>
+[特殊按键](https://cn.vuejs.org/guide/essentials/event-handling.html#key-modifiers):指键盘中类似 esc，enter，delete 等按键功能，为了更好的兼容性，应首选内置别名。
