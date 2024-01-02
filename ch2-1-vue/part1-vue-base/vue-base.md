@@ -532,7 +532,7 @@ new Vue({
 </div>
 ```
 
-通过<template>标签设置模板占位符，可以将部分元素或内容作为整体进行操作。
+通过 <code><template></code> 标签设置模板占位符，可以将部分元素或内容作为整体进行操作。
 
 ```html
 <div id="app">
@@ -546,7 +546,7 @@ new Vue({
 ##### v-show
 
 用于控制元素显示与隐藏，适用于显示隐藏频繁切换时使用
-note: <template>无法使用 v-show 指令，因为 v-show 底层是通过改变 display 是否为 none 来 hide 元素的，因为 template 不是真实 dom 元素。
+note: <code><template></code> 无法使用 v-show 指令，因为 v-show 底层是通过改变 display 是否为 none 来 hide 元素的，因为 template 不是真实 dom 元素。
 
 ```html
 <div id="app">
@@ -625,7 +625,7 @@ const vm = new Vue({
 
 ##### v-model 指令
 
-用于给<code><input></code>、<code><textarea></code>及<code><select></code>元素设置双向数据绑定
+用于给 <code><input></code>、<code><textarea></code> 及 <code><select></code> 元素设置双向数据绑定
 
 ```html
 <div id="app">
