@@ -683,3 +683,35 @@ const vm = new Vue({
   },
 });
 ```
+
+##### 选择框绑定
+
+选择框绑定分为单选绑定与多选绑定两种情况，书写方式不同。
+
+```html
+<div id="app">
+  <p>单选select数据为: {{value6}}</p>
+  <select v-model="value6">
+    <option value="">请选择</option>
+    <option value="1">选项一</option>
+    <option value="2">选项二</option>
+    <option value="3">选项三</option>
+  </select>
+  <p>多选select数据为: {{value7}}</p>
+  <select v-model="value7" multiple>
+    <option value="1">选项一</option>
+    <option value="2">选项二</option>
+    <option value="3">选项三</option>
+  </select>
+</div>
+```
+
+```js
+const vm = new Vue({
+  el: "#app",
+  data: {
+    value6: "",
+    value7: [],
+  },
+});
+```

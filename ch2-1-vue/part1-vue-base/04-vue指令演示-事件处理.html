@@ -34,6 +34,21 @@
         <label for="multiple-cb-one">选项一</label>
         <input type="checkbox" id="multiple-cb-two" value="选项二内容" v-model="value5" />
         <label for="multiple-cb-two">选项二</label>
+
+        <!-- 选择框 -->
+        <p>单选select数据为: {{value6}}</p>
+        <select v-model="value6">
+            <option value="">请选择</option>
+            <option value="1">选项一</option>
+            <option value="2">选项二</option>
+            <option value="3">选项三</option>
+        </select>
+        <p>多选select数据为: {{value7}}</p>
+        <select v-model="value7" multiple>
+            <option value="1">选项一</option>
+            <option value="2">选项二</option>
+            <option value="3">选项三</option>
+        </select>
     </div>
     <script src="lib/vue2.js"></script>
     <script>
@@ -45,6 +60,8 @@
                 value3: '',
                 value4: false,
                 value5: [],
+                value6: "",
+                value7: []
             },
             methods: {
                 // fn() {
