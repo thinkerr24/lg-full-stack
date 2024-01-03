@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced features</title>
+</head>
+
+<body>
+    <div id="app1">
+        <input type="text" v-focus.a.b="100 + 1" />
+    </div>
+    <!-- <div id="app2">
+        <input type="text" v-focus />
+    </div> -->
+    <script src="lib/vue2.js"></script>
+    <script>
+        // 自定义全局指令
+        Vue.directive("focus", {
+            inserted(el, binding) {
+                // binding.modifiers 指令的修饰符 value:101 expression: "100 + 1"
+                console.log('binding:', binding);
+                el.focus();
+            },
+        });
+        const vm1 = new Vue({
+            el: '#app1',
+        });
+
+        // const vm2 = new Vue({
+        //     el: '#app2',
+        // });
+
+    </script>
+</body>
+
+</html>
