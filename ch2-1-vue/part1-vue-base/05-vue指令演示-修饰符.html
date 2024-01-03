@@ -38,12 +38,33 @@
         <input type="text" @keyup.a="fn4" />
         <!-- esc 或 a 或 c -->
         <input type="text" @keyup.esc.a.c="fn4" />
+        <!-- 系统修饰符 ctrl keycode is 17-->
+        <hr />
+        <!-- <input type="text" @keyup.17.q="fn5" /> -->
+        <input type="text" @keyup.ctrl.q="fn5" v-model="inputValue" />
+        <hr />
+        <!-- 鼠标按键修饰符 add鼠标右键点击和中键点击 -->
+        <button @click.right="fn6">鼠标右键点击</button>
+        <button @click.middle="fn6">鼠标中键点击</button>
+        <hr />
+        <input type="text" v-model.trim="inputContent" />
+        <p>{{inputContent}}</p>
+        <hr />
+        <input type="text" v-model.lazy="inputText" />
+        <p>{{inputText}}</p>
+        <hr />
+        <input type="text" v-model.number="inputNumber" />
+        <p>{{inputNumber}}</p>
     </div>
     <script src="lib/vue2.js"></script>
     <script>
         const vm = new Vue({
             el: "#app",
             data: {
+                inputValue: '',
+                inputContent: '',
+                inputText: '',
+                inputNumber: '',
             },
             methods: {
                 fn() {
@@ -60,7 +81,16 @@
                 },
                 fn4(event) {
                     console.log('输入了对应内容:', event);
-                }
+                },
+                fn5(event) {
+                    // console.log(event)
+                    // ctrl+q clear input
+                    this.inputValue = '';
+                },
+                fn6() {
+                    console.log('点击了元素');
+                },
+
             }
         });
     </script>

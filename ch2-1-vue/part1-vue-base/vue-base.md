@@ -755,3 +755,32 @@ const vm = new Vue({
 
 按键码: 指将按键的按键码作为修饰符使用以标识按键的操作方式。<br/>
 [特殊按键](https://cn.vuejs.org/guide/essentials/event-handling.html#key-modifiers):指键盘中类似 esc，enter，delete 等按键功能，为了更好的兼容性，应首选内置别名。
+
+##### 系统修饰符
+
+系统按键指的是 ctrl alt shift 等按键，单独点击系统操作键无效且与其他按键组合使用。
+
+<ul>
+<li>.ctrl</li>
+<li>.alt</li>
+<li>.shift</li>
+<li>.meta</li>
+</ul>
+
+##### 鼠标按键修饰符
+
+用于设置点击事件由鼠标的哪个按键来完成
+
+<ul>
+<li>.left</li>
+<li>.right</li>
+<li>.middle</li>
+</ul>
+
+##### v-model 修饰符
+
+<ul>
+<li>.trim 用于自动过滤用户输入内容首尾两端的空格</li>
+<li>.lazy 用于将v-model的触发方式由input事件触发更改为change事件触发</li>
+<li>.number 用于自动将用户输入的值转换为数值类型，如无法被parseFloat()转换，则返回原始内容</li>
+</ul>
