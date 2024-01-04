@@ -26,3 +26,26 @@ Vue.directive("focus", {
   <input type="text" v-focus />
 </div>
 ```
+
+#### 自定义局部指令
+
+指的是可以在当前 Vue 实例或组件内使用的指令 [文档](https://v2.cn.vuejs.org/v2/guide/custom-directive.html)
+
+```js
+new Vue({
+  // ...省略其他代码
+  directives: {
+    focus: {
+      inserted(el) {
+        el.focus();
+      },
+    },
+  },
+});
+```
+
+```html
+<div id="app">
+  <input type="text" v-focus />
+</div>
+```

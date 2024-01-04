@@ -9,7 +9,11 @@
 
 <body>
     <div id="app1">
-        <input type="text" v-focus.a.b="100 + 1" />
+        <!-- global custom directive-->
+        <!-- <input type="text" v-focus.a.b="100 + 1" /> -->
+        <hr />
+        <!-- local custom directive-->
+        <input type="text" v-lfocus />
     </div>
     <!-- <div id="app2">
         <input type="text" v-focus />
@@ -26,6 +30,14 @@
         });
         const vm1 = new Vue({
             el: '#app1',
+            // 自定义局部指令
+            directives: {
+                lfocus: {
+                    inserted(el) {
+                        el.focus();
+                    }
+                }
+            }
         });
 
         // const vm2 = new Vue({
