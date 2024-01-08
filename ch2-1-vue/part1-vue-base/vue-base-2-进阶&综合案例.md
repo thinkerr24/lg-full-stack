@@ -98,3 +98,21 @@ Vue.filter("过滤器名称", function (value) {
   <div>{{content | filterContent(part1, part2)}}</div>
 </div>
 ```
+
+##### 局部过滤器
+
+局部过滤器只能在当前 Vue 实例中使用
+
+```js
+new Vue({
+  // ...省略其他代码
+  filters: {
+    ["filterName"]: function (value) {
+      // 逻辑代码
+      return "result";
+    },
+  },
+});
+```
+
+局部过滤器和全局过滤器重名，局部过滤器有效

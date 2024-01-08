@@ -18,6 +18,9 @@
         <p v-bind:title="value | filterA">这是p标签</p>
         <p>{{value2 | filterA | filterB}}</p>
         <p>{{value2 | filterC(1, 2)}}</p>
+
+        <!-- 局部过滤器 -->
+        <p>{{content | filterD | filterE | filterF('rr-')}}</p>
     </div>
     <!-- <div id="app2">
         <input type="text" v-focus />
@@ -60,7 +63,21 @@
             },
             data: {
                 value: 'a-b-c',
-                value2: 'x-y-z'
+                value2: 'x-y-z',
+                content: '1-2-3'
+            },
+            // 局部过滤器
+            filters: {
+                filterD: function (value) {
+                    // console.log(value);
+                    return value.split('-').join('');
+                },
+                filterE: function (value) {
+                    return value.split('').reverse().join('');
+                },
+                filterF: function (value, prefix) {
+                    return prefix + value;
+                }
             }
         });
 
