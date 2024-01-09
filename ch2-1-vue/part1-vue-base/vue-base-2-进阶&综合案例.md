@@ -116,3 +116,104 @@ new Vue({
 ```
 
 局部过滤器和全局过滤器重名，局部过滤器有效
+
+##### 计算属性
+
+在 Vue.js 的视图中不建议书写复杂逻辑，这样不利于维护。
+
+```html
+<div id="app">
+  <p>{{Math.max.apply(null, arr)}}</p>
+  <p>{{Math.max.apply(null, arr)}}</p>
+  <p>{{Math.max.apply(null, arr)}}</p>
+</div>
+```
+
+封装函数是很好的方式，但有时重复的计算会消耗不必要的性能。
+
+```js
+const vm = new Vue({
+  el: "#app",
+  data: {
+    arr: [1, 2, 3, 4, 5, 6],
+  },
+  methods: {
+    getSum() {
+      return this.arr.reduce((pre, cur) => pre + cur);
+    },
+  },
+});
+```
+
+```html
+<div id="app">
+  <p>{{getSum()}}</p>
+  <p>{{getSum()}}</p>
+  <p>{{getSum()}}</p>
+</div>
+```
+
+如何去提高执行效率? 使用计算属性-使用时为属性形式，访问时会自动执行对应函数
+
+```js
+const vm = new Vue({
+  el: "#app",
+  data: {
+    arr: [1, 2, 3, 4, 5, 6],
+  },
+  computed: {
+    result() {
+      return this.arr.reduce((pre, cur) => pre + cur);
+    },
+  },
+});
+```
+
+```html
+<div id="app">
+  <p>{{result}}</p>
+  <p>{{result}}</p>
+  <p>{{result}}</p>
+</div>
+```
+
+methods 与 computed 区别
+
+<ul>
+<li>computed具有缓存性，methods没有</li>
+<li>computed通过属性名访问，methods需要调用</li>
+<li>computed仅适用于计算操作</li>
+</ul>
+
+###### 计算属性练习
+
+准备一个数组，根据数组数据创建列表(当数据大于 10 时创建 li，否则不创建)
+
+思考以下三种方式
+
+<ul>
+<li>v-if & v-for(不推荐)</li>
+<li>v-for & methods(单次调用适合)</li>
+<li>v-for & computed(多次调用适合)</li>
+</ul>
+
+###### 计算属性的 setter
+
+计算属性默认只有 getter，Vue.js 也允许给计算属性设置 setter
+
+```js
+const vm = new Vue({
+  computed: {
+    getResult: {
+      // getter
+      get: function () {
+        // 逻辑代码
+      },
+      // setter
+      set: function (newValue) {
+        // 逻辑代码
+      },
+    },
+  },
+});
+```

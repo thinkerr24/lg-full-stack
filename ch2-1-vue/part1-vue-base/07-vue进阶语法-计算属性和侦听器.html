@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computed & watch</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 计算属性-->
+        <!-- <p>{{getSum()}}</p>
+        <p>{{getSum()}}</p>
+        <p>{{getSum()}}</p> -->
+        <p>{{result}}</p>
+        <p>{{result}}</p>
+        <p>{{result}}</p>
+        <!-- vm.arr = [1, 2, 3, 4, 5] -->
+
+        <!-- <ul> -->
+        <!--method1: 不推荐v-if和v-for同时应用于同一个元素-->
+        <!-- <li v-if="item > 10" v-for="item in list">{{item}}</li>
+             -->
+        <!--method2: -->
+        <!-- <li v-for="item in filterGt10()">{{item}}</li>
+        </ul>
+        <ul>
+            <li v-for="item in filterGt10()">{{item}}</li>
+        </ul> -->
+        <!--method3: v-for&computed-->
+        <ul>
+            <li v-for="item in computedGt10">{{item}}</li>
+        </ul>
+        <ul>
+            <li v-for="item in computedGt10">{{item}}</li>
+        </ul>
+
+        <!-- computed setter -->
+        <p>{{fullName}}</p>
+    </div>
+
+
+    <script src="lib/vue2.js"></script>
+    <script>
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                arr: [1, 2, 3, 4, 5, 6],
+                list: [1, 11, 22, 2, 33, 3, 4, 44, 5, 55, 77, 7],
+                firstName: '三',
+                lastName: '张'
+            },
+            methods: {
+                getSum() {
+                    console.log('getSum invoke');
+                    return this.arr.reduce((pre, cur) => pre + cur);
+                },
+                filterGt10() {
+                    console.log('filterGt10 invoke');
+                    return this.list.filter((n) => n > 10);
+                }
+            },
+            computed: {
+                result() {
+                    console.log('result invoke');
+                    return this.arr.reduce((pre, cur) => pre + cur);
+                },
+                computedGt10() {
+                    console.log('computedGt10 invoke');
+                    return this.list.filter((n) => n > 10);
+                },
+                // 默认书写方式
+                // fullName() {
+                //     return this.lastName + this.firstName
+                // }
+                fullName: {
+                    get() {
+                        return this.lastName + this.firstName;
+                    },
+                    set(newValue) {
+                        //   vm.fullName = '李 四五' console 
+                        const nameArr = newValue.split(' ');
+                        this.lastName = nameArr[0];
+                        this.firstName = nameArr[1];
+                    }
+                }
+            },
+
+        });
+
+
+
+    </script>
+</body>
+
+</html>
