@@ -217,3 +217,51 @@ const vm = new Vue({
   },
 });
 ```
+
+##### 侦听器
+
+侦听器用于监听数据变化并执行指定操作
+
+```js
+new Vue({
+  el: "#app",
+  data: {
+    value: "",
+  },
+  watch: {
+    value(newValue, oldValue) {
+      // 逻辑代码
+    },
+  },
+});
+```
+
+为了监听对象内部值的变化，需要将 watch 书写为对象，并设置选项 deep:true, 这时通过 handler 设置处理函数。
+
+```js
+new Vue({
+  el: "#app",
+  data: {
+    obj: {
+      content1: "内容1",
+      content2: "内容2",
+    },
+  },
+  watch: {
+    obj: {
+      deep: true,
+      handler(val, oldVal) {
+        console.log(val, oldVal);
+      },
+    },
+  },
+});
+```
+
+注意:
+
+<ul>
+<li>当更改(非替换)数组或对象时，回调函数中的新值与旧值相同，因为它们的引用都指向同一个数组，对象
+</li>
+<li>数组操作不要使用索引与length，无法触发侦听器函数</li>
+</ul>

@@ -38,6 +38,9 @@
 
         <!-- computed setter -->
         <p>{{fullName}}</p>
+
+        <!-- 侦听器 -->
+        <input type="text" v-model="value" />
     </div>
 
 
@@ -50,7 +53,12 @@
                 arr: [1, 2, 3, 4, 5, 6],
                 list: [1, 11, 22, 2, 33, 3, 4, 44, 5, 55, 77, 7],
                 firstName: '三',
-                lastName: '张'
+                lastName: '张',
+                value: '',
+                obj: {
+                    content1: "内容1",
+                    content2: "内容2",
+                },
             },
             methods: {
                 getSum() {
@@ -87,7 +95,18 @@
                     }
                 }
             },
-
+            watch: {
+                value(oldValue, newValue) {
+                    console.log(oldValue, newValue)
+                },
+                obj: {
+                    deep: true,
+                    handler(oldValue, newValue) {
+                        // vm.obj.content1 = '22';
+                        console.log(oldValue, newValue);
+                    }
+                }
+            }
         });
 
 
