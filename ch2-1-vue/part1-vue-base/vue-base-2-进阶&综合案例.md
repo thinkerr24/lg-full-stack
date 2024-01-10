@@ -265,3 +265,43 @@ new Vue({
 </li>
 <li>数组操作不要使用索引与length，无法触发侦听器函数</li>
 </ul>
+
+##### Vue DevTools
+
+Vue.js devtools 是 Vue 官方提供用来调试 Vue 应用的工具
+注意:
+
+<ul>
+<li>网页必须应用了Vue.js功能才能看到Vue DevTools(F12 开发者工具)</li>
+<li>网页必须使用Vue.js而不是Vue.min.js</li>
+<li>网页需要在http协议下打开，而不是使用file协议本地打开</li>
+</ul>
+
+##### Vue.js 生命周期
+
+指的是 Vue 实例的生命周期<br/>
+指的是实例从创建到运行，再到销毁的过程
+![vue2生命周期](img/vue2生命周期.jpg)
+
+###### Vue.js 生命周期函数
+
+也可以叫做生命周期钩子<br/>
+通过设置生命周期函数，可以在生命周期的特定阶段执行功能
+
+<ul>
+<li>创建阶段: (特点:每个实例只能执行一次)
+<ul>
+<li>beforeCreate: 实例初始化之前调用</li>
+<li><b>created</b>: 实例创建后调用</li>
+<li>beforeMount: 实例挂载之前调用</li>
+<li><b>mounted</b>: 实例挂载完毕</li>
+</ul></li>
+<li>运行阶段: (特点:按需调用)<ul>
+<li>beforeUpdate: 数据更新后，视图更新前调用</li>
+<li>updated: 视图更新后调用</li>
+</ul></li>
+<li>销毁阶段:<ul>
+<li>beforeDestory: 实例销毁之前调用</li>
+<li>destroyed: 实例销毁后调用</li>
+</ul></li>
+</ul>
