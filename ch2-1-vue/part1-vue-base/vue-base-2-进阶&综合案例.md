@@ -305,3 +305,27 @@ Vue.js devtools 是 Vue 官方提供用来调试 Vue 应用的工具
 <li>destroyed: 实例销毁后调用</li>
 </ul></li>
 </ul>
+
+### 综合案例 TODOMVC
+
+<ul>
+<li>准备工作</li>
+<li>需求分析</li>
+<li>功能实现</li>
+</ul>
+
+准备工作:<br/> 1.[github](https://github.com/tastejs/todomvc-app-template)克隆 <br/> 2.进入到项目目录，安装项目依赖
+cd/npm i<br/> 3.安装 vue: npm i vue@2.7.16
+
+#### 需求分析
+
+<ul>
+<li>事项列表展示<ul><li>有事项的情况</li><li>没事项的情况</li></ul></li>
+<li>状态栏展示<ul><li>个数展示</li><li>单位处理</li></ul></li>
+<li>事项状态切换<ul><li>单个事项切换</li><li>多个事项切换</li></ul></li>
+<li>事项新增<ul><li>内容检测</li><li>回车新增</li></ul></li>
+<li>事项删除<ul><li>单个事项删除</li><li>已完成事项删除</li></ul></li>
+<li>事项编辑<ul><li>触发编辑</li><li>取消编辑</li><li>保存编辑</li></ul></li>
+<li>事项筛选<ul><li>点击切换显示类别</li><li>更新渲染所有事项</li></ul></li>
+<li>事项数据持久化<ul><li>读取本地存储</li><li>更本地存储</li></ul></li>
+</ul>
