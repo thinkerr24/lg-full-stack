@@ -329,3 +329,28 @@ cd/npm i<br/> 3.安装 vue: npm i vue@2.7.16
 <li>事项筛选<ul><li>点击切换显示类别</li><li>更新渲染所有事项</li></ul></li>
 <li>事项数据持久化<ul><li>读取本地存储</li><li>更本地存储</li></ul></li>
 </ul>
+
+##### 事项列表展示
+
+<ul>
+<li>引入vue.js文件，创建Vue实例设置挂载元素</li>
+<li>在data中设置todos存储初始数据</li>
+</ul>
+
+```js
+new Vue({
+  el: "#app",
+  data: {
+    todos: [
+      { id: 1, title: "示例内容1", completed: false },
+      { id: 2, title: "示例内容2", completed: true },
+      { id: 3, title: "示例内容3", completed: true },
+    ],
+  },
+});
+```
+
+<ul>
+<li>设置事项视图</li>
+<li>设置有无事项时的显示状态: .main .footer v-show="todos.length"</li>
+</ul>
