@@ -21,8 +21,13 @@
 			remaining() {
 				return this.todos.filter((todo) => !todo.completed).length;
 			},
-			allDone() {
-				return this.remaining === 0;
+			allDone: {
+				get() {
+					return this.remaining === 0;
+				},
+				set(value) {
+					this.todos.forEach((todo) => (todo.completed = value));
+				},
 			},
 		},
 	});
