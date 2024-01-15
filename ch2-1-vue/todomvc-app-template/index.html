@@ -52,7 +52,8 @@
 		<!--状态栏区-->
 		<footer class="footer" v-show="todos.length">
 			<!-- This should be `0 items left` by default -->
-			<span class="todo-count"><strong>0</strong> item left</span>
+			<!--用于设置状态栏中的个数统计功能-->
+			<span class="todo-count"><strong>{{remaining}}</strong> {{pluralize('item')}} left</span>
 			<!-- Remove this if you don't implement routing -->
 			<ul class="filters">
 				<li>

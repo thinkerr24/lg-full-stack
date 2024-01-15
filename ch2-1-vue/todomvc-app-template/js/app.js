@@ -12,5 +12,15 @@
 				{ id: 3, title: "示例内容3", completed: false },
 			],
 		},
+		methods: {
+			pluralize(word) {
+				return word + (this.remaining === 1 ? "" : "s");
+			},
+		},
+		computed: {
+			remaining() {
+				return this.todos.filter((todo) => !todo.completed).length;
+			},
+		},
 	});
 })(window);

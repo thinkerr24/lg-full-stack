@@ -354,3 +354,12 @@ new Vue({
 <li>设置事项视图</li>
 <li>设置有无事项时的显示状态: .main .footer v-show="todos.length"</li>
 </ul>
+
+##### 状态栏信息展示
+
+需要实现的功能为
+
+<ul>
+<li>个数展示</li>
+<li>单位处理</li>
+</ul>
