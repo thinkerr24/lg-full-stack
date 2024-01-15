@@ -360,6 +360,17 @@ new Vue({
 需要实现的功能为
 
 <ul>
-<li>个数展示</li>
-<li>单位处理</li>
+<li>个数展示(remaining)</li>
+<li>单位处理(plurlize)</li>
 </ul>
+
+##### 事项状态切换
+
+需要实现的功能为
+
+<ul>
+<li>单个事项切换:已经通过<code>v-model="todo.completed"</code>的设置实现了，体会双向数据绑定的好处</li>
+<li>多个事项切换(toggle-all):1.单个事项操作; 2.全选框操作</li>
+</ul>
+
+设置 v-model 后，主动操作 toggle-all 相当于设置 allDone 数据，这时需要给 allDone 设置 setter 来处理
