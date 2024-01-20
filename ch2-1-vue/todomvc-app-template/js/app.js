@@ -13,6 +13,10 @@
 			],
 			// 存储新增输入框数据
 			newTodo: "",
+			// 正在编辑的todo
+			editingTodo: {},
+			// 存储正在编辑todo的原始title
+			titleBeforeEdit: "",
 		},
 		methods: {
 			pluralize(word) {
@@ -39,6 +43,24 @@
 			removeCompleted() {
 				this.todos = this.todos.filter((todo) => !todo.completed);
 			},
+			// 编辑双击的事项
+			editTodo(todo) {
+				this.editingTodo = todo;
+				this.titleBeforeEdit = todo.title;
+			},
+			// 用于取消编辑，还原状态与内容
+			cancelEdit(todo) {
+				this.editingTodo = {};
+				todo.title = this.titleBeforeEdit;
+			},
+			// 用于保存编辑
+			editDone(todo) {
+				this.editingTodo = {};
+				todo.title = todo.title.trim();
+				if (!todo.title) {
+					this.removeTodo(todo.id);
+				}
+			},
 		},
 		computed: {
 			remaining() {
@@ -51,6 +73,15 @@
 				set(value) {
 					this.todos.forEach((todo) => (todo.completed = value));
 				},
+			},
+		},
+		directives: {
+			// 用于设置正在编辑的事项输入框获取焦点
+			"todo-focus"(el, binding) {
+				//console.log(binding.value);
+				if (binding.value) {
+					el.focus();
+				}
 			},
 		},
 	});

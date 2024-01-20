@@ -39,13 +39,15 @@
 				</li> -->
 				<!--待办事项-->
 
-				<li v-for="todo in todos" :key="todo.id" :class="{completed: todo.completed}">
+				<li v-for="todo in todos" :key="todo.id"
+					:class="{completed: todo.completed, editing: todo.id === editingTodo?.id}">
 					<div class="view">
 						<input class="toggle" type="checkbox" v-model="todo.completed">
-						<label>{{todo.title}}</label>
+						<label @dblclick="editTodo(todo)">{{todo.title}}</label>
 						<button class="destroy" @click="removeTodo(todo.id)"></button>
 					</div>
-					<input class="edit" value="Rule the web">
+					<input class="edit" v-model="todo.title" v-todo-focus="todo.id === editingTodo?.id"
+						@keyup.esc="cancelEdit(todo)" @keyup.enter="editDone(todo)" @blur="editDone(todo)">
 				</li>
 			</ul>
 		</section>
