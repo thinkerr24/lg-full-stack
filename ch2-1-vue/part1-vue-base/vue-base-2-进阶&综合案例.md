@@ -435,3 +435,45 @@ new Vue({
 
 设置用于筛选不同类别事项的函数，并统一存储;<br/>
 之前使用过的数据筛选函数也可以通过 filters 进行统一设置。
+
+##### 数据持久化
+
+实现的功能为:
+
+<ul>
+<li>获取本地存储</li>
+<li>更新本地存储</li>
+</ul>
+
+封装函数，用于进行本地存储数据读取
+
+```js
+const TODOS_KEY = "TODOS-VUE";
+const todoStorage = {
+  get() {
+    return JSON.parse(localStorage.getItem(TODOS_KEY)) || [];
+  },
+  set(todos) {
+    localStorage.setItem(TODOS_KEY, JSON.stringify(todos));
+  },
+};
+```
+
+// 将事项数据更改为本地存储数据
+
+```js
+...
+todos: todoStorage.get(),
+...
+```
+
+由于多种事项操作都需要更新本地存储，单个设置十分繁琐，可以通过侦听器统一设置
+
+```js
+watch: {
+  todos: {
+    deep: true,
+    handler: todoStorage.set
+  }
+},
+```

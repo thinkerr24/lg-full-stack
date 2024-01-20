@@ -1,5 +1,6 @@
 (function (window) {
 	"use strict";
+	const TODOS_KEY = "TODOS-VUE";
 
 	// 声明对象存储所有用于进行事项筛选的函数
 	const filters = {
@@ -14,16 +15,21 @@
 		},
 	};
 
+	// 本地存储
+	const todoStorage = {
+		get() {
+			return JSON.parse(localStorage.getItem(TODOS_KEY)) || [];
+		},
+		set(todos) {
+			localStorage.setItem(TODOS_KEY, JSON.stringify(todos));
+		},
+	};
 	// Your starting point. Enjoy the ride!
 	const vm = new Vue({
 		el: "#app",
 		data: {
 			// todos用于存储所有事项信息
-			todos: [
-				{ id: 1, title: "示例内容1", completed: true },
-				{ id: 2, title: "示例内容2", completed: false },
-				{ id: 3, title: "示例内容3", completed: false },
-			],
+			todos: todoStorage.get(),
 			// 存储新增输入框数据
 			newTodo: "",
 			// 正在编辑的todo
@@ -104,6 +110,13 @@
 				if (binding.value) {
 					el.focus();
 				}
+			},
+		},
+		watch: {
+			// 设置侦听器更新本地存储
+			todos: {
+				deep: true,
+				handler: todoStorage.set,
 			},
 		},
 	});
