@@ -43,7 +43,7 @@
 					<div class="view">
 						<input class="toggle" type="checkbox" v-model="todo.completed">
 						<label>{{todo.title}}</label>
-						<button class="destroy"></button>
+						<button class="destroy" @click="removeTodo(todo.id)"></button>
 					</div>
 					<input class="edit" value="Rule the web">
 				</li>
@@ -68,7 +68,8 @@
 				</li>
 			</ul>
 			<!-- Hidden if no completed items are left ↓ -->
-			<button class="clear-completed">Clear completed</button>
+			<button class="clear-completed" v-show="todos.length > remaining" @click="removeCompleted">Clear
+				completed</button>
 		</footer>
 	</section>
 	<footer class="info">

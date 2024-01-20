@@ -31,6 +31,14 @@
 				});
 				this.newTodo = "";
 			},
+			// 删除单个事项
+			removeTodo(id) {
+				this.todos = this.todos.filter((cto) => cto.id !== id);
+			},
+			// 删除已完成事项
+			removeCompleted() {
+				this.todos = this.todos.filter((todo) => !todo.completed);
+			},
 		},
 		computed: {
 			remaining() {
