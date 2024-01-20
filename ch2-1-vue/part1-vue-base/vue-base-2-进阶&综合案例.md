@@ -374,3 +374,17 @@ new Vue({
 </ul>
 
 设置 v-model 后，主动操作 toggle-all 相当于设置 allDone 数据，这时需要给 allDone 设置 setter 来处理
+
+##### 事项新增
+
+实现的功能为:
+
+<ul>
+<li>输入框内容绑定</li>
+<li>回车新增事项</li>
+</ul>
+
+<ul>
+<li>在data中设置newTodo用于存储数据，并绑定给新输入框</li>
+<li>输入框回车时检测内容，并根据输入内容新增事项到todos</li>
+</ul>

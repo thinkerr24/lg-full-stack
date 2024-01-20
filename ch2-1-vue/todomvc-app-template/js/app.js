@@ -11,10 +11,25 @@
 				{ id: 2, title: "示例内容2", completed: false },
 				{ id: 3, title: "示例内容3", completed: false },
 			],
+			// 存储新增输入框数据
+			newTodo: "",
 		},
 		methods: {
 			pluralize(word) {
 				return word + (this.remaining === 1 ? "" : "s");
+			},
+			// 用于新增事项
+			addTodo() {
+				const value = this.newTodo.trim();
+				if (!value) {
+					return;
+				}
+				this.todos.push({
+					id: this.todos.length + 1,
+					title: value,
+					completed: false,
+				});
+				this.newTodo = "";
 			},
 		},
 		computed: {
