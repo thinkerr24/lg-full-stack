@@ -39,7 +39,7 @@
 				</li> -->
 				<!--待办事项-->
 
-				<li v-for="todo in todos" :key="todo.id"
+				<li v-for="todo in filteredTodo" :key="todo.id"
 					:class="{completed: todo.completed, editing: todo.id === editingTodo?.id}">
 					<div class="view">
 						<input class="toggle" type="checkbox" v-model="todo.completed">
@@ -60,13 +60,16 @@
 			<!-- Remove this if you don't implement routing -->
 			<ul class="filters">
 				<li>
-					<a class="selected" href="#/">All</a>
+					<a :class="{selected: dataType === 'all'}" @click="dataType = 'all'"
+						href="javascript:void(0)">All</a>
 				</li>
 				<li>
-					<a href="#/active">Active</a>
+					<a :class="{selected: dataType === 'active'}" @click="dataType = 'active'"
+						href="javascript:void(0)">Active</a>
 				</li>
 				<li>
-					<a href="#/completed">Completed</a>
+					<a :class="{selected: dataType === 'completed'}" @click="dataType = 'completed'"
+						href="javascript:void(0)">Completed</a>
 				</li>
 			</ul>
 			<!-- Hidden if no completed items are left ↓ -->

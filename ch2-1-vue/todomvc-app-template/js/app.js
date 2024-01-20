@@ -1,6 +1,19 @@
 (function (window) {
 	"use strict";
 
+	// 声明对象存储所有用于进行事项筛选的函数
+	const filters = {
+		all(todos) {
+			return todos;
+		},
+		active(todos) {
+			return todos.filter((todo) => !todo.completed);
+		},
+		completed(todos) {
+			return todos.filter((todo) => todo.completed);
+		},
+	};
+
 	// Your starting point. Enjoy the ride!
 	const vm = new Vue({
 		el: "#app",
@@ -17,6 +30,7 @@
 			editingTodo: {},
 			// 存储正在编辑todo的原始title
 			titleBeforeEdit: "",
+			dataType: "all",
 		},
 		methods: {
 			pluralize(word) {
@@ -41,7 +55,9 @@
 			},
 			// 删除已完成事项
 			removeCompleted() {
-				this.todos = this.todos.filter((todo) => !todo.completed);
+				// this.todos = this.todos.filter((todo) => !todo.completed);
+				// 加上filter后
+				this.todos = filters.active(this.todos);
 			},
 			// 编辑双击的事项
 			editTodo(todo) {
@@ -63,8 +79,14 @@
 			},
 		},
 		computed: {
+			// 用于进行事项筛选处理
+			filteredTodo() {
+				return filters[this.dataType](this.todos);
+			},
 			remaining() {
-				return this.todos.filter((todo) => !todo.completed).length;
+				// return this.todos.filter((todo) => !todo.completed).length;
+				// 加上filter后
+				return filters.active(this.todos).length;
 			},
 			allDone: {
 				get() {
