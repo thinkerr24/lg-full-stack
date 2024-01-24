@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue watch</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{num}}</p>
+        <button @click="num++">+</button> <button v-on:click="num--">-</button>
+    </div>
+    <script src="../part1-vue-base/lib/vue2.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                num: 1,
+                arr: [2, 3, 4]
+            },
+            watch: {
+                num(newVal, oldVal) {
+                    console.log(newVal, oldVal);
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>
