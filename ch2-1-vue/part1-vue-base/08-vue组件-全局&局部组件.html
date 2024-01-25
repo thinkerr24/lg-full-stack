@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Component</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>是p标签</p>
+        <my-global-componet></my-global-componet>
+    </div>
+    <script src="./lib/vue2.js"></script>
+    <script>
+        Vue.component('my-global-componet', {
+            template: '<div>这是我们全局注册的组件</div>'
+        })
+        // 根实例
+        new Vue({
+            data: {
+                p: 'hello vue!'
+            }
+        }).$mount('#app');
+    </script>
+</body>
+
+</html>
