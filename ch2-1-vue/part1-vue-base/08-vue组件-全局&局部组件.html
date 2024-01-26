@@ -13,6 +13,9 @@
         <my-global-componet></my-global-componet>
         <my-component></my-component>
         <my-component-with-data></my-component-with-data>
+        <my-local-component-a></my-local-component-a>
+        <my-local-component-b></my-local-component-b>
+        <my-local-component-c></my-local-component-c>
     </div>
     <script src="./lib/vue2.js"></script>
     <script>
@@ -33,11 +36,34 @@
                 };
             },
         });
+        const MyLocalComponentC = {
+            template: '<h3>{{title}}</h3>',
+            data() {
+                return {
+                    title: 'c组件示例内容'
+                }
+            }
+        };
         // 根实例
         new Vue({
             data: {
                 p: 'hello vue!'
-            }
+            },
+            components: {
+                "my-local-component-a": {
+                    template: "<h3>{{title}}</h3>",
+                    data() {
+                        return { title: "a组件示例内容" };
+                    },
+                },
+                MyLocalComponentB: {
+                    template: "<div>{{title}}</div>",
+                    data() {
+                        return { title: "b组件示例内容" };
+                    },
+                },
+                MyLocalComponentC
+            },
         }).$mount('#app');
     </script>
 </body>

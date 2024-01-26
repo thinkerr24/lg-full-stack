@@ -94,3 +94,43 @@ Vue.component("my-component-with-data", {
   <!-- my-component-with-data will not render -->
   <my-component-with-data></my-component-with-data>
 ```
+
+##### 局部注册
+
+局部注册的组件只能用在当前实例或组件中
+
+```js
+new Vue({
+  //...
+  components: {
+    "my-component-a": {
+      template: "<h3>{{title}}</h3>",
+      data() {
+        return { title: "a组件示例内容" };
+      },
+    },
+    "my-component-b": {
+      template: "<div>{{title}}</div>",
+      data() {
+        return { title: "b组件示例内容" };
+      },
+    },
+  },
+});
+```
+
+单独配置组件的选项对象:
+
+```js
+const MyComponentA = {
+  /**... */
+};
+const MyComponentB = {
+  /**... */
+};
+new Vue(
+  'my-component-a': MyComponentA,
+  MyComponentB,
+
+).$mount("#app");
+```
