@@ -11,12 +11,28 @@
     <div id="app">
         <p>是p标签</p>
         <my-global-componet></my-global-componet>
+        <my-component></my-component>
+        <my-component-with-data></my-component-with-data>
     </div>
     <script src="./lib/vue2.js"></script>
     <script>
+        // kebab命名法
         Vue.component('my-global-componet', {
             template: '<div>这是我们全局注册的组件</div>'
-        })
+        });
+        // Pascal命名法
+        Vue.component('MyComponent', {
+            template: '<div>这是我们注册的Pascal命名法全局组件:{{1+5}}</div>'
+        });
+        // data选项
+        Vue.component("my-component-with-data", {
+            template: `<div>title:{{title}}</div>`,
+            data() {
+                return {
+                    title: "hello, vue2 component",
+                };
+            },
+        });
         // 根实例
         new Vue({
             data: {
