@@ -134,3 +134,35 @@ new Vue(
 
 ).$mount("#app");
 ```
+
+#### 组件通信
+
+子组件如何获取父组件中的数据<br/>
+对于组件间传递数据的操作，称为组件通信。
+
+<ul>
+<li>父组件向子组件传值</li>
+<li>子组件向父组件传值</li>
+<li>非父子组件传值</li>
+</ul>
+
+##### 父组件向子组件传值
+
+通过子组件的 props 选项接收父组件的传值
+
+```js
+Vue.component("my-component", {
+  props: ["title"],
+  template: "<h2>{{title}}</h2>",
+});
+```
+
+父组件设置方式如下:
+
+```html
+<div id="app">
+  <my-component-a title="示例内容1"></my-component-a>
+  <my-component-a :title="'示例内容2'"></my-component-a>
+  <my-component-a :title="item.title"></my-component-a>
+</div>
+```
