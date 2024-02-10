@@ -166,3 +166,24 @@ Vue.component("my-component", {
   <my-component-a :title="item.title"></my-component-a>
 </div>
 ```
+
+###### Props 命名规则
+
+建议 prop 命名使用 camelCase，父组件绑定时使用 kebab-case
+
+```js
+Vue.component("my-component", {
+  props: ["myTitle"],
+  template: `<div>{{myTitle}}</div>`,
+});
+```
+
+```html
+<div id="app">
+  <my-component my-title="示例内容1"></my-component>
+  <my-component :my-title="'示例内容2'"></my-component>
+  <my-component :my-title="item.title"></my-component>
+</div>
+```
+
+> note: key 属性没办法在子组件中获取，它是 vue 保留字，是提高渲染效率用的。

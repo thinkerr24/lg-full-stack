@@ -9,29 +9,55 @@
 
 <body>
     <div id="app">
-        <my-component-a num="3" :title="item.title" :content="item.content"></my-component-a>
+        <my-component-a num="3" :title="item.title" :content="item.content" :en-content="enContent"></my-component-a>
+        <demo-item v-for="item in items" :item-title="item.title" :item-content="item.content"
+            :key="item.title"></demo-item>
     </div>
     <script src="./lib/vue2.js"></script>
     <script>
         // Create sub component
         Vue.component('my-component-a', {
             // num is static property, and title&content is dynamic attribute bind
-            props: ['num', 'title', 'content'],
+            props: ['num', 'title', 'content', 'enContent'],
             template: `
             <div>
                 <div>{{num}}</div>
                 <h3>{{title}}</h3>
                 <p>{{content}}</p>    
+                <p>{{enContent}}</p>
             </div>
             `
-        })
+        });
+
+        Vue.component('demo-item', {
+            props: ['itemTitle', 'itemContent'],
+            template: `<div>
+                  <p><b>{{itemTitle}}</b>: {{itemContent}}</p>
+                </div>`
+        });
+
         const vm = new Vue({
             el: '#app',
             data: {
+                enContent: '这是示例内容en',
                 item: {
                     title: '这是示例标题',
                     content: '这是示例内容'
-                }
+                },
+                items: [
+                    {
+                        title: '这是示例标题1',
+                        content: '这是示例内容1'
+                    },
+                    {
+                        title: '这是示例标题2',
+                        content: '这是示例内容2'
+                    },
+                    {
+                        title: '这是示例标题3',
+                        content: '这是示例内容3'
+                    }
+                ]
             }
         })
     </script>
