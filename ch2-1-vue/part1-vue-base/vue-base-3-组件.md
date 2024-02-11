@@ -187,3 +187,22 @@ Vue.component("my-component", {
 ```
 
 > note: key 属性没办法在子组件中获取，它是 vue 保留字，是提高渲染效率用的。
+
+###### 单向数据流
+
+父子组件间的所有 prop 都是单向下行绑定的; 父组件的 prop 改变会影响子组件，反之不然<br/>
+如果子组件要处理 prop 数据，应当存储在 data 中后操作。
+
+```js
+Vue.component("my-component", {
+  props: ["initialTitle"],
+  template: "<h3>{{myTitle}}</h3>",
+  data() {
+    return {
+      myTitle: this.initialTitle,
+    };
+  },
+});
+```
+
+> note: 如果 prop 为数组或者对象时，子组件操作将会影响到父组件的状态。

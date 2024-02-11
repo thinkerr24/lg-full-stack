@@ -9,7 +9,8 @@
 
 <body>
     <div id="app">
-        <my-component-a num="3" :title="item.title" :content="item.content" :en-content="enContent"></my-component-a>
+        <my-component-a num="3" :title="item.title" :content="item.content" :en-content="enContent"
+            :initial-title="initialTitle" :person1="person1"></my-component-a>
         <demo-item v-for="item in items" :item-title="item.title" :item-content="item.content"
             :key="item.title"></demo-item>
     </div>
@@ -18,15 +19,35 @@
         // Create sub component
         Vue.component('my-component-a', {
             // num is static property, and title&content is dynamic attribute bind
-            props: ['num', 'title', 'content', 'enContent'],
+            props: ['num', 'title', 'content', 'enContent', 'initialTitle', 'person1'],
             template: `
             <div>
                 <div>{{num}}</div>
                 <h3>{{title}}</h3>
                 <p>{{content}}</p>    
                 <p>{{enContent}}</p>
+                <p>{{enTitle}} <button @click="fn1">Click me</button></p>
+                <div>
+                {{person1.name}}:{{person1.age}}
+                <button @click="fn2">change name</button>    
+                </div>
             </div>
-            `
+            `,
+            data() {
+                return {
+                    enTitle: this.initialTitle,
+                }
+            },
+            methods: {
+                fn1() {
+                    //console.log(this);
+                    this.enTitle = 'This is new title';
+                    // this.initialTitle = 'This is new initial title.'; // warning, avoid mutating
+                },
+                fn2() {
+                    this.person1.name = 'Ranen';
+                }
+            }
         });
 
         Vue.component('demo-item', {
@@ -39,6 +60,11 @@
         const vm = new Vue({
             el: '#app',
             data: {
+                initialTitle: 'props title',
+                person1: {
+                    name: 'william',
+                    age: 18
+                },
                 enContent: '这是示例内容en',
                 item: {
                     title: '这是示例标题',
