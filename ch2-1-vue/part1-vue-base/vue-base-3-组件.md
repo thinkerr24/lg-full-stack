@@ -206,3 +206,55 @@ Vue.component("my-component", {
 ```
 
 > note: 如果 prop 为数组或者对象时，子组件操作将会影响到父组件的状态。
+
+###### Props 类型
+
+Prop 可以设置类型检查，这是需要将 props 更改为一个带有验证需求的对象，并指定对应类型。
+
+```js
+Vue.component("MyCOmponentA", {
+  props: {
+    parStr: String,
+    parArr: Array,
+    parAny: null, // parAny: undefined
+  },
+  template: `<div>
+    {{parStr}}
+    {{parArr}}
+    {{parAny}}
+  </div>`,
+});
+```
+
+```js
+new Vue({
+  el: "#app",
+  data: {
+    str: "示例内容",
+    arr: [1, 2, 3],
+    any: "任意类型",
+  },
+});
+```
+
+```html
+<div id="app">
+  <my-component-a :par-str="str" :par-arr="arr" :par-any="any">
+  </my-component-a>
+</div>
+```
+
+prop 还可以同时指定多个类型，通过数组方式保存即可。
+
+```js
+Vue.component("MyComponent", {
+  props: {
+    parData: [String, Number],
+  },
+  template: `
+  <div>
+    {{parData}}
+  </div>
+  `,
+});
+```

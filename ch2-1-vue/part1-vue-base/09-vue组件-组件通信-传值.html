@@ -13,6 +13,10 @@
             :initial-title="initialTitle" :person1="person1"></my-component-a>
         <demo-item v-for="item in items" :item-title="item.title" :item-content="item.content"
             :key="item.title"></demo-item>
+        <my-custom-component-type :par-str="data4TypeProps.str" :par-num="data4TypeProps.num"
+            :par-arr="data4TypeProps.arr" :par-obj="data4TypeProps.obj" :par-any="data4TypeProps.any"
+            :par-data="parseInt(Math.random() * 10) % 2 === 0 ? 'xyz': 325">
+        </my-custom-component-type>
     </div>
     <script src="./lib/vue2.js"></script>
     <script>
@@ -57,6 +61,28 @@
                 </div>`
         });
 
+        Vue.component('MyCustomComponentType', {
+            props: {
+                // 如果要设置props的具体规则，用对象写法而不是数组写法
+                parStr: String,
+                parNum: Number,
+                parArr: Array,
+                parObj: Object,
+                parAny: null, // undefined
+                parData: [String, Number]
+            },
+            template: `
+            <div>
+                {{parStr}}    
+                {{parNum}}    
+                {{parArr}}    
+                {{parObj}}    
+                {{parAny}}   
+                {{parData}} 
+            </div>
+            `
+        });
+
         const vm = new Vue({
             el: '#app',
             data: {
@@ -83,7 +109,17 @@
                         title: '这是示例标题3',
                         content: '这是示例内容3'
                     }
-                ]
+                ],
+                data4TypeProps: {
+                    num: 100,
+                    str: 'abc',
+                    arr: [1, 2, 3],
+                    obj: {
+                        name: '77',
+                        age: 15
+                    },
+                    any: false
+                }
             }
         })
     </script>
