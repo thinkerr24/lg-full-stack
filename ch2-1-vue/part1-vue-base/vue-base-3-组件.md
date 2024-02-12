@@ -258,3 +258,47 @@ Vue.component("MyComponent", {
   `,
 });
 ```
+
+###### Props 验证
+
+当 prop 需要设置多种规则时，可以将 prop 的值设置为选项对象<br/>
+之前的类型检测功能通过 type 选项设置。<br/>
+required 用于设置数据为必填项(默认 false)。<br/>
+default 用于给可选项指定默认值，当父组件未传递数据时生效。<br/>
+当默认值为数组或对象时，必须为工厂函数返回的形式。<br/>
+validator 用于给传入的 prop 设置校验函数，return 值为 false 时 Vue.js 会发出警告。验证函数中无法使用实例(this 指向 window)的 data、methods 等功能。
+
+```js
+Vue.component("MyComponentA", {
+  props: {
+    parNum: {
+      type: Number,
+      required: true,
+      default
+    },
+    parStr: {
+      type: Number,
+      default: 'string',
+      validator(value) {
+        return value.startsWith('str');
+      }
+    },
+    parData: {
+      type: [String, Boolean],
+    },
+    parArr: {
+      type: Array,
+      // default() {
+      //   return [1, 2, 3]
+      // },
+      default: function() {
+        return [1, 2, 3]
+      }
+    }
+  },
+  template: `<div>
+    {{parNum}}
+    {{parData}}
+  </div>`,
+});
+```
