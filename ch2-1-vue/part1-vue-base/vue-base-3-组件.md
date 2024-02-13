@@ -330,3 +330,80 @@ Vue.component("MyComponentA", {
 ```
 
 如果不希望继承父组件设置的属性，可以设置 inheritAttrs: false, 但只适用于普通对象，class&style 不受影响。
+
+##### 子组件向父组件传值
+
+子组件传值需要通过自定义事件实现<br/>
+商品为子组件，购物车为父组件，父组件需要统计商品个数，就需要在子组件个数变化时传值给父组件。
+
+```js
+new Vue({
+  el: "#app",
+  data: {
+    products: [
+      { id: 1, title: "苹果 * 1斤" },
+      { id: 2, title: "橙子 * 2个" },
+      { id: 3, title: "香蕉 * 3根" },
+    ],
+    totalCount: 0,
+  },
+});
+```
+
+```html
+<div id="app">
+  <h3>购物车</h3>
+  <product-item
+    v-for="product in products"
+    :title="product.title"
+    :key="product.id"
+  ></product-item>
+  <p>总数为:{{totalCount}}</p>
+</div>
+```
+
+```js
+Vue.component("ProductItem", {
+  props: ["title"],
+  template: `
+  <div>
+    <span>商品名称:{{title}}, 商品个数:{{count}}</span>
+    <button @click="countIns">+1</button>
+  </div>
+  `,
+  data() {
+    return {
+      count: 0,
+    };
+  },
+  methods: {
+    countIns() {
+      this.count++;
+    },
+  },
+});
+```
+
+子组件数据变化时，通过$emit()触发自定义事件
+
+```js
+Vue.component("product-item", {
+  //...
+  methods: {
+    countIns() {
+      this.$emit("count-change"); // 自定义事件名称建议使用kebab-case
+      this.count++;
+    },
+  },
+});
+```
+
+父组件监听子组件的自定义事件，并设置处理程序。
+
+```js
+<div id="app">
+  ...
+<product-item ... @count-change="totalCount++"></product-item>
+  ...
+</div>
+```
