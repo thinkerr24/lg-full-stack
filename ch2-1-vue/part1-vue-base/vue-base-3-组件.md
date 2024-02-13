@@ -302,3 +302,31 @@ Vue.component("MyComponentA", {
   </div>`,
 });
 ```
+
+###### 非 props 属性
+
+当父组件给子组件设置了属性，但此属性在 props 中不存在，这时会自动绑定到子组件的根元素上。
+
+```js
+<div id="app">
+  <my-component-a
+    demo-attr="示例属性"
+    title="示例title"
+    style="height: 200px"
+    class="color-blue"
+  ></my-component-a>
+</div>
+```
+
+如果组件根元素已经存在了对应属性，则会替换组件内部的值。<br/>
+class 和 style 是例外，当内外部都设置时，属性会自动合并。
+
+```js
+Vue.component("MyComponentA", {
+  ineritAttrs: false,
+  template: `
+    <p title="original title" class="fl" style="width: 200px">SubComponent Content</p>`,
+});
+```
+
+如果不希望继承父组件设置的属性，可以设置 inheritAttrs: false, 但只适用于普通对象，class&style 不受影响。

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue component</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-non-prop-component :title="title" class="color-red" style="color: red" c-index="3"></my-non-prop-component>
+    </div>
+    <script src="./lib/vue2.js"></script>
+    <script>
+        Vue.component("MyNonPropComponent", {
+            inheritAttrs: false,
+            template: `<div  class="color-black" c-index="1" style="font-weight: 600">
+                    测试文字
+                </div>`
+        });
+        const vm = new Vue({
+            data() {
+                return {
+                    title: `示例标题`
+                }
+            }
+        }).$mount('#app');
+    </script>
+</body>
+
+</html>
