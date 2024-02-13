@@ -452,3 +452,37 @@ new Vue({
   },
 });
 ```
+
+###### 组件与 v-model
+
+v-model 用于组件时，需要通过 props 与自定义事件实现。
+
+```html
+<div id="app">
+  <p>输入内容为:{{iptValue}}</p>
+  <com-input v-model="iptValue"></com-input>
+</div>
+```
+
+```js
+new Vue({
+  el: "app",
+  data: {
+    iptValue: "",
+  },
+  components: {
+    ComInput,
+  },
+});
+```
+
+v-model 用于组件时，需要通过 props 与自定义事件实现。
+
+```js
+const ComInput = {
+  props: ["value"],
+  template: `<input type='text' :value="value" 
+  @input="$emit('input', $event.target.value)"
+  />`,
+};
+```

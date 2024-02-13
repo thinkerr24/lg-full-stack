@@ -14,9 +14,25 @@
         <product-item v-for="product in products" :title="product.title" :key="product.id"
             @count-change="onCountChange"></product-item>
         <p>总数为:{{totalCount}}</p>
+        <!-- v-model 与 组件 -->
+        <p>输入内容为:{{iptValue}}</p>
+        <com-input v-model="iptValue"></com-input>
     </div>
     <script src="./lib/vue2.js"></script>
     <script>
+        const ComInput = {
+            props: ["value"],
+            //  @input="$emit('input', $event.target.value)"
+            template: `<input type='text' :value="value" 
+  @input="onInput"
+  />`,
+            methods: {
+                onInput(event) {
+                    this.$emit('input', event.target.value);
+                }
+            }
+        };
+
         Vue.component("MyNonPropComponent", {
             inheritAttrs: false,
             template: `<div  class="color-black" c-index="1" style="font-weight: 600">
@@ -59,13 +75,17 @@
                         { id: 3, title: "香蕉 * 3根" },
                     ],
                     totalCount: 0,
+                    iptValue: "",
                 }
             },
             methods: {
                 onCountChange(productCount) {
                     this.totalCount += productCount;
                 }
-            }
+            },
+            components: {
+                ComInput,
+            },
         }).$mount('#app');
     </script>
 </body>
