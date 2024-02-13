@@ -407,3 +407,48 @@ Vue.component("product-item", {
   ...
 </div>
 ```
+
+###### 自定义事件传值
+
+```js
+Vue.component("product-item", {
+  props: ["title"],
+  template: `<div>
+    <span>商品名称</span>
+    <button @click="countIns1">+1</button>
+    <button @click="countIns5">+5</button>
+  </div>`,
+  methods: {
+    countIns1() {
+      this.$emit("count-change", 1);
+      this.count++;
+    },
+    countIns5() {
+      this.$emit("count-change", 5);
+      this.count += 5;
+    },
+  },
+});
+```
+
+父组件在监听事件时需要接收子组件传递的数据。
+
+```html
+<div id="app">
+  <!-- method1 -->
+  <product-item @count-change="totalCount += $event"></product-item>
+  <!-- method2 -->
+  <product-item @count-change="onCountChange"></product-item>
+</div>
+```
+
+```js
+new Vue({
+  //...
+  methods: {
+    onCountChange(productCount) {
+      this.totalCount += productCount;
+    },
+  },
+});
+```
