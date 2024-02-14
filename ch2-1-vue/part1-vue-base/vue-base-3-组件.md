@@ -496,3 +496,44 @@ const ComInput = {
 <li>EventBus</li>
 <li>其他传值方式</li>
 </ul>
+
+###### 兄弟组件传值
+
+兄弟组件可以通过父组件进行数据中转
+
+```js
+new Vue({
+  el: "#app",
+  data: {
+    value: "",
+  },
+});
+```
+
+```html
+<div id="app">
+  <com-a @value-change="value = $event"></com-a>
+  <com-b :value="value"></com-b>
+</div>
+```
+
+```js
+Vue.component("ComA", {
+  template: `<div>
+    ComponentA Content:{{ value }}
+    <button @click="$emit('value-change', value)">Send</button>
+  </div>`,
+  data() {
+    return { value: "示例内容" };
+  },
+});
+```
+
+```js
+Vue.component("ComB", {
+  props: ["value"],
+  template: `<div>
+    ComponentB received Content:{{ value }}
+  </div>`,
+});
+```

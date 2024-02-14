@@ -17,6 +17,10 @@
         <!-- v-model 与 组件 -->
         <p>输入内容为:{{iptValue}}</p>
         <com-input v-model="iptValue"></com-input>
+        <!--父组件接收子组件A的数据-->
+        <com-a @value-change="value = $event"></com-a>
+        <!--父组件将数据传递给子组件B-->
+        <com-b :value="value"></com-b>
     </div>
     <script src="./lib/vue2.js"></script>
     <script>
@@ -65,6 +69,24 @@
                 },
             },
         });
+
+        Vue.component("ComA", {
+            template: `<div>
+    ComponentA Content:{{ value }}
+    <button @click="$emit('value-change', value)">Send</button>
+  </div>`,
+            data() {
+                return { value: "示例内容" };
+            },
+        });
+
+        Vue.component("ComB", {
+            props: ["value"],
+            template: `<div>
+            ComponentB received Content:{{ value }}
+            </div>`,
+        });
+
         const vm = new Vue({
             data() {
                 return {
@@ -76,6 +98,8 @@
                     ],
                     totalCount: 0,
                     iptValue: "",
+                    // 用于数据中转
+                    value: ""
                 }
             },
             methods: {
