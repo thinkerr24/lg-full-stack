@@ -654,3 +654,54 @@ new Vue({
 ```
 
 除了\$root, Vue.js 中还提供了 [\$parent](https://v2.cn.vuejs.org/v2/api/#vm-children) 与[\$children](https://v2.cn.vuejs.org/v2/api/#vm-children) 用于便捷访问父子组件。
+
+###### $refs
+
+$refs 用于获取设置了 ref 属性的 HTML 标签或子组件。<br/>
+给普通的HTML标签设置ref属性，$refs 可以获取 DOM 对象
+
+```html
+<div id="app">
+  <input type="text" ref="inp" />
+  <button @click="fn">按钮</button>
+</div>
+```
+
+```js
+new Vue({
+  el: "#app",
+  methods: {
+    fn() {
+      this.$refs.inp.focus();
+    },
+  },
+});
+```
+
+给子组件设置 ref 属性，渲染后可通过$refs 获取子组件实例。
+
+```html
+<div id="app">
+  <com-a ref="comA"></com-a>
+</div>
+```
+
+```js
+const ComC = {
+  template: `<p>组件C:{{value}}</p>`;
+  data: {
+    value: '这是组件C的数据'
+  }
+};
+
+new Vue({
+  el: "#app",
+  components: {
+    ComC,
+  },
+  mounted() {
+    console.log(this.$refs);
+    this.$refs.comC.value = "修改子组件数据";
+  },
+});
+```

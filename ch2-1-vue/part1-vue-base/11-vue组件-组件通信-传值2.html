@@ -9,8 +9,14 @@
 
 <body>
     <div id="app">
+        <!-- $root -->
         <p>父组件数据: {{count}}</p>
         <com-b></com-b>
+        <!-- $refs:给HTML标签设置ref属性 -->
+        <input type="text" ref="inp" />
+        <button @click="fn">按钮</button>
+        <!-- $refs:子组件设置ref属性 -->
+        <com-c ref="comC"></com-c>
     </div>
     <script src="./lib/vue2.js"></script>
     <script>
@@ -47,13 +53,35 @@
             }
         };
 
+        const ComC = {
+            template: `<p>组件C:{{value}}</p>`,
+            data() {
+                return {
+                    value: '这是组件C的数据'
+                }
+            }
+        };
+
         const vm = new Vue({
             data: {
                 count: 0,
             },
             components: {
                 ComB,
+                ComC
             },
+            methods: {
+                fn() {
+                    // 点击修改HTML标签焦点状态
+                    this.$refs.inp.focus();
+
+                    this.$refs.comC.value = "新的子组件数据";
+                },
+            },
+            mounted() {
+                console.log(this.$refs);
+                this.$refs.comC.value = "修改子组件数据";
+            }
         }).$mount('#app');
     </script>
 </body>
