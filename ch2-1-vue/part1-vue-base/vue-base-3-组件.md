@@ -497,7 +497,7 @@ const ComInput = {
 <li>其他传值方式</li>
 </ul>
 
-###### 兄弟组件传值
+##### 兄弟组件传值
 
 兄弟组件可以通过父组件进行数据中转
 
@@ -538,7 +538,7 @@ Vue.component("ComB", {
 });
 ```
 
-###### EventBus
+##### EventBus
 
 当组件嵌套关系复杂时，根据组件关系传值会比较繁琐。<br/>
 组件为了数据中转，data 中会存在许多与当前组件功能无关的数据。
@@ -592,3 +592,65 @@ Vue.component("product-total", {
   },
 });
 ```
+
+##### 其他通信方式(一般情况下不推荐)
+
+<ul>
+<li>$root</li>
+<li>$refs</li>
+</ul>
+
+###### $root
+
+\$root 用于访问当前组件树的根实例，设置简单的 Vue 应用时可以通过此方式进行组件传值 <br/>
+
+```html
+<div id="app">
+  <p>父组件数据: {{count}}</p>
+  <com-a></com-a>
+  <com-b></com-b>
+</div>
+```
+
+```js
+const ComA = {
+  template: `
+  <div>
+    组件A: {{$root.count}}
+    <button @click="clickFn">+1</button>
+  </div>
+  `,
+  methods: {
+    clickFn() {
+      this.$root.count++;
+    },
+  },
+};
+
+const ComB = {
+  template: `
+  <div>
+    组件B: {{$root.count}}
+    <button @click="clickFn">+1</button>
+  </div>
+  `,
+  methods: {
+    clickFn() {
+      this.$root.count++;
+    },
+  },
+};
+
+new Vue({
+  el: "#app",
+  data: {
+    count: 0,
+  },
+  components: {
+    ComA,
+    ComB,
+  },
+});
+```
+
+除了\$root, Vue.js 中还提供了 [\$parent](https://v2.cn.vuejs.org/v2/api/#vm-children) 与[\$children](https://v2.cn.vuejs.org/v2/api/#vm-children) 用于便捷访问父子组件。

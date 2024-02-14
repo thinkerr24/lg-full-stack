@@ -73,11 +73,11 @@ npm-check-updates // ncu -u
 撤销软件包(24 小时) <br/>
 npm unpublish <pkg> --force
 
-更改 npm 镜像地址 <br/>
+更改 npm 镜像地址: 建议使用<b>nrm</b><br/>
 
 ```bash
 npm config list
-npm config set registry https://registry.npm.taobao.org
+npm config set registry http://registry.npmmirror.com
 npm config set registry https://registry.npmjs.org
 ```
 
