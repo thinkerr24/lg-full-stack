@@ -21,8 +21,13 @@
         <com-a @value-change="value = $event"></com-a>
         <!--父组件将数据传递给子组件B-->
         <com-b :value="value"></com-b>
+        <hr />
+        <!-- EventBus非父子组件传值-->
+        <product-total></product-total>
+        <product-bus-item></product-bus-item>
     </div>
     <script src="./lib/vue2.js"></script>
+    <script src="EventBus.js"></script>
     <script>
         const ComInput = {
             props: ["value"],
@@ -85,6 +90,41 @@
             template: `<div>
             ComponentB received Content:{{ value }}
             </div>`,
+        });
+
+        Vue.component("product-total", {
+            template: `<p>总个数为: {{totalCount}}</p>`,
+            data() {
+                return { totalCount: 0 };
+            },
+            created() {
+                // 给bus注册事件，并接收数据
+                // 实例创建完毕，可以使用data等功能
+                bus.$on("countChange", (productCount) => {
+                    this.totalCount += productCount;
+                });
+            },
+        });
+
+        Vue.component("product-bus-item", {
+            template: `
+                <div>
+                <span>商品名称: 苹果，商品个数: {{count}}</span>
+                <button @click="countIns">+1</button>
+                </div>
+            `,
+            data() {
+                return {
+                    count: 0,
+                };
+            },
+            methods: {
+                countIns() {
+                    // 触发bus自定义事件并传递数据
+                    bus.$emit("countChange", 1);
+                    this.count++;
+                },
+            },
         });
 
         const vm = new Vue({

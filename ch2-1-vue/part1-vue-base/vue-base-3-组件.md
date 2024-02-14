@@ -537,3 +537,58 @@ Vue.component("ComB", {
   </div>`,
 });
 ```
+
+###### EventBus
+
+当组件嵌套关系复杂时，根据组件关系传值会比较繁琐。<br/>
+组件为了数据中转，data 中会存在许多与当前组件功能无关的数据。
+
+<ul>
+<li>EventBus(事件总线)是一个独立的事件中心，用于管理不同组件间的传值操作</li>
+<li>EventBus通过一个新的Vue实例来管理组件传值操作，组件通过给实例注册事件、调用事件来实现数据传递</li>
+</ul>
+
+```js
+// EventBus.js
+const bus = new Vue();
+```
+
+发送数据的组件触发 bus 事件，接收的组件给 bus 注册对应事件。
+
+```js
+Vue.component("product-item", {
+  template: `
+    <div>
+    <span>商品名称: 苹果，商品个数: {{count}}</span>
+    <button @click="countIns">+1</button>
+    </div>
+  `,
+  data() {
+    return {
+      count: 0,
+    };
+  },
+  methods: {
+    countIns() {
+      bus.$emit("countChange", 1);
+      this.count++;
+    },
+  },
+});
+```
+
+给 bus 注册对应事件通过$on()操作
+
+```js
+Vue.component("product-total", {
+  template: `<p>总个数为: {{totalCount}}</p>`,
+  data() {
+    return { totalCount: 0 };
+  },
+  created() {
+    bus.$on("countChange", (productCount) => {
+      this.totalCount += productCount;
+    });
+  },
+});
+```
