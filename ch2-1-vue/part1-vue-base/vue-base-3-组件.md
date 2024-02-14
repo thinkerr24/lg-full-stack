@@ -724,3 +724,91 @@ new Vue({
 <li>具名插槽</li>
 <li>作用域插槽</li>
 </ul>
+
+#### 单个插槽
+
+如果我们希望组件标签可以像 HTML 标签一样设置内容，那么组件的使用灵活度会很高。
+
+```HTML
+<div id="app">
+<p>示例内容1</p>
+<com-a>示例内容2</com-a>
+</div>
+```
+
+但平时我们书写的组件，组件首尾标签中书写的内容会被抛弃。
+
+```html
+<div id="app">
+  <com-a></com-a>
+</div>
+```
+
+我们需要通过<slot>进行插槽设置。
+
+```js
+Vue.component("com-a", {
+  template: `<div>
+  <h3>组件标题</h3>
+  <slot></slot>
+  </div>`,
+});
+```
+
+```html
+<div id="app">
+  <com-a>
+    示例内容
+    <span>组件的主体内容</span>
+  </com-a>
+</div>
+```
+
+需要注意模板内容的渲染位置:
+
+```html
+<div id="app">
+  <com-a> 这里只能访问父组件的数据 {{parValue}} </com-a>
+</div>
+```
+
+```js
+const ComA = {
+  template: `
+  <div>
+    <p>组件A:</p>
+    <slot></slot>
+  </div>
+  `
+  data: {
+      value: '子组件的数据'
+    }
+  }
+};
+new Vue({
+  el: "#app",
+  data: { parValue: "父组件数据" },
+  components: {
+    ComA,
+  },
+});
+```
+
+我们可以在<slot>中为插槽设置默认值，也称为后备内容。
+
+```js
+const ComA = {
+...
+template: `<div>
+  <p>组件A:</p>
+  <slot>这是默认文本</slot>
+</div>`
+...
+}
+```
+
+```html
+<div id="app">
+  <com-a></com-a>
+</div>
+```
