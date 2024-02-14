@@ -17,6 +17,20 @@
             {{parValue}}
         </com-a>
         <com-a></com-a>
+        <hr />
+        <!--具名插槽-->
+        <com-b>
+            <template v-slot:header>
+                <h1>组件头部内容</h1>
+            </template>
+            <template v-slot:default>
+                <p>组件主体内容第一段</p>
+                <p>组件主体内容第二段</p>
+            </template>
+            <template #footer>
+                <p>组件底部内容</p>
+            </template>
+        </com-b>
     </div>
     <script src="./lib/vue2.js"></script>
     <script>
@@ -25,6 +39,24 @@
             template: `<div>
                 <h3>组件标题</h3>
                 <slot>这是插槽的默认文本</slot>
+                </div>`,
+            data() {
+                return {
+                    value: 'sub component data'
+                }
+            }
+        });
+
+
+        Vue.component('ComB', {
+            template: `<div class="container">
+                <header>
+                    <slot name="header"></slot>
+                </header>
+                <main><slot></slot></main>
+                <footer>
+                    <slot name="footer"></slot>
+                </footer>
                 </div>`,
             data() {
                 return {

@@ -812,3 +812,39 @@ template: `<div>
   <com-a></com-a>
 </div>
 ```
+
+#### 具名插槽
+
+如果组件中多个位置需要设置插槽，据需要给<slot>设置 name(没有 name 属性的 slot 默认 name 为 default)，称为具名插槽
+
+```html
+<div class="container">
+  <header>
+    <slot name="header"></slot>
+  </header>
+  <main><slot></slot></main>
+  <footer>
+    <slot name="footer"></slot>
+  </footer>
+</div>
+
+<com-a>
+  <template v-slot:header>
+    <h1>组件头部内容</h1>
+  </template>
+
+  <template v-slot:default>
+    <p>组件主体内容第一段</p>
+    <p>组件主体内容第二段</p>
+  </template>
+  <!-- default slot可以不要template标签，直接简写为内部的内容:
+  <p>组件主体内容第一段</p>
+    <p>组件主体内容第二段</p>
+  -->
+
+  <!-- 将"v-slot:"简写为'#'-->
+  <template #footer>
+    <p>组件底部内容</p>
+  </template>
+</com-a>
+```
