@@ -19,7 +19,7 @@
 <li>内置组件</li>
 </ul>
 
-#### 组件注册
+### 组件注册
 
 <ul>
 <li>全局注册</li>
@@ -135,7 +135,7 @@ new Vue(
 ).$mount("#app");
 ```
 
-#### 组件通信
+### 组件通信
 
 子组件如何获取父组件中的数据<br/>
 对于组件间传递数据的操作，称为组件通信。
@@ -902,4 +902,61 @@ const ComD = {
   </template>
 </com-d>
 </div>
+```
+
+### 内置组件
+
+<ul>
+<li>动态组件</li>
+<li>keep-alive</li>
+<li>过渡组件</li>
+</ul>
+
+#### 动态组件
+
+动态组件适用于多个组件频繁切换的处理。
+`<component>`用于将一个'元组件'渲染为动态组件, 以 is 属性值决定渲染哪个组件。
+
+```html
+<div id="app">
+  <component :is="ComA"></component>
+</div>
+```
+
+用于实现多个组件的快速切换，例如选项卡效果。
+
+```js
+const ComA = { template: `<div>A组件内容</div>` };
+const ComB = { template: `<div>B组件内容</div>` };
+const ComC = { template: `<div>C组件内容</div>` };
+
+new Vue({
+  el: "#app",
+  data: {
+    titles: ["ComA", "ComB", "ComC"],
+    currentCom: "ComA",
+  },
+  components: {
+    ComA,
+    ComB,
+    ComC,
+  },
+});
+```
+
+```html
+<div id="app">
+  <button v-for="title in titles" :key="title" @click="currentCom = title">
+    {{title}}
+  </button>
+  <component :is="currentCom"></component>
+</div>
+```
+
+is 属性会在每次切换组件时，Vue 都会创建一个新的组件实例。
+
+```js
+const ComA = { template: `<div>A组件内容: <input type="text"/></div>` };
+const ComB = { template: `<div>B组件内容: <input type="text"/></div>` };
+const ComC = { template: `<div>C组件内容: <input type="text"/></div>` };
 ```

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue dynamic component</title>
+</head>
+
+<body>
+    <div id="app">
+        <button v-for="title in titles" :key="title" @click="currentCom = title">
+            {{title}}
+        </button>
+        <component :is="currentCom"></component>
+    </div>
+    <script src="./lib/vue2.js"></script>
+    <script>
+        const ComA = { template: `<div>A组件内容: <input type="text"/></div>` };
+        const ComB = { template: `<div>B组件内容: <input type="text"/></div>` };
+        const ComC = { template: `<div>C组件内容: <input type="text"/></div>` };
+
+        new Vue({
+            el: "#app",
+            data: {
+                titles: ["ComA", "ComB", "ComC"],
+                currentCom: "ComA",
+            },
+            components: {
+                ComA,
+                ComB,
+                ComC,
+            },
+        });
+
+    </script>
+</body>
+
+</html>
