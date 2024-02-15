@@ -31,6 +31,23 @@
                 <p>组件底部内容</p>
             </template>
         </com-b>
+        <hr />
+        <!--作用域插槽-->
+        <com-d>
+            <template v-slot:default="dataObj">
+                {{dataObj.value}}:{{dataObj.num}}
+            </template>
+        </com-d>
+        <!--简写-->
+        <com-d v-slot:default="dataObj">
+            {{dataObj.value}}:{{dataObj.num}}
+        </com-d>
+        <!--进一步简写-->
+        <com-d #default="dataObj">{{dataObj.num}}</com-d>
+        <!--不能再省略了  <com-d #="dataObj">{{dataObj.num}}</com-d>-->
+
+        <!--使用ES6解构-->
+        <com-d #default="{value, num}">{{value + "|" + num}}</com-d>
     </div>
     <script src="./lib/vue2.js"></script>
     <script>
@@ -64,6 +81,20 @@
                 }
             }
         });
+        const ComD = {
+            template: `
+                <div>
+                <p>组件D:</p>
+                <slot :value="value" v-bind:num="num">这是默认文本</slot>
+                </div>
+                `,
+            data() {
+                return {
+                    value: "子组件数据",
+                    num: 123
+                };
+            },
+        };
         const vm = new Vue({
             data() {
                 return {
@@ -72,7 +103,7 @@
 
             },
             components: {
-
+                ComD
             },
             methods: {
 

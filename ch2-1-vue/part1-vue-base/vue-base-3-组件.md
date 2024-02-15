@@ -848,3 +848,58 @@ template: `<div>
   </template>
 </com-a>
 ```
+
+#### 作用域插槽
+
+用于让插槽可以使用子组件的数据<br/>
+组件将需要被插槽使用的数据通过 v-bind 绑定给<slot>，这种用于给插槽传递数据的属性称为插槽 prop
+
+```js
+const ComD = {
+  template: `
+  <div>
+  <p>组件D:</p>
+  <slot :value="value">这是默认文本</slot>
+  </div>
+  `,
+  data() {
+    return {
+      value: "子组件数据",
+    };
+  },
+};
+```
+
+```HTML
+<div id="app">
+<com-d>
+  <template v-slot:default="dataObj">
+    {{dataObj.value}}
+  </template>
+</com-d>
+</div>
+```
+
+如果<b>只</b>存在默认插槽，同时又需要接收数据，可以进行简写:
+
+```html
+<div id="app">
+  <!-- <com-d v-slot:default="dataObj">{{dataObj}}</com-d> -->
+  <!--进一步简写-->
+  <!-- <com-d v-slot="dataObj">{{dataObj.value}}</com-d> -->
+  <!--进一步简写-->
+  <com-d #default="dataObj">{{dataObj.value}}</com-d>
+</div>
+```
+
+还可以通过 ES6 的解构操作进行数据接收
+
+```HTML
+<div id="app">
+<com-d>
+  <template v-slot:default="{value}">
+    {{value}}
+  </template>
+</com-d>
+</div>
+```
