@@ -980,3 +980,14 @@ include 属性用于指定哪些组件会被缓存，具有多种设置方式
   <component :is="currentCom"></component>
 </keep-alive>
 ```
+
+exclude 属性用于指定哪些组件不会被缓存(参考 include，数组&正则同样适用)
+
+```html
+<keep-alive exclude="ComD">
+  <component :is="currentCom"></component>
+</keep-alive>
+```
+
+max 属性用于设置最大缓存个数，表示离最近操作的 n 个组件会被缓存，
+如果再操作，操作次数最远的那个组件会被清空缓存
