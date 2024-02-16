@@ -960,3 +960,23 @@ const ComA = { template: `<div>A组件内容: <input type="text"/></div>` };
 const ComB = { template: `<div>B组件内容: <input type="text"/></div>` };
 const ComC = { template: `<div>C组件内容: <input type="text"/></div>` };
 ```
+
+#### keep-alive
+
+主要用于保留组件状态或避免组件重新渲染。
+
+```html
+<keep-alive>
+  <component :is="currentCom"></component>
+</keep-alive>
+```
+
+include 属性用于指定哪些组件会被缓存，具有多种设置方式
+
+```html
+<!-- <keep-alive include="ComA,ComB,ComC"> -->
+<!-- <keep-alive :include="['ComA','ComB','ComC']"> -->
+<keep-alive :include="/ComA[ABC]/">
+  <component :is="currentCom"></component>
+</keep-alive>
+```
