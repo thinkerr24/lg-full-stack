@@ -209,6 +209,47 @@ router.init();
 <li>前进后退功能较为繁琐</li>
 </ul>
 
+#### History 方式
+
+History 方式采用 HTML5 提供的新功能实现前端路由<br/>
+在操作时需要通过 history.pushState()变更 URL 并执行对应操作
+
+```js
+const router = {
+  routes: {},
+  route(path, callback) {
+    this.routes[path] = callback;
+  },
+  // 用于触发指定路由
+  go(path) {
+    console.log("go path:", path);
+    history.pushState(null, null, path);
+    this.routes[path] && this.routes[path]();
+  },
+};
+
+const links = document.querySelectorAll("a");
+const containerEle = document.querySelector("#container");
+links.forEach(function (ele) {
+  ele.addEventListener("click", function (e) {
+    // 调用路由
+    router.go(this.getAttribute("href"));
+    e.preventDefault();
+  });
+});
+
+// 定义路由
+router.route("/", function () {
+  containerEle.innerHTML = "这是首页功能";
+});
+router.route("/category", function () {
+  containerEle.innerHTML = "这是分类功能";
+});
+router.route("/user", function () {
+  containerEle.innerHTML = "这是用户功能";
+});
+```
+
 ### 生成项目结构可使用
 
 <ul>

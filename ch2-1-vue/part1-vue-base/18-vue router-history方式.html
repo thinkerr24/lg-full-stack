@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Router history</title>
+</head>
+
+<body>
+    <div>
+        <a href="/">首页</a>
+        <a href="/category">分类页</a>
+        <a href="/user">用户页</a>
+    </div>
+    <div id="container">这是首页功能</div>
+    <script>
+        const router = {
+            routes: {},
+            route(path, callback) {
+                this.routes[path] = callback;
+            },
+            // 用于触发指定路由
+            go(path) {
+                console.log('go path:', path)
+                history.pushState(null, null, path);
+                this.routes[path] && this.routes[path]();
+            },
+        };
+
+        const links = document.querySelectorAll("a");
+        const containerEle = document.querySelector("#container");
+        links.forEach(function (ele) {
+            ele.addEventListener('click', function (e) {
+                // 调用路由
+                router.go(this.getAttribute("href"));
+                e.preventDefault();
+            });
+        });
+
+
+        // 定义路由
+        router.route("/", function () {
+            containerEle.innerHTML = "这是首页功能";
+        });
+        router.route("/category", function () {
+            containerEle.innerHTML = "这是分类功能";
+        });
+        router.route("/user", function () {
+            containerEle.innerHTML = "这是用户功能";
+        });
+    </script>
+</body>
+
+</html>
