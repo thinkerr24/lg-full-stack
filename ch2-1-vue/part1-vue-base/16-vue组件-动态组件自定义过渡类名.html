@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>transition</title>
+    <style>
+        /* .v-enter,
+        .v-leave-to {
+            opacity: 0;
+        }
+
+        .v-enter-active,
+        .v-leave-active {
+            transition: all 3s;
+        }
+
+        .test {
+            transition: all 3s;
+        } */
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
+
+<body>
+    <div id="app">
+        <button @click="show = !show">switch</button>
+        <!-- 1.自己写css transition样式 -->
+        <!-- <transition enter-active-class="test" leave-active-class="test"> -->
+        <!-- 2.通过自定义过渡类名设置，给组件添加第三方动画库的类名效果-->
+        <transition enter-active-class="animate__bounceInUp" leave-active-class="animate__bounceOutUp">
+            <!--必须给使用动画的元素设置基础类名 animate__animated-->
+            <p v-if="show" class="animate__animated">hello world</p>
+        </transition>
+    </div>
+
+    <script src="./lib/vue2.js"></script>
+    <script>
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                show: true,
+
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>

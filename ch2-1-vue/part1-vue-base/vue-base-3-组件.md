@@ -1078,3 +1078,31 @@ v-enter-to&v-leave 不常用
 </ul>
 
 当列表元素变更导致元素位移，可以通过.v-move 类名设置移动时的效果
+
+##### 自定义过渡类名
+
+自定义类名比普通类名优先级更高，在使用第三方 CSS 动画库时非常有用。<br/>
+用于设置自定义过渡类名的属性如下:
+
+<ul>
+<li>enter-class</li>
+<li>enter-active-class</li>
+<li>enter-to-class</li>
+<li>leave-class</li>
+<li>leave-active-class</li>
+<li>leave-to-class</li>
+</ul>
+用于设置初始过渡类名的属性如下:
+<ul>
+<li>appear-class</li>
+<li>appear-active-class</li>
+<li>appear-to-class</li>>
+</ul>
+
+[Animate.css](https://animate.style/) 是一个第三方 CSS 动画库，通过设置类名来给元素添加各种动画效果。<br/>
+使用注意:
+
+<ul>
+<li>animate__前缀与compact版本</li>
+<li>基础类名animated</li>
+</ul>
