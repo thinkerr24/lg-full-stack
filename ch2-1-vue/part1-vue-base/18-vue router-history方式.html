@@ -22,10 +22,17 @@
             },
             // 用于触发指定路由
             go(path) {
-                console.log('go path:', path)
-                history.pushState(null, null, path);
+                history.pushState({ path }, null, path);
                 this.routes[path] && this.routes[path]();
             },
+            // 设置初始化方法，用来检测前进后退按钮的功能
+            init() {
+                const that = this;
+                window.addEventListener('popstate', function (e) {
+                    const path = e?.state?.path ?? '/';
+                    that.routes[path] && that.routes[path]();
+                });
+            }
         };
 
         const links = document.querySelectorAll("a");
@@ -49,6 +56,8 @@
         router.route("/user", function () {
             containerEle.innerHTML = "这是用户功能";
         });
+
+        router.init();
     </script>
 </body>
 

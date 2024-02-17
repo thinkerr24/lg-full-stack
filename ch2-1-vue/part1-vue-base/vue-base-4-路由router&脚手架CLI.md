@@ -250,6 +250,41 @@ router.route("/user", function () {
 });
 ```
 
+前进后退功能，首先需要在更改 URL 时保存路由标记。
+
+```js
+go(path) {
+    history.pushState({path}, null, path);
+    //...
+};
+```
+
+通过 popstate 事件监听前进后退按钮操作，并检测 state
+
+```js
+init() {
+    const that = this;
+    window.addEventListener('popstate', function(e) {
+        const path = e?.state?.path ?? '/';
+        that.routes[path] && that.routes[path]();
+    });
+}
+```
+
+调用初始化方法监听前进后退操作并处理
+
+```js
+router.init();
+```
+
+特点总结:
+
+<ul>
+<li>History 方式兼容性差(用到了H5新特性)</li>
+<li>地址正常且能实现前进后退</li>
+<li>刷新页面会请求后端url，要解决这个问题需后端配合</li>
+</ul>
+
 ### 生成项目结构可使用
 
 <ul>
