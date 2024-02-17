@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Router hash</title>
+</head>
+
+<body>
+    <div>
+        <a href="#/">首页</a>
+        <a href="#/category">分类页</a>
+        <a href="#/user">用户页</a>
+    </div>
+    <div id="container">这是首页功能</div>
+    <script>
+        const containerEle = document.getElementById("container");
+        window.onhashchange = function () {
+            const hash = location.hash.replace("#", "");
+            let str = "";
+            switch (hash) {
+                case "/":
+                    str = "这是首页功能";
+                    break;
+                case "/category":
+                    str = "这是分类功能";
+                    break;
+                case "/user":
+                    str = "这是用户功能";
+                    break;
+            }
+            containerEle.innerHTML = str;
+        }
+    </script>
+</body>
+
+</html>

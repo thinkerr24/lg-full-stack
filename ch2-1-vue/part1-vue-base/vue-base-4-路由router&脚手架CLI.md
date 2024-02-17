@@ -125,6 +125,50 @@ SPA(Single Page Application)单页面应用程序，简称单页应用。<br/>
 <li>页面复杂度较高</li>
 </ul>
 
+### 前端路由
+
+前端路由，指的是 URL 与内容间的映射关系<br/>
+URL、内容、映射关系
+
+<ul>
+<li>Hash方式</li>
+<li>History方式</li>
+</ul>
+
+#### Hash 方式
+
+通过 hashchange 事件监听 hash 变化，并进行网页内容更新
+
+```html
+<body>
+  <div>
+    <a href="#/">首页</a>
+    <a href="#/category">分类页</a>
+    <a href="#/user">用户页</a>
+  </div>
+  <div id="container">这是首页功能</div>
+  <script>
+    const containerEle = document.getElementById("container");
+    window.onhashchange = function () {
+      const hash = location.hash.replace("#", "");
+      let str = "";
+      switch (hash) {
+        case "/":
+          str = "这是首页功能";
+          break;
+        case "/category":
+          str = "这是分类功能";
+          break;
+        case "/user":
+          str = "这是用户功能";
+          break;
+      }
+      containerEle.innerHTML = str;
+    };
+  </script>
+</body>
+```
+
 ### 生成项目结构可使用
 
 <ul>
