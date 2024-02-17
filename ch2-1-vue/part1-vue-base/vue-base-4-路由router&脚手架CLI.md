@@ -353,6 +353,35 @@ const vm = new Vue({
 });
 ```
 
+#### 命名视图
+
+如果导航后，希望同时在同级展示多个视图(组件)，这时就需要进行命名视图
+
+```html
+<div id="app">
+  <router-link to="/">首页</router-link>
+  <router-link to="/user">用户</router-link>
+
+  <router-view name="side-bar"></router-view>
+  <router-view></router-view>
+</div>
+```
+
+路由中通过 components 属性进行设置不同视图的对应组件
+
+```js
+const SideBar = { template: `<div>这是侧边栏功能</div>` };
+// ...
+{
+    path: '/',
+    components: [
+        sidebar: SideBar,
+        default: Index
+    ]
+}
+// ...
+```
+
 ### 生成项目结构可使用
 
 <ul>

@@ -13,6 +13,9 @@
         <router-link to="/">首页</router-link>
         <router-link to="/user">用户</router-link>
         <router-link to="/category">分类</router-link>
+        <!-- SideBar将 常驻-->
+        <router-view name="sidebar"></router-view>
+        <!-- 默认name为default -->
         <router-view></router-view>
     </div>
     <script src="lib/vue2.js"></script>
@@ -29,10 +32,25 @@
             template: `<div>这是用户的功能</div>`,
         };
 
+        const SideBar = { template: `<div>这是侧边栏功能</div>` };
+
         const routes = [
-            { path: "/", component: Index },
-            { path: "/category", component: Category },
-            { path: "/user", component: User },
+            {
+                path: "/", components: {
+                    // router-view的name: 组件配置对象
+                    default: Index, sidebar: SideBar
+                }
+            },
+            {
+                path: "/category", components: {
+                    default: Category, sidebar: SideBar
+                }
+            },
+            {
+                path: "/user", components: {
+                    default: User, sidebar: SideBar
+                }
+            },
         ];
 
         const router = new VueRouter({
