@@ -1001,3 +1001,49 @@ max 属性用于设置最大缓存个数，表示离最近操作的 n 个组件�
 <li>自定义过渡类名</li>
 <li>transition-group组件</li>
 </ul>
+
+##### transition 组件
+
+用于给元素和组件添加进入/离开过渡:
+
+<ul>
+<li>条件渲染(使用v-if)</li>
+<li>条件展示(使用v-show)</li>
+<li>动态组件</li>
+<li>组件根节点</li>
+</ul>
+
+组件提供了 6 个 class，用于设置过渡的具体效果。<br/>
+进入的类名:
+
+<ul>
+<li>v-enter</li>
+<li>v-enter-to</li>
+<li>v-enter-active</li>
+</ul>
+
+离开的类名:
+
+<ul>
+<li>v-leave</li>
+<li>v-leave-to</li>
+<li>v-leave-active</li>
+</ul>
+v-enter-to&v-leave 不常用
+
+```html
+<transition>
+  <p v-if="showDemo">Hello, world</p>
+</transition>
+```
+
+```css
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.5s;
+}
+.v-enter,
+.v-leave-to {
+  opacity: 0;
+}
+```
