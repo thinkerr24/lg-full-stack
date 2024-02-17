@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Router</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 设置用于进行路由操作的组件 -->
+        <router-link to="/">首页</router-link>
+        <router-link to="/user">用户</router-link>
+        <router-link to="/category">分类</router-link>
+        <router-view></router-view>
+    </div>
+    <script src="lib/vue2.js"></script>
+    <script src="lib/vue-router-3.js"></script>
+    <script>
+        // 定义路由规则
+        const Index = {
+            template: `<div>这是首页的功能</div>`,
+        };
+        const Category = {
+            template: `<div>这是分类的功能</div>`,
+        };
+        const User = {
+            template: `<div>这是用户的功能</div>`,
+        };
+
+        const routes = [
+            { path: "/", component: Index },
+            { path: "/category", component: Category },
+            { path: "/user", component: User },
+        ];
+
+        const router = new VueRouter({
+            routes,
+        });
+        new Vue({
+            el: '#app',
+            router
+        })
+    </script>
+</body>
+
+</html>

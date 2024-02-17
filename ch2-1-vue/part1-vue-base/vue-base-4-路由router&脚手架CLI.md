@@ -296,6 +296,63 @@ router.init();
 <li>编程式导航</li>
 </ul>
 
+#### 基本使用
+
+直接下载 or CDN(v4 版本服务 Vue3，[v3](https://v3.router.vuejs.org/)版本服务 Vue2)<br/>
+https://unpkg.com/vue-router@3.6.5/dist/vue-router.js
+
+```bash
+npm i vue-router@3.6.5
+```
+
+Vue Router 提供了用于进行路由设置的组件<router-link>与<router-view>
+
+```html
+<div id="app">
+  <router-link to="/">首页</router-link>
+  <router-link to="/category">分类</router-link>
+  <router-link to="/user">用户</router-link>
+  <router-view></router-view>
+</div>
+```
+
+定义路由中需要的组件，并进行路由规则设置。
+
+```js
+const Index = {
+  template: `<div>这是首页的功能</div>`,
+};
+const Category = {
+  template: `<div>这是分类的功能</div>`,
+};
+const User = {
+  template: `<div>这是用户的功能</div>`,
+};
+
+const routes = [
+  { path: "/", component: Index },
+  { path: "/category", component: Category },
+  { path: "/user", component: User },
+];
+```
+
+创建 Vue Router 实例，通过 routes 属性配置路由
+
+```js
+const router = new VueRouter({
+  routes,
+});
+```
+
+创建 Vue 实例，通过 router 属性注入路由
+
+```js
+const vm = new Vue({
+  el: "#app",
+  router,
+});
+```
+
 ### 生成项目结构可使用
 
 <ul>
