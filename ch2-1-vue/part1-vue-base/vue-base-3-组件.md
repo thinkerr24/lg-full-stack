@@ -1047,3 +1047,22 @@ v-enter-to&v-leave 不常用
   opacity: 0;
 }
 ```
+
+##### transition 组件相关属性
+
+给组件设置 name 属性，可用于给多个元素、组件设置不同的过渡效果，这时需要将 v-更改为对应 name-的形式<br/>
+例如:
+\<transion name="demo">的对应类名前缀为:
+
+<ul>
+<li>demo-enter</li>
+<li>demo-leave</li>
+</ul>
+
+通过 appear 属性，可以让组件在初始渲染时(比如刷新页面，会采用进入时候的过渡样式设置)实现过渡
+
+```html
+<transition appear>
+  <p v-if="showDemo">hello, world</p>
+</transition>
+```

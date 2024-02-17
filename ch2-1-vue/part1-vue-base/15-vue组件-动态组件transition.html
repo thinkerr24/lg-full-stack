@@ -7,6 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>transition</title>
     <style>
+        .trans-demo-1 {
+            height: 100px;
+        }
+
         /* 用于设置出场的最终状态 */
         .v-leave-to {
             opacity: 0;
@@ -32,15 +36,35 @@
         .v-enter-active {
             transition: all 1s;
         }
+
+        /*第二组(name属性)过渡效果设置*/
+        .demo-enter,
+        .demo-leave-to {
+            opacity: 0;
+            transform: translateX(20px)
+        }
+
+        .demo-enter-active,
+        .demo-leave-active {
+            transition: all .5s;
+        }
     </style>
 </head>
 
 <body>
     <div id="app">
-        <button @click="show = !show">switch</button>
-        <transition>
-            <p v-if="show">hello, world</p>
-        </transition>
+        <div class="trans-demo-1">
+            <button @click="show = !show">switch1</button>
+            <transition>
+                <p v-if="show">hello, world</p>
+            </transition>
+        </div>
+        <div class="trans-demo-1">
+            <button @click="showDemo = !showDemo">switch2</button>
+            <transition name="demo" appear>
+                <p v-if="showDemo">This is demo!</p>
+            </transition>
+        </div>
     </div>
 
     <script src="./lib/vue2.js"></script>
@@ -49,7 +73,8 @@
         const vm = new Vue({
             el: '#app',
             data: {
-                show: true
+                show: true,
+                showDemo: true
             },
         });
     </script>
