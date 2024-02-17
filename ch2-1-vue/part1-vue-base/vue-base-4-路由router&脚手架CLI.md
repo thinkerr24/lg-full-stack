@@ -94,6 +94,37 @@ project-structure
 ` npm install -g serve`<br/>
 在 dist 目录下通过 `serve` 命令部署 or 项目根目录下`serve dist`
 
+## Vue Router
+
+Vue Router 是 Vue.js 的官方插件，用来快速实现单页应用
+
+<ul>
+<li>单页应用</li>
+<li>前端路由</li>
+<li>Vue Router</li>
+</ul>
+
+### 单页应用
+
+SPA(Single Page Application)单页面应用程序，简称单页应用。<br/>
+指的是网站的"所有"功能都在单个页面中进行呈现。<br/>
+具有代表性的有后台管理系统、移动端、小程序等。<br/>
+优点：
+
+<ul>
+<li>前后端分离开发，提高了开发效率</li>
+<li>业务场景切换时，局部更新结构</li>
+<li>用户体验好，更加接近本地应用</li>
+</ul>
+
+缺点:
+
+<ul>
+<li>不利于SEO</li>
+<li>初次首屏加载速度较慢</li>
+<li>页面复杂度较高</li>
+</ul>
+
 ### 生成项目结构可使用
 
 <ul>
