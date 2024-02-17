@@ -1066,3 +1066,15 @@ v-enter-to&v-leave 不常用
   <p v-if="showDemo">hello, world</p>
 </transition>
 ```
+
+##### transition-group 组件
+
+\<trnasion-group>用于给列表统一设置过渡动画
+
+<ul>
+<li>tag属性用于设置容器元素，默认为&lt;span&gt;</li>
+<li>过渡会应用于内部元素，而不是容器</li>
+<li>子节点必须有独立的key，动画才能正常工作</li>
+</ul>
+
+当列表元素变更导致元素位移，可以通过.v-move 类名设置移动时的效果
