@@ -169,6 +169,46 @@ URL、内容、映射关系
 </body>
 ```
 
+封装以备复用:
+
+```js
+const router = {
+  routes: {},
+  route(path, callback) {
+    this.routes[path] = callback;
+  },
+  init() {
+    const that = this;
+    window.onhashchange = function () {
+      const hash = location.hash.replace("#", "");
+      that.routes[hash] && that.routes[hash]();
+    };
+  },
+};
+
+const containerEle = document.getElementById("container");
+// 定义路由
+router.route("/", function () {
+  containerEle.innerHTML = "这是首页功能";
+});
+router.route("/category", function () {
+  containerEle.innerHTML = "这是分类功能";
+});
+router.route("/user", function () {
+  containerEle.innerHTML = "这是用户功能";
+});
+// 初始化路由
+router.init();
+```
+
+特点总结:
+
+<ul>
+<li>Hash 方式兼容性好</li>
+<li>地址中具有#, 不太美观</li>
+<li>前进后退功能较为繁琐</li>
+</ul>
+
 ### 生成项目结构可使用
 
 <ul>

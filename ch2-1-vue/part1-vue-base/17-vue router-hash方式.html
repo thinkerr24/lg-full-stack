@@ -16,22 +16,47 @@
     <div id="container">这是首页功能</div>
     <script>
         const containerEle = document.getElementById("container");
-        window.onhashchange = function () {
-            const hash = location.hash.replace("#", "");
-            let str = "";
-            switch (hash) {
-                case "/":
-                    str = "这是首页功能";
-                    break;
-                case "/category":
-                    str = "这是分类功能";
-                    break;
-                case "/user":
-                    str = "这是用户功能";
-                    break;
-            }
-            containerEle.innerHTML = str;
-        }
+        const router = {
+            routes: {},
+            route(path, callback) {
+                this.routes[path] = callback;
+            },
+            init() {
+                const that = this;
+                window.onhashchange = function () {
+                    const hash = location.hash.replace("#", "");
+                    that.routes[hash] && that.routes[hash]();
+                };
+            },
+        };
+        // 定义路由
+        router.route("/", function () {
+            containerEle.innerHTML = "这是首页功能";
+        });
+        router.route("/category", function () {
+            containerEle.innerHTML = "这是分类功能";
+        });
+        router.route("/user", function () {
+            containerEle.innerHTML = "这是用户功能";
+        });
+        // 初始化路由
+        router.init();
+        // window.onhashchange = function () {
+        //     const hash = location.hash.replace("#", "");
+        //     let str = "";
+        //     switch (hash) {
+        //         case "/":
+        //             str = "这是首页功能";
+        //             break;
+        //         case "/category":
+        //             str = "这是分类功能";
+        //             break;
+        //         case "/user":
+        //             str = "这是用户功能";
+        //             break;
+        //     }
+        //     containerEle.innerHTML = str;
+        // }
     </script>
 </body>
 
