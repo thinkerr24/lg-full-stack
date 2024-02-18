@@ -413,6 +413,21 @@ const User = {
 };
 ```
 
+##### 侦听路由参数
+
+如果要响应路由的参数变化，可以通过 watch 监听$route
+
+```js
+const User = {
+  template: `<div>这是{{$route.params.id}}功能</div>`,
+  watch: {
+    $route(route) {
+      console.log(route);
+    },
+  },
+};
+```
+
 ### 生成项目结构可使用
 
 <ul>

@@ -20,8 +20,17 @@
 
         const User = {
             template: `<div>
-                这是用户{{$route.params.id}}的功能
+                这是用户{{$route.params.id}}的功能<br/>
+                <input type="text"/>
             </div>`,
+            watch: {
+                $route(route) {
+                    console.log('route:', route);
+                },
+            },
+            created() {
+                console.log('创建了组件实例');
+            }
         };
         const routes = [
             { path: "/user/:id", component: User }
