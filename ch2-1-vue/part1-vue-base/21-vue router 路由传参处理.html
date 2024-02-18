@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Router</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/user/1">用户1</router-link>
+        <router-link to="/user/2">用户2</router-link>
+        <router-link to="/user/3">用户3</router-link>
+
+        <router-link to="/category/1">种类1</router-link>
+        <router-link to="/category/2">种类2</router-link>
+        <router-link to="/category/3">种类3</router-link>
+        <router-view></router-view>
+    </div>
+    <script src="lib/vue2.js"></script>
+    <script src="lib/vue-router-3.js"></script>
+    <script>
+
+        const User = {
+            template: `<div>这是用户{{$route.params.id}} 的功能</div>`,
+        };
+        const Category = {
+            props: ["id"],
+            template: `<div>这是分类{{id}} 功能</div>`,
+        };
+
+        const routes = [
+            {
+                path: "/user/:id",
+                component: User,
+            },
+            {
+                path: "/category/:id",
+                component: Category,
+                props: true,
+            },
+        ];
+
+        const router = new VueRouter({
+            routes,
+        });
+        new Vue({
+            el: '#app',
+            router
+        })
+    </script>
+</body>
+
+</html>

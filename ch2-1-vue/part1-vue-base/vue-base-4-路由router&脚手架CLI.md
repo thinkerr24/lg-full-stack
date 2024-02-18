@@ -428,6 +428,60 @@ const User = {
 };
 ```
 
+##### 路由传参处理
+
+这里通过路由的 props 设置数据，并通过组件 props 接收。
+
+```js
+const routes = [
+  {
+    path: "/user/:id",
+    component: User,
+  },
+  {
+    path: "/category/:id",
+    component: Category,
+    props: true,
+  },
+];
+
+const User = {
+  template: `<div>这是{{$route.params.id}}的功能</div>`,
+};
+const Category = {
+  props: ["id"],
+  template: `<div>这是{{id}}功能</div>`,
+};
+```
+
+这里通过路由的 props 设置数据，并通过组件 props 接收。
+
+```js
+const routes = [
+  {
+    path: "/user/:id",
+    component: User,
+  },
+  {
+    path: "/category/:id",
+    component: Category,
+    props: true,
+  },
+];
+```
+
+这里通过路由的 props 设置数据，并通过组件 props 接收
+
+```js
+const User = {
+  template: `<div>这是用户{{$route.params.id}} 的功能</div>`,
+};
+const Category = {
+  props: ["id"],
+  template: `<div>这是分类{{id}} 功能</div>`,
+};
+```
+
 ### 生成项目结构可使用
 
 <ul>
