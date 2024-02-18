@@ -382,6 +382,37 @@ const SideBar = { template: `<div>这是侧边栏功能</div>` };
 // ...
 ```
 
+#### 动态路由
+
+当我们需要将某一类 URL 都映射到同一个组件，就需要使用动态路由<br/>
+定义路由规则时，将路径中的某个部分使用`:`进行标记，即可设置为动态路由。
+
+```js
+const User = { template: `<div>这是用户的功能</div>` };
+const routes = [{ path: "/user/:id", component: User }];
+```
+
+设置为动态路由后，动态部分为任意内容均跳转到同一组件。
+
+```html
+<div id="app">
+  <router-link to="/user/1">用户1</router-link>
+  <router-link to="/user/2">用户2</router-link>
+  <router-link to="/user/3">用户3</router-link>
+  <router-view></router-view>
+</div>
+```
+
+`:`部分对应的信息称为路径参数，存储在 vm.$route.params 中
+
+```js
+const User = {
+  template: `<div>
+    这是用户{{$route.params.id}}的功能
+  </div>`,
+};
+```
+
 ### 生成项目结构可使用
 
 <ul>
