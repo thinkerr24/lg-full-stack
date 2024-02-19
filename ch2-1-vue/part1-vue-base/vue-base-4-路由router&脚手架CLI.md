@@ -482,6 +482,52 @@ const Category = {
 };
 ```
 
+##### 路由传参处理其他方式
+
+包含多个命名视图时，需要将路由的 props 设置为对象
+
+```js
+const SideBar = {
+  template: `<div>这是侧边栏功能</div>`,
+};
+{
+  path: '/category/:id',
+  components: {
+    default: Category,
+    sidebar: SideBar
+  },
+  props: {
+    default: true,
+    sidebar: false
+  }
+}
+```
+
+如果希望设置静态数据，可将 props 中的某个组件对应的选项设置为对象，内部属性会绑定给组件的 props。
+
+```js
+const SideBar2 = {
+  props: ["a", "b"],
+  template: `<div>
+  这是右侧侧边栏功能:{{a}} {{b}}
+  </div>`,
+};
+
+{
+  path: '/category/:id',
+  components: {
+    default: Category,
+    sidebar: SideBar,
+    sidebar2: SideBar2
+  },
+  props: {
+    default: true,
+    sidebar: false,
+    sidebar2: {a: '状态1', b: '状态2'}
+  }
+}
+```
+
 ### 生成项目结构可使用
 
 <ul>

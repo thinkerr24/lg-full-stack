@@ -17,10 +17,23 @@
         <router-link to="/category/2">种类2</router-link>
         <router-link to="/category/3">种类3</router-link>
         <router-view></router-view>
+        <router-view name="sidebar"></router-view>
+        <router-view name="sidebar2"></router-view>
     </div>
     <script src="lib/vue2.js"></script>
     <script src="lib/vue-router-3.js"></script>
     <script>
+
+        const SideBar = {
+            template: `<div>这是侧边栏功能</div>`,
+        };
+
+        const SideBar2 = {
+            props: ["a", "b"],
+            template: `<div>
+                这是右侧侧边栏2功能:{{a}} {{b}}
+                </div>`,
+        };
 
         const User = {
             template: `<div>这是用户{{$route.params.id}} 的功能</div>`,
@@ -37,8 +50,16 @@
             },
             {
                 path: "/category/:id",
-                component: Category,
-                props: true,
+                components: {
+                    default: Category,
+                    sidebar: SideBar,
+                    sidebar2: SideBar2
+                },
+                props: {
+                    default: true,
+                    sidebar: false,
+                    sidebar2: { a: '状态1', b: '状态2' }
+                },
             },
         ];
 
