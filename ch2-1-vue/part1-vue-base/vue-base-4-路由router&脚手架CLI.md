@@ -562,6 +562,19 @@ const routes = [
 ];
 ```
 
+#### History 模式
+
+需要通过 Vue Router 实例的 mode 选项来设置，这样 URL 会更加美观，但同样需要后端支持避免问题。
+
+```js
+const router = new VueRouter({
+  mode: "history",
+  routes: [
+    //...
+  ],
+});
+```
+
 ### 生成项目结构可使用
 
 <ul>
