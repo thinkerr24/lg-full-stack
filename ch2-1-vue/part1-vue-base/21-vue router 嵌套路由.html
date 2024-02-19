@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Router 嵌套路由</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/user">用户功能</router-link>
+        <router-view></router-view>
+
+    </div>
+    <script src="lib/vue2.js"></script>
+    <script src="lib/vue-router-3.js"></script>
+    <script>
+
+
+
+        const User = {
+            template: `<div>
+                <h3>这是User组件的功能</h3>
+                <router-link to="/user/hobby">爱好</router-link>
+                <router-link to="/user/info">用户信息</router-link>
+                <router-view></router-view>
+                </div>`,
+        };
+
+        const UserHobby = {
+            template: `<div>UserHobby组件</div>`
+        }
+
+        const UserInfo = {
+            template: `<div>UserInfo组件
+                <router-link to="/user/info/school">用户学校信息</router-link>
+                <router-view></router-view>
+                </div>`
+        }
+
+
+        const UserInfoSchool = {
+            template: `<div>UserInfoSchool组件</div>`
+        }
+
+        const routes = [
+            {
+                path: "/user",
+                component: User,
+                children: [
+                    {
+                        path: "hobby",
+                        component: UserHobby,
+                    },
+                    {
+                        path: "info",
+                        component: UserInfo,
+                        children: [
+                            {
+                                path: "school",
+                                component: UserInfoSchool,
+                            }
+                        ]
+                    },
+                ]
+            },
+
+        ];
+
+        const router = new VueRouter({
+            routes,
+        });
+        new Vue({
+            el: '#app',
+            router
+        })
+    </script>
+</body>
+
+</html>

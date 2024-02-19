@@ -528,6 +528,40 @@ const SideBar2 = {
 }
 ```
 
+#### 嵌套路由
+
+实际场景中，路由通常由多层嵌套的组件组合而成，这时需要使用嵌套路由配置。<br/>
+使用 children 来进行嵌套路由中的子路由设置。
+
+```js
+const routes = [
+  {
+    path: "/user",
+    component: User,
+    children: [
+      {
+        path: "hobby",
+        component: UserHobby,
+      },
+      {
+        path: "info",
+        component: UserInfo,
+        children: [
+          {
+            path: "age",
+            component: UserInfoAge,
+          },
+          {
+            path: "school",
+            component: UserInfoSchool,
+          },
+        ],
+      },
+    ],
+  },
+];
+```
+
 ### 生成项目结构可使用
 
 <ul>
