@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Router命名路由</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-link :to="{name: 'school', params: { id: 10, a: true }}">学校10</router-link>
+        <router-view></router-view>
+    </div>
+    <script src="lib/vue2.js"></script>
+    <script src="lib/vue-router-3.js"></script>
+    <script>
+
+        const School = {
+            template: `<div>School组件: {{$route.params}}</div>`,
+        };
+
+        const routes = [
+            {
+                path: "/user/:id/info/school",
+                name: "school",
+                component: School,
+            },
+        ];
+
+        const router = new VueRouter({
+            routes,
+        });
+        const vm = new Vue({
+            el: '#app',
+            router
+        });
+
+        // vm.$router.push({name: 'school', params: {id : 3}});
+    </script>
+</body>
+
+</html>

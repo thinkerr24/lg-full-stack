@@ -581,6 +581,35 @@ vm.$router.push({ path: "/user/123" });
 <router-link :to="{path: '/user/10'}">用户10</router-link>
 ```
 
+##### 命名路由
+
+设置路由时添加 name 属性
+
+```js
+const School = {
+  template: `<div>School组件: {{$route.params}}</div>`,
+};
+
+const routes = [
+  {
+    path: "/user/:id/info/school",
+    name: "school",
+    component: School,
+  },
+];
+
+// 在push()中通过name导航到对应路由，参数通过params设置
+vm.$router.push({ name: "school", params: { id: 20, demo: "其他数据" } });
+```
+
+也可以在&lt;router-link&gt;中使用
+
+```html
+<router-link :to="{name: 'school', params: {id: 1}}">用户学校</router-link>
+<router-link :to="{name: 'school', params: {id: 2}}">用户学校</router-link>
+<router-link :to="{name: 'school', params: {id: 3}}">用户学校</router-link>
+```
+
 #### History 模式
 
 需要通过 Vue Router 实例的 mode 选项来设置，这样 URL 会更加美观，但同样需要后端支持避免问题。
