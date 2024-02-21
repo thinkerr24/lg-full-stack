@@ -623,6 +623,26 @@ const routes = [
 ];
 ```
 
+##### 别名
+
+```js
+const routes = [
+  {
+    path: "/user/:id/info/school/intro/:date",
+    name: "school",
+    component: School,
+    alias: "/:id/:date",
+  },
+];
+```
+
+```html
+<router-link :to="{name: 'school', params: {id: 1, date: '0101'}}"
+  >用户学校</router-link
+>
+<router-link to="/10/0612">用户学校</router-link>
+```
+
 #### History 模式
 
 需要通过 Vue Router 实例的 mode 选项来设置，这样 URL 会更加美观，但同样需要后端支持避免问题。

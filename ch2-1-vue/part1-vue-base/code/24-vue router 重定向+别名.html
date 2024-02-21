@@ -12,6 +12,9 @@
         <router-link to="/">首页</router-link>
         <router-link to="/catgory/2">分类2</router-link>
         <router-link to="/catgory">分类</router-link>
+        &nbsp;&nbsp;
+        <router-link :to="{name: 'school', params: {id: 1, date: '0101'}}">用户学校1</router-link>
+        <router-link to="/10/0612">用户学校10</router-link>
         <router-view></router-view>
     </div>
     <script src="lib/vue2.js"></script>
@@ -23,6 +26,10 @@
         const Category = {
             template: `<div>分类: {{$route.params.id}}</div>`,
         };
+
+        const School = {
+            template: `<div>学校信息{{$route.params.id + ':' + $route.params.date}}</div>`
+        }
 
         const routes = [
             {
@@ -36,6 +43,12 @@
             {
                 path: "/catgory",
                 redirect: '/'
+            },
+            {
+                path: "/user/:id/info/school/intro/:date",
+                name: "school",
+                component: School,
+                alias: "/:id/:date",
             },
         ];
 
