@@ -562,6 +562,25 @@ const routes = [
 ];
 ```
 
+#### 编程式导航
+
+编程式导航，指的是通过方法设置导航
+
+<ul>
+<li>router.push()用来导航到一个新URL</li>
+<li>&lt;router-link&gt;的to属性使用绑定方式时也可传属性对象结构 </li>
+</ul>
+
+```js
+vm.$router.push("/user");
+vm.$router.push({ path: "/user" });
+vm.$router.push({ path: "/user/123" });
+```
+
+```html
+<router-link :to="{path: '/user/10'}">用户10</router-link>
+```
+
 #### History 模式
 
 需要通过 Vue Router 实例的 mode 选项来设置，这样 URL 会更加美观，但同样需要后端支持避免问题。
