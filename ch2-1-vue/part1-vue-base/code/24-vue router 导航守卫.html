@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Router其他功能-导航首位</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/">首页</router-link>
+        <router-link to="/user">用户</router-link>
+        <router-link to="/category">分类</router-link>
+
+        <router-view></router-view>
+    </div>
+    <script src="lib/vue2.js"></script>
+    <script src="lib/vue-router-3.js"></script>
+    <script>
+        const Index = {
+            template: '<div>首页功能</div>'
+        }
+
+        const User = {
+            template: '<div>用户功能</div>'
+        }
+
+        const Category = {
+            template: '<div>分类功能</div>'
+        }
+
+        const routes = [
+            {
+                path: "/",
+                component: Index,
+            },
+            {
+                path: "/user",
+                component: User,
+            },
+            {
+                path: "/category",
+                component: Category,
+            },
+        ];
+
+        const router = new VueRouter({
+            routes,
+        });
+
+        // 设置导航守卫
+        router.beforeEach((to, from, next) => {
+            console.log(to, from);
+            //  next(false); 阻止导航
+            if (to.path === '/user') {
+                next('/category');
+            } else {
+                next();
+            }
+            // next();
+        });
+
+        const vm = new Vue({
+            el: '#app',
+            router
+        });
+    </script>
+</body>
+
+</html>

@@ -294,6 +294,7 @@ router.init();
 <li>动态路由</li>
 <li>嵌套路由</li>
 <li>编程式导航</li>
+<li>其他功能</li>
 </ul>
 
 #### 基本使用
@@ -641,6 +642,17 @@ const routes = [
   >用户学校</router-link
 >
 <router-link to="/10/0612">用户学校</router-link>
+```
+
+##### 导航守卫
+
+示例:
+
+```js
+router.beforeEach(function (to, from, next) {
+  console.log(to, from);
+  next();
+});
 ```
 
 #### History 模式
