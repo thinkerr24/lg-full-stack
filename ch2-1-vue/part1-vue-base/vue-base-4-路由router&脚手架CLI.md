@@ -610,6 +610,19 @@ vm.$router.push({ name: "school", params: { id: 20, demo: "其他数据" } });
 <router-link :to="{name: 'school', params: {id: 3}}">用户学校</router-link>
 ```
 
+#### 其他功能
+
+##### 重定向
+
+```js
+// 访问/category时，不清楚具体哪个category，重定向回首页
+const routes = [
+  { path: "/", component: Index },
+  { path: "/category/:id", component: Category },
+  { path: "/category", redirect: "/" },
+];
+```
+
 #### History 模式
 
 需要通过 Vue Router 实例的 mode 选项来设置，这样 URL 会更加美观，但同样需要后端支持避免问题。
