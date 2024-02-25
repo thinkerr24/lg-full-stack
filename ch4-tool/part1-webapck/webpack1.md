@@ -90,6 +90,11 @@ module.exports = {
 
 package.json 的 scripts 里的 build 命令可简化为:`"build": "webpack"`
 
+#### webpack 依赖图
+
+1.要把需要打包的依赖导入到 src/index.js 中来; <br/> 2.自定义 webpack.config.js 名后，在 scripts 脚本中指定新配置文件名，如:<br/>
+`"build": "webpack --config rr.webpack.js"`
+
 ## webpack 实战
 
 是一款模块打包工具
