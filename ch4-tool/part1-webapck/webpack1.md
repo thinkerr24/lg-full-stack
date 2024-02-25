@@ -1,5 +1,58 @@
 # webpack
 
+## webpack5 从入门到放弃
+
+### webpack 功能
+
+<ul>
+<li>打包:将不同类型资源按模块处理进行打包</li>
+<li>静态:打包后最终产出静态资源</li>
+<li>模块:webpack支持不同规范的模块化开发</li>
+</ul>
+
+#### webpack 上手
+
+```bash
+npm i webpack webpack-cli -D
+npx webpack  # 忽略warning
+
+├── dist              #打包后的文件夹
+│   └── main.js
+├── src
+│   ├── js
+│   │   ├── api.js
+│   │   └── utils.js
+│   └── index.js
+├── index.html
+├── package-lock.json
+└── package.json
+```
+
+```html
+<body>
+  <script src="./dist/main.js"></script>
+</body>
+```
+
+```js
+// index.js
+import { sum, square } from "./js/utils.js";
+const person = require("./js/api.js");
+console.log(sum(Math.floor(Math.random() * 10), 3));
+console.log(square(4));
+console.log(person);
+// api.js
+module.exports = {
+  name: "zs",
+  age: 14,
+};
+// util.js
+const sum = (m, n) => m + n;
+const square = (m) => m * m;
+
+export { sum, square };
+```
+
 ## webpack 实战
 
 是一款模块打包工具
