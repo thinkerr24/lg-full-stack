@@ -95,6 +95,75 @@ package.json 的 scripts 里的 build 命令可简化为:`"build": "webpack"`
 1.要把需要打包的依赖导入到 src/index.js 中来; <br/> 2.自定义 webpack.config.js 名后，在 scripts 脚本中指定新配置文件名，如:<br/>
 `"build": "webpack --config rr.webpack.js"`
 
+#### CSS-loader
+
+<ul>
+<li>1.为什么需要loader</li>
+<li>2.loader是什么</li>
+<li>3.css-loader</li>
+</ul>
+添加文件
+
+```js
+// src/js/login.js
+function login() {
+  const oH2 = document.createElement("h2");
+  oH2.innerHTML = "rr learn webpack";
+  oH2.className = "title";
+  return oH2;
+}
+
+document.body.appendChild(login());
+
+// src/index.js
+import "./js/login.js";
+```
+
+重新打包`npm run build`, 打开 index.html
+
+再次添加文件 src/css/login.css:
+
+```css
+.title {
+  color: red;
+}
+```
+
+src/js/login.js 第一行加入 import: `import "../css/login.css";`
+再次 run build 发现报错。需要一个合适的 loader<br/>
+
+安装 css-loader:`npm i css-loader -D`<br/> 1.行内 loader(修改 src/js/login.js 第一行):
+`import "css-loader!../css/login.css";` build 不报错但是样式未生效，还需要一个 loader...<br/> 2.恢复 login.js import 后, 在 webpack.config.js 添加:
+
+```js
+  module: {
+    rules: [
+      //   {
+      //     test: /\.css$/, // 一般是一个正则表达式，用于匹配我们需要处理的文件类型
+      //     use: [
+      //       {
+      //         loader: "css-loader",
+      //         // options:
+      //       },
+      //     ],
+      //   },
+
+      // 简写方式1
+      //   {
+      //     test: /\.css$/,
+      //     loader: "css-loader",
+      //   },
+      // 简写方式2
+      {
+        test: /\.css$/,
+        use: ["css-loader"],
+      },
+    ],
+  },
+```
+
+因为 css-loader 只起到让 webpack 识别 css 文件的功能，具体样式生效还需要下一个 loader
+
 ## webpack 实战
 
 是一款模块打包工具
@@ -215,4 +284,8 @@ module.exports = {
     publicPath: "./dist",
   },
 };
+```
+
+```
+
 ```
