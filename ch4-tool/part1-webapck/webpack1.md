@@ -164,6 +164,13 @@ src/js/login.js 第一行加入 import: `import "../css/login.css";`
 
 因为 css-loader 只起到让 webpack 识别 css 文件的功能，具体样式生效还需要下一个 loader
 
+#### style-loader
+
+`npm i style-loader -D`<br/>
+webpack.config.js 修改:`use: ["style-loader", "css-loader"],`<br/>
+loader 默认加载顺序: 从右往左，从下往上<br/>
+重新 build，运行
+
 ## webpack 实战
 
 是一款模块打包工具
