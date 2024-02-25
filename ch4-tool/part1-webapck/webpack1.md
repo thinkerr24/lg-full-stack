@@ -12,6 +12,8 @@
 
 #### webpack 上手
 
+默认打包入口:src/index.js
+
 ```bash
 npm i webpack webpack-cli -D
 npx webpack  # 忽略warning
@@ -52,6 +54,41 @@ const square = (m) => m * m;
 
 export { sum, square };
 ```
+
+#### webpack 配置文件
+
+如果需要更换打包入口文件(比如 src/main.js), 且输出目录名由 dist 改为 build，
+则需要在 webpack 命令后面加入参数:
+
+```bash
+npx webpack --entry ./src/main.js --output-path ./build # 注意index.html的script标签路径同步更改
+```
+
+将上述目录移到 package.json 的 scripts 中:
+
+```json
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --entry ./src/main.js --output-path ./build"
+  },
+```
+
+就可以通过命令`npm run build`简洁运行<br/>
+可以将上述参数移到`webpack.config.js`中，层次更加清晰(将 src/main.js 改回 src/index.js)
+
+```js
+const path = require("path");
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "build.js",
+    path: path.resolve(__dirname, "dist"),
+  },
+};
+```
+
+package.json 的 scripts 里的 build 命令可简化为:`"build": "webpack"`
 
 ## webpack 实战
 
