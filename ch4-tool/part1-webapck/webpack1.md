@@ -171,6 +171,48 @@ webpack.config.js 修改:`use: ["style-loader", "css-loader"],`<br/>
 loader 默认加载顺序: 从右往左，从下往上<br/>
 重新 build，运行
 
+#### less-loader
+
+1.less 简单使用(要先装 less):
+
+```less
+// src/css/login.less
+@bgColor: seagreen;
+@fontSize: 100px;
+
+.title {
+  background-color: @bgColor;
+  font-size: @fontSize;
+}
+```
+
+安装 less:`npm i less -D`
+
+```bash
+npx less src/css/login.less index.css # 根目录生成index.css
+```
+
+2.less-loader 使用:
+login.js 中添加 import:
+
+```js
+// ...
+import "../css/login.less";
+// ...
+```
+
+安装 less-loader:`npm i less-loader -D`<br/>
+webpack.config.js 中添加:
+
+```js
+      {
+        test: /\.less$/,
+        use: ["style-loader", "css-loader", "less-loader"],
+      },
+```
+
+重新`npm run build`,浏览器打开 index.html
+
 ## webpack 实战
 
 是一款模块打包工具
