@@ -213,6 +213,23 @@ webpack.config.js 中添加:
 
 重新`npm run build`,浏览器打开 index.html
 
+#### sass-loader
+
+`npm i sass sass-loader -D`
+
+```scss
+//login.scss
+$border-color: orange;
+
+.title {
+  border: 10px solid $border-color;
+}
+```
+
+`npx sass src/css/login.scss index.css`额外生成.map 文件<br/>
+
+login.less 导入`import "../css/login.scss";`, 重新 build
+
 ## webpack 实战
 
 是一款模块打包工具
