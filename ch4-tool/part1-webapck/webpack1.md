@@ -230,6 +230,31 @@ $border-color: orange;
 
 login.less 导入`import "../css/login.scss";`, 重新 build
 
+#### Browserslistrc 设置
+
+a.工程化 b.兼容性:CSS JS c.如何实现兼容 d.兼容哪些平台
+[参考浏览器使用情况](https://caniuse.com/usage-table)<br/>
+
+方法 1: `npx browserslist`<br/>
+
+```js
+//package.json
+"browserslist": [
+  ">1%",
+  "last 2 version",
+  "not dead"
+]
+// 再次运行 npx browserslist
+```
+
+方法 2: .browserslistrc 文件，去掉之前加在 package.json 中的:
+
+```bash
+> 1%
+last 3 version
+not dead
+```
+
 ## webpack 实战
 
 是一款模块打包工具
