@@ -274,6 +274,72 @@ login.js 中添加`import "../css/test.css";
 `<br/>
 `npx postcss --use autoprefixer -o ret.css ./src/css/test.css`
 
+#### postcss-loader 处理兼容
+
+将 test.css 的部分内容移动到 login.css 中:
+
+```css
+.title {
+  color: red;
+  transition: all 0.5s;
+  user-select: none;
+}
+```
+
+安装`npm i postcss-loader -D`
+
+```js
+      {
+        test: /\.css$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: [require("autoprefixer")],
+              },
+            },
+          },
+        ],
+      },
+```
+
+安装预设:`npm i postcss-preset-env -D`
+
+```js
+ postcssOptions: {
+                // autoprefixer包含在postcss-preset-env中
+                plugins: [require('postcss-preset-env')],
+              },
+```
+
+注释掉 login.less 中的 background-color:`   // background-color: @bgColor;`<br/>
+修改 login.css 颜色值为`  color: #12345678;`<br/>
+打包`npm run build`<br/>
+
+简写:
+
+```js
+//  postcss.config.js
+module.exports = {
+  plugins: [require("postcss-preset-env")],
+};
+```
+
+```js
+// webpack.config.js
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader", "postcss-loader"],
+      },
+      {
+        test: /\.less$/,
+        use: ["style-loader", "css-loader", "postcss-loader", "less-loader"],
+      },
+```
+
 ## webpack 实战
 
 是一款模块打包工具
