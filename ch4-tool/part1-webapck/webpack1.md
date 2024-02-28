@@ -276,7 +276,7 @@ login.js 中添加`import "../css/test.css";
 
 #### postcss-loader 处理兼容
 
-将 test.css 的部分内容移动到 login.css 中:
+将 test.css 的部分内容移动到 login.css 中, login.js 中去掉 import test.css:
 
 ```css
 .title {
@@ -338,6 +338,41 @@ module.exports = {
         test: /\.less$/,
         use: ["style-loader", "css-loader", "postcss-loader", "less-loader"],
       },
+```
+
+#### importLoaders 属性
+
+```css
+/* 恢复test.css */
+.title {
+  transition: all 0.5s;
+  user-select: none;
+}
+```
+
+```css
+/* login.css改为import test.css */
+@import "./test.css";
+.title {
+  color: #12345678;
+}
+```
+
+npm run build 打包发现页面中的.title 样式没有兼容写法
+![原因](./img/postcss-loader-handle-cssimport.png)
+修改 webpack.config.js:
+
+```js
+use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              importLoaders: 1, // 往上一个loader(postcss-loader)
+            },
+          },
+          "postcss-loader",
+        ],
 ```
 
 ## webpack 实战
