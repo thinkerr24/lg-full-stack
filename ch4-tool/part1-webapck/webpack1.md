@@ -230,7 +230,7 @@ $border-color: orange;
 
 login.less 导入`import "../css/login.scss";`, 重新 build
 
-#### Browserslistrc 设置
+#### browserslistrc 工作流程
 
 a.工程化 b.兼容性:CSS JS c.如何实现兼容 d.兼容哪些平台
 [参考浏览器使用情况](https://caniuse.com/usage-table)<br/>
@@ -254,6 +254,25 @@ a.工程化 b.兼容性:CSS JS c.如何实现兼容 d.兼容哪些平台
 last 3 version
 not dead
 ```
+
+#### postcss 工作流程
+
+postcss 是 js 转换样式的工具<br/>
+`npm i postcss postcss-cli autoprefixer -D`<br/>
+[autoprefixer](https://autoprefixer.github.io/) 要 fq
+
+```css
+/*src/css/test.css*/
+.title {
+  display: grid;
+  transition: all 0.5s;
+  user-select: none;
+}
+```
+
+login.js 中添加`import "../css/test.css";
+`<br/>
+`npx postcss --use autoprefixer -o ret.css ./src/css/test.css`
 
 ## webpack 实战
 
