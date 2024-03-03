@@ -466,6 +466,28 @@ ele.appendChild(oBgImg);
   },
 ```
 
+#### 设置图片名称与输出
+
+```js
+/**
+[ext]: 拓展名
+[name]: 文件名
+[hash]: 文件内容
+[contentHash]:
+[hash:<length>]
+[path]:
+ */
+use: [
+      {
+        loader: "file-loader",
+        options: {
+          name: "img/[name].[hash:6].[ext]",
+          //outputPath: "img",
+        },
+      },
+    ],
+```
+
 ## webpack 实战
 
 是一款模块打包工具
