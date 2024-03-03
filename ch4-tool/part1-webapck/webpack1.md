@@ -375,6 +375,97 @@ use: [
         ],
 ```
 
+#### file-loader 处理图片
+
+打包图片:<br/>
+img src: 使用 require 导入图片，如不配置 esModule: false, 则需.default 导出；也可以在配置中设置 esModule: false; 或者采取 import xxx from '图片路径', 此时就可直接使用<br/>
+background url: 在 css-loader 中要加 esModule: false
+
+`npm i file-loader -D`
+1.img src
+
+```js
+// Method1
+// a.add import in index.js(only this row)
+import "./js/image.js";
+// b.src/js/image.js
+function packImg() {
+  const ele = document.createElement("div");
+  const imgEle = document.createElement("img");
+  imgEle.src = require("../image/1.jpg"); // .default
+  ele.appendChild(imgEle);
+  return ele;
+}
+
+document.body.appendChild(packImg());
+// c.webpack.config.js
+ {
+    test: /\.(png|svg|jpe?g|gif)$/,
+    use: [
+      {
+        loader: "file-loader",
+        options: {
+          esModule: false, // 不转为esModule，不需要.default了
+        },
+      },
+    ],
+  },
+
+// Method2
+import oImage1Src from "../image/1.jpg";
+
+function packImg() {
+  const ele = document.createElement("div");
+  const imgEle = document.createElement("img");
+  imgEle.src = oImage1Src;
+  imgEle.width = 600;
+  ele.appendChild(imgEle);
+  return ele;
+}
+
+document.body.appendChild(packImg());
+// --------------------------------------------
+       {
+        test: /\.(png|svg|jpe?g|gif)$/,
+        use: [ "file-loader"],
+      },
+```
+
+2.background-url
+
+```js
+// image.js设置背景图片
+import "../css/image.css";
+// ...
+const oBgImg = document.createElement("div");
+oBgImg.className = "bg-box";
+ele.appendChild(oBgImg);
+// ...
+
+// src/css/image.css
+.bg-box {
+  width: 200px;
+  height: 200px;
+  background-image: url("../image/dt.png");
+}
+
+// webpack.config.js css-loader options配置多加esModule: false
+ {
+        test: /\.css$/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              importLoaders: 1,
+              esModule: false, // !important
+            },
+          },
+          "postcss-loader",
+        ],
+  },
+```
+
 ## webpack 实战
 
 是一款模块打包工具
