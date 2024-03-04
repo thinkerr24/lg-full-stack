@@ -2,6 +2,8 @@
 
 ## webpack5 从入门到放弃
 
+[参考](https://github.com/jiangxiaoyu66/modular-normalization/tree/main/02-02-02-01-webpack5-demo) or webpack5.zip
+
 ### webpack 功能
 
 <ul>
@@ -557,6 +559,40 @@ asset module type
     }
   }
 },
+```
+
+#### asset 处理图标字体
+
+[导入 font 目录](https://github.com/jiangxiaoyu66/modular-normalization/tree/main/02-02-02-01-webpack5-demo/15_webpack_pack_font/src/font)<br/>
+
+```css
+/** src/css/index.css */
+.rr-icon {
+  font-size: 50px;
+  color: lightgreen;
+}
+```
+
+```js
+// src/js/font.js
+import "../font/iconfont.css";
+import "../css/index.css";
+
+function packFont() {
+  const oEle = document.createElement("div");
+
+  const oSpan = document.createElement("span");
+  oSpan.className = "iconfont icon-linggan rr-icon";
+
+  oEle.appendChild(oSpan);
+
+  return oEle;
+}
+
+document.body.appendChild(packFont());
+
+// src/index.js
+import "./js/font.js";
 ```
 
 ## webpack 实战
