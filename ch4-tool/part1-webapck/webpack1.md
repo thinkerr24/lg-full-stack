@@ -488,6 +488,27 @@ use: [
     ],
 ```
 
+#### url-loader 处理图片
+
+`npm i url-loader -D`
+将 webpack.config.js 中的 file-loader 替换成 url-loader 即可<br/>
+url-loader 不会拷贝图片到打包后的目录下，而是以 base64 方式引入图片，能减少请求次数。如果想拷贝图片文件，就加 limit 配置
+
+```js
+ {
+      test: /\.(png|svg|jpe?g|gif)$/,
+      use: [
+        {
+          loader: "url-loader",
+          options: {
+            name: "img/[name].[hash:6].[ext]",
+            limit: 38 * 1024, // 超过38kb就拷贝文件
+          },
+        },
+      ],
+    },
+```
+
 ## webpack 实战
 
 是一款模块打包工具
