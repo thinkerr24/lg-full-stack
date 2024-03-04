@@ -509,6 +509,56 @@ url-loader 不会拷贝图片到打包后的目录下，而是以 base64 方式�
     },
 ```
 
+#### asset 处理图片(webpack5 内置)
+
+asset module type
+
+<ul>
+<li>asset/resource -> file-loader</li>
+<li>asset/inline -> url-loader</li>
+<li>asset/source -> raw-loader</li>
+<li>asset (parser)</li>
+</ul>
+
+```js
+//webpack.config.js remove file-loader & url-loader
+// 1.asset/resource
+{
+  test: /\.(png|svg|jpe?g|gif)$/,
+  type: "asset/resource",
+},
+// 如果要指定路径有两种方式
+// a. output中添加设置 不推荐
+  output: {
+   // assetModuleFilename: "img/[name].[hash:4][ext]",
+  },
+// b.
+  type: "asset/resource",
+  generator: {
+    filename: "img/[name].[hash:4][ext]",
+  },
+
+// 2.asset/inline  base64
+{
+  test: /\.(png|svg|jpe?g|gif)$/,
+  type: "asset/inline",
+},
+
+// 3.asset 配置文件限制，大文件移动，小文件base64
+{
+  test: /\.(png|svg|jpe?g|gif)$/,
+  type: "asset",
+   generator: {
+    filename: "img/[name].[hash:4][ext]",
+  },
+  parser: {
+    dataUrlCondition: {
+      maxSize: 38 * 1024
+    }
+  }
+},
+```
+
 ## webpack 实战
 
 是一款模块打包工具
