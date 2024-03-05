@@ -595,6 +595,26 @@ document.body.appendChild(packFont());
 import "./js/font.js";
 ```
 
+#### webpack 插件使用
+
+loader 对比 plugin
+
+<ul>
+<li>loader: 转换 特定类型->模块</li>
+<li>plugin: 更多事情，打包生命周期(例如压缩css)</li>
+</ul>
+例子:每次打包前清空之前的打包目录<br/>
+
+`npm i clean-webpack-plugin -D`
+
+```js
+// webpack.config.js
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+  // ...
+  plugins: [new CleanWebpackPlugin()], // plugin本质是一个class
+  // ...
+```
+
 ## webpack 实战
 
 是一款模块打包工具
