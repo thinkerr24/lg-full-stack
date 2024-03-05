@@ -615,6 +615,44 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
   // ...
 ```
 
+#### html-webpack-plugin 使用
+
+webpack 5.22.0(写这个的时候是 5.90.3 故手动安装之) 之前自带插件；该插件可自动在打包目录生成 index.html, 故先删掉 src/index.html<br/>
+`npm i html-webpack-plugin -D`
+创建 public/index.html
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+  </head>
+
+  <body>
+    <div id="app">html-webpack-plugin mock <%= BASE_URL %></div>
+  </body>
+</html>
+```
+
+```js
+// webpack.config.js
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { DefinePlugin } = require("webpack");
+
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      title: "html-webpack-plugin",
+      template: "./public/index.html",
+    }),
+    new DefinePlugin({
+      BASE_URL: '"./"', // 定义html模板中的常量
+    }),
+  ],
+```
+
 ## webpack 实战
 
 是一款模块打包工具
