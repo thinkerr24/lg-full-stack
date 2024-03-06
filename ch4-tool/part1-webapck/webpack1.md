@@ -653,6 +653,43 @@ const { DefinePlugin } = require("webpack");
   ],
 ```
 
+#### Babel 使用
+
+JSX TS ES6 -> 浏览器平台直接使用<br/>
+转换，类似 postcss，处理 JS 兼容
+
+```js
+// 先把mode用起来，webpack.config.js
+module.exports = {
+  mode: "development",
+  // ...
+};
+
+// index.js
+const str = "前端";
+
+const printStr = () => console.log(str);
+
+printStr();
+```
+
+打包后发现打包文件中没有对 es6 语法做处理，只是 eval
+
+`npm i @babel/core  @babel/cli -D` <br/>
+`npx babel src --out-dir build`<br/> 发现文件原封不动，原因在于缺失相应语法工具包，继续安装:<br/>
+`npm i @babel/plugin-transform-arrow-functions -D`<br/>
+`npx babel src --out-dir build --plugins=@babel/plugin-transform-arrow-functions`<br/>
+发现箭头函数转换成功了，接着转换 const:<br/>
+`npm i @babel/plugin-transform-block-scoping -D`<br/>
+`npx babel src --out-dir build --plugins=@babel/plugin-transform-arrow-functions,@babel/plugin-transform-block-scoping`<br/>
+好吧，const 也转换成 var 了<br/>
+
+这个一个一个配置太麻烦，故使用 babel 预设来简化:
+`npm i @babel/preset-env -D`<br/>
+`npx babel src -d build --presets=@babel/preset-env`<br/>
+把.browserslistrc 兼容性改高一些, 或者删掉.browserslistrc 文件[知乎参考](https://zhuanlan.zhihu.com/p/414255779?utm_id=0):
+`0.01%`
+
 ## webpack 实战
 
 是一款模块打包工具
