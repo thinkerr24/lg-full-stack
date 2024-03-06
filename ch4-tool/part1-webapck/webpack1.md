@@ -690,6 +690,59 @@ printStr();
 把.browserslistrc 兼容性改高一些, 或者删掉.browserslistrc 文件[知乎参考](https://zhuanlan.zhihu.com/p/414255779?utm_id=0):
 `0.01%`
 
+#### babel-loader
+
+`npm i babel-loader -D`
+
+配置方式 1
+
+```js
+// webpack.config.js
+  {
+    test: /\.js$/,
+    use: [
+      {
+        loader: "babel-loader",
+        options: {
+          presets: [
+            [
+              "@babel/preset-env",
+              // {
+              //   targets: "chrome 91", // 将不会转成es5，因为91版本对es6已有支持，推荐写进.browserslistrc
+              // },
+            ],
+          ],
+          // plugins: [
+          //   "@babel/plugin-transform-arrow-functions",
+          //   "@babel/plugin-transform-block-scoping",
+          // ],
+        },
+      },
+    ],
+  },
+```
+
+配置方式 2 babel.config.js(json cjs mjs) v7 之前:babelrc.json(js) .babelrc
+
+```js
+// webpack.config.js
+      {
+        test: /\.js$/,
+        use: ["babel-loader"],
+      },
+
+// babel.config.js
+module.exports = {
+  presets: [
+    [
+      "@babel/preset-env",
+      {
+        targets: "chrome 91",
+    ],
+  ],
+};
+```
+
 ## webpack 实战
 
 是一款模块打包工具
