@@ -743,6 +743,43 @@ module.exports = {
 };
 ```
 
+#### polyfill 配置
+
+背景: preset 并不支持所有的兼容语法，如 promise，所以用到 polyfill (webpack v5 之前内置)来补充
+`npm i @babel/polyfill` [core-js regenerator-runtime](https://babeljs.io/docs/babel-polyfill)
+故不需要@babel/polyfill，卸载之, 然后重新安装:<br/>
+`npm i core-js@2` 装新版本 core-js3 容易漏包 <br/>
+
+```js
+// index.js
+const p = new Promise((resolve, reject) => {
+  resolve(1);
+});
+console.log(p);
+
+// webpack.config.js
+// devtool: false,
+  {
+    test: /\.js$/,
+    exclude: /node_modules/,
+    use: ["babel-loader"],
+  },
+
+  // babel.config.js
+  module.exports = {
+    presets: [
+      [
+        "@babel/preset-env",
+        {
+          useBuiltIns:
+            "usage" /* default: false 不对当前的JS处理器做polyfill填充; 'usage': 依据用户源代码当中使用到的新语法进行填充; 'entry': 依据兼容浏览器.broserslistrc文件决定填充什么，记得index.js要导入corejs&runtime */,
+          corejs: 2,
+        },
+      ],
+    ],
+  };
+```
+
 ## webpack 实战
 
 是一款模块打包工具
