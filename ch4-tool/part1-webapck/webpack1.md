@@ -780,6 +780,41 @@ console.log(p);
   };
 ```
 
+#### copy-webpack-plugin
+
+目的: cp public/favicon.ico into dist folder<br/>
+`npm i copy-webpack-plugin -D` <br/>
+
+```html
+<!-- index.html -->
+<link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+```
+
+```js
+// webpack.config.js
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+
+  output: {
+    filename: "js/build.js",
+  }
+
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: "public",
+          globOptions: {
+            ignore: ["**/index.html"], // **表示public
+          },
+        },
+      ],
+    }),
+
+// index.js
+import "./js/font.js";
+import "./js/image.js";
+
+```
+
 ## webpack 实战
 
 是一款模块打包工具
