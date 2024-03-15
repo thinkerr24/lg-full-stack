@@ -815,6 +815,37 @@ import "./js/image.js";
 
 ```
 
+#### webpack-dev-server 初始
+
+解决修改源码后需要重新 run build 才能使页面生效的问题<br/>
+方法 1: a. package.json scripts build 脚本加 --watch<br/> `webpack --config webpack.config.js --watch`<br/>
+b. webpack.config.js 加 watch 选项为 true:<br/>
+
+```js
+module.exports = {
+  watch: true, // 默认false，性能问题
+  // ...
+};
+
+// 不足
+/**
+ 1. 所有源代码都会重新编译
+ 2. 每次编译成功之后都需要进行文件读写
+ 3. live server会把整个页面都刷新，不能实现局部更新
+ */
+```
+
+方法 2: webpack-dev-server<br/>
+`npm i -D webpack-dev-server`
+
+```bash
+# package.json 配置 serve scripts(--config webpack.config.js如果没改配置名可不加)
+    "serve": " webpack serve --config webpack.config.js"
+```
+
+直接`npm run serve` 通过命令行提示浏览器[打开](http://localhost:8080/)<br/>
+不会产生打包目录，把数据写进内存里面，所以很快!
+
 ## webpack 实战
 
 是一款模块打包工具
