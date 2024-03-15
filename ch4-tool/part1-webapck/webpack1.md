@@ -2,7 +2,8 @@
 
 ## webpack5 从入门到放弃
 
-[参考](https://github.com/jiangxiaoyu66/modular-normalization/tree/main/02-02-02-01-webpack5-demo) or webpack5.zip
+[官网参考](https://www.webpackjs.com/guides/)<br/>
+[源码参考](https://github.com/jiangxiaoyu66/modular-normalization/tree/main/02-02-02-01-webpack5-demo) or webpack5.zip
 
 ### webpack 功能
 
@@ -845,6 +846,32 @@ module.exports = {
 
 直接`npm run serve` 通过命令行提示浏览器[打开](http://localhost:8080/)<br/>
 不会产生打包目录，把数据写进内存里面，所以很快!
+
+#### webpack-dev-middleware 使用
+
+`npm i express webpack-dev-middleware`
+
+```js
+// src/server.js
+const express = require("express");
+const webpackDevMiddleware = require("webpack-dev-middleware");
+const webpack = require("webpack");
+
+const app = express();
+
+// 获取配置文件
+const config = require("./webpack.config");
+const compiler = webpack(config);
+
+app.use(webpackDevMiddleware(compiler));
+
+// 开启端口上的服务
+app.listen(3000, () => {
+  console.log("server is running on port 3000");
+});
+```
+
+` node .\server.js`
 
 ## webpack 实战
 
