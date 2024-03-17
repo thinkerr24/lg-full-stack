@@ -998,7 +998,7 @@ export default {
 }
 </style>
 
-// src/index.js
+/* src/index.js */
 import Vue from "vue";
 import App from "./App.vue";
 
