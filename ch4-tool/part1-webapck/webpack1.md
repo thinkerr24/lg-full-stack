@@ -1026,6 +1026,25 @@ new VueLoaderPlugin(),
 
 ```
 
+#### output 中的 path
+
+```js
+// webpack.config.js
+  output: {
+    filename: "js/build.js",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "", // '/', './'
+  },
+```
+
+该配置会为 index.html 中引入的<script> <link>等标签中的资源路径添加前缀<br/>
+
+```bash
+publicPath: './',   # 相对于index.html获取资源  -> <script src="./app.js"></script>
+publicPath: '/assets/',   # 从当前服务器根路径获取资源  -> <script src="/assets/app.js"></script>
+publicPath: 'https://xcdn.example.com/assets/' # 从https://xcdn.example.com/assets/ 获取资源 -> <script src="https://xcdn.example.com/assets/app.js"></script>
+```
+
 ## webpack 实战
 
 是一款模块打包工具
