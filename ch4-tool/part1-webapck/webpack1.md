@@ -970,6 +970,62 @@ module.exports = {
 
 ` npm i -D @pmmmwh/react-refresh-webpack-plugin react-refresh` 用比较新版本的 node&npm 不行就 yarn 试试
 
+#### Vue 组件支持热更新
+
+```bash
+yarn add vue@2.6.14
+yarn add vue-template-compiler@2.6.14 -D
+"vue-loader": "^15.9.8" IN DEV & yarn install # yarn add 一直报错&高版本for vue3
+```
+
+```js
+// src/App.vue
+<template>
+    <div class="example">{{ msg }}</div>
+</template>
+
+<script>
+export default {
+    data: {
+        msg: 'Hello, Vue world!'
+    }
+}
+</script>
+
+<style>
+.example {
+    color: red
+}
+</style>
+
+// src/index.js
+import Vue from "vue";
+import App from "./App.vue";
+
+import "./js/title";
+
+if (module.hot) {
+  module.hot.accept("./js/title", () => {
+    console.log("title.js 模块热更新");
+  });
+}
+
+new Vue({
+  render: (h) => h(App),
+}).$mount("#app");
+
+
+/*webpack.config.js*/
+
+const VueLoaderPlugin = require("vue-loader/lib/plugin");
+      {
+        test: /\.vue$/,
+        use: ["vue-loader"],
+      },
+new VueLoaderPlugin(),
+
+```
+
 ## webpack 实战
 
 是一款模块打包工具
