@@ -1057,7 +1057,7 @@ publicPath: 'https://xcdn.example.com/assets/' # 从https://xcdn.example.com/ass
   },
   devServer: {
     hot: true,
-    publicPath: "/rr",
+    publicPath: "/rr", // 默认值"/", 指定本地服务所在的目录, v4有变化https://blog.csdn.net/qq_45890970/article/details/124523160
     contentBase: path.resolve(__dirname, "public"),
     watchContentBase: true,
   },
