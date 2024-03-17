@@ -1045,6 +1045,24 @@ publicPath: '/assets/',   # 从当前服务器根路径获取资源  -> <script 
 publicPath: 'https://xcdn.example.com/assets/' # 从https://xcdn.example.com/assets/ 获取资源 -> <script src="https://xcdn.example.com/assets/app.js"></script>
 ```
 
+#### devServer 中的 path
+
+```js
+// webpack.config.js
+
+ output: {
+    filename: "js/build.js",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "/rr",
+  },
+  devServer: {
+    hot: true,
+    publicPath: "/rr",
+    contentBase: path.resolve(__dirname, "public"),
+    watchContentBase: true,
+  },
+```
+
 ## webpack 实战
 
 是一款模块打包工具
