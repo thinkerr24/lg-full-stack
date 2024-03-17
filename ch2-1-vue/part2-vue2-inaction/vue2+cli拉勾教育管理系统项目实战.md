@@ -30,3 +30,36 @@ git remote add origin https://github.com/thinkerr24/edu-boss-fed.git
 git remote -v
 git push -u origin main # -u表示保存后续选项，之后push直接git push即可
 ```
+
+#### 目录结构说明
+
+```bash
+edu-boss-fed
+├── public
+│   ├── favicon.ico
+│   └── index.html
+├── src
+│   ├── assets
+│   │   └── logo.png
+│   ├── components
+│   │   └── HelloWorld.vue
+│   ├── router
+│   │   └── index.js
+│   ├── store
+│   │   └── index.js
+│   ├── views
+│   │   ├── AboutView.vue
+│   │   └── HomeView.vue
+│   ├── App.vue
+│   └── main.js
+├── .browserslistrc
+├── .editorconfig
+├── .eslintrc.js
+├── README.md
+├── babel.config.js
+├── jsconfig.json
+├── lint-staged.config.js
+├── package-lock.json
+├── package.json
+└── vue.config.js
+```
