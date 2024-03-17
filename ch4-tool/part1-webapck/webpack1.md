@@ -873,6 +873,42 @@ app.listen(3000, () => {
 
 ` node .\server.js`
 
+#### HMR(Hot Module Replacement)使用
+
+对局部的模块进行替换, 不会全局刷新
+
+```html
+<!-- public/index.html -->
+<div id="app">
+  <input type="text" />
+</div>
+```
+
+```js
+// webpack.config.js
+module.exports = {
+  // ...
+  target: "web", // 屏蔽browserslist
+  devServer: {
+    hot: true, // 开启热更新
+  },
+  // ...
+};
+
+// src/js/title.js
+module.exports = "This is title.js module, and I will change it";
+
+// index.js
+import "./js/title";
+
+// 希望哪些模块热更新(局部刷新，不会清空修改代码前input框输入内容)
+if (module.hot) {
+  module.hot.accept("./js/title", () => {
+    console.log("title.js 模块热更新");
+  });
+}
+```
+
 ## webpack 实战
 
 是一款模块打包工具
