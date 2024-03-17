@@ -909,6 +909,67 @@ if (module.hot) {
 }
 ```
 
+#### React 组件支持热更新
+
+```bash
+npm i -D @babel/preset-react
+npm i react react-dom
+```
+
+```js
+// src/App.jsx
+import { useState } from "react";
+
+export default function App() {
+  const [title, setTitle] = useState("React前端");
+  return (
+    <>
+      <h2>{title}</h2>
+    </>
+  );
+}
+
+// src/index.js
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+
+import "./js/title";
+
+if (module.hot) {
+  module.hot.accept("./js/title", () => {
+    console.log("title.js 模块热更新");
+  });
+}
+
+ReactDOM.createRoot(document.querySelector("#app")).render(<App />);
+
+// babel.config.js
+module.exports = {
+  presets: [
+    ["@babel/preset-env"],
+    [
+      "@babel/preset-react",
+      {
+        runtime: "automatic", // 要加上这行配置
+      },
+    ],
+  ],
+};
+// webpack.config.js
+   // remove
+      // {
+      //   test: /\.js$/,
+      //   exclude: /node_modules/,
+      //   use: ["babel-loader"],
+      // },
+      {
+        test: /\.jsx?$/,
+        use: ["babel-loader"],
+      },
+```
+
+` npm i -D @pmmmwh/react-refresh-webpack-plugin react-refresh` 用比较新版本的 node&npm 不行就 yarn 试试
+
 ## webpack 实战
 
 是一款模块打包工具
