@@ -1047,9 +1047,12 @@ publicPath: 'https://xcdn.example.com/assets/' # 从https://xcdn.example.com/ass
 
 #### devServer 中的 path
 
+[官网最新配置](https://webpack.js.org/configuration/dev-server/#devserverstatic)
+
 ```js
 // webpack.config.js
 
+  // 如果都把publicPath配成'/rr', 则访问http://localhost:8080/rr
  output: {
     filename: "js/build.js",
     path: path.resolve(__dirname, "dist"),
@@ -1057,10 +1060,18 @@ publicPath: 'https://xcdn.example.com/assets/' # 从https://xcdn.example.com/ass
   },
   devServer: {
     hot: true,
-    publicPath: "/rr", // 默认值"/", 指定本地服务所在的目录, v4有变化https://blog.csdn.net/qq_45890970/article/details/124523160
-    contentBase: path.resolve(__dirname, "public"),
-    watchContentBase: true,
+     // publicPath: "/rr", 默认值"/", 指定本地服务所在的目录, v4有变化https://blog.csdn.net/qq_45890970/article/details/124523160
+    static: {
+      directory: path.join(__dirname, "public"),
+      publicPath: "/rr",
+      watch: false // default true
+    },
+
+    // @Deprecated
+    // contentBase: path.resolve(__dirname, "public"),
+    // watchContentBase: true,
   },
+
 ```
 
 ## webpack 实战
