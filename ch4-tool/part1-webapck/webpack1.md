@@ -1087,6 +1087,47 @@ publicPath: 'https://xcdn.example.com/assets/' # 从https://xcdn.example.com/ass
 
 ```
 
+#### proxy 代理设置
+
+`yarn add axios`
+
+```js
+// index.js
+import axios from "axios";
+
+axios.get("https://api.github.com/users").then((res) => {
+  console.log(res.data);
+});
+
+/* // 或者直接用fetch
+fetch("/api/users")
+  .then((body) => {
+    return body.json();
+  })
+  .then((data) => {
+    console.log("data:", data);
+  })
+  .catch((err) => {
+    console.error("err:", err);
+  });
+*/
+
+// webpack.config.js
+  devServer: {
+    // ...
+    proxy: [
+      {
+        context: ["/api"],
+        target: "https://api.github.com", // Check if enable access or 504 error
+        pathRewrite: { "^/api": "" },
+        changeOrigin: true,
+        secure: false,
+      },
+    ],
+  }
+  // ...
+```
+
 ## webpack 实战
 
 是一款模块打包工具
