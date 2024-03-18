@@ -1074,6 +1074,19 @@ publicPath: 'https://xcdn.example.com/assets/' # 从https://xcdn.example.com/ass
 
 ```
 
+#### devServer 常用配置
+
+```js
+ devServer: {
+    hot: true, //在构建失败时不刷新页面作为回退，使用 hot: 'only'
+    port: 4000, // 端口
+    open: false, //  在服务器已经启动后打开浏览器
+    compress: true, // 启用 gzip compression
+    historyApiFallback: true, // 404
+ }
+
+```
+
 ## webpack 实战
 
 是一款模块打包工具
