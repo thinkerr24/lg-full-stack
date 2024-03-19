@@ -63,3 +63,40 @@ edu-boss-fed
 ├── package.json
 └── vue.config.js
 ```
+
+#### 调整初始目录
+
+删除 src 下(清空目录):<br/>
+assets 目录的 logo 文件， components 下的 Helloworld.vue, views 下的两个 vue 文件 <br/>
+
+新增 src/services src/styles src/utils <br/>
+
+```js
+// src/App.vue
+<template>
+  <div id="app">
+      <h1>rr教育</h1>
+    <!-- 根路由出口 -->
+    <router-view/>
+  </div>
+</template>
+
+<style lang="scss">
+</style>
+
+// src/router/index.js
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
+
+// 路由规则
+const routes = []
+
+const router = new VueRouter({
+  routes
+})
+
+export default router
+
+```
