@@ -1144,6 +1144,18 @@ import App from "./App"
 
 ```
 
+#### source-map作用
+浏览器运行的是打包后的js代码，如果中间有报错，很难具体定位<br/>
+source-map 映射 -> 在调试的时候可以定位到源代码中的信息
+```js
+// webpack.config.js
+module.exports = {
+  mode: "development",
+  devtool: "source-map", // default: "eval"
+  // ...
+}
+```
+
 ## webpack 实战
 
 是一款模块打包工具
