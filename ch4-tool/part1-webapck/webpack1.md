@@ -1128,6 +1128,22 @@ fetch("/api/users")
   // ...
 ```
 
+#### resolve模块解析规则
+```js
+// webpack.config.js
+  resolve: {
+    extensions: ['.js', '.json', '.vue', '.ts', '.jsx', '.tsx'],
+   /* alias: {
+      '@': path.resolve(__dirname, 'src') // -> import App from "@/App"
+    } */
+  },
+
+// index.js
+import App from "./App.vue"; // change to 
+import App from "./App"
+
+```
+
 ## webpack 实战
 
 是一款模块打包工具
