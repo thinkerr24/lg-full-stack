@@ -1164,6 +1164,30 @@ vue   默认: source-map
 react 默认: cheap-module-source-map
 ```
 
+#### ts-loader编译TS
+```typescript
+// src/index.ts
+const title: string = "前端开发";
+
+const foo = (msg: string) => console.log(msg);
+
+foo(title);
+
+// webpack.config.js
+module.exports = {
+  entry: "./src/index.ts",
+}
+```
+全局安装typescript`npm i typescript -g`, 在根目录下运行`tsc --init`生成tsconfig.json
+`yarn add typescript ts-loader -D`
+```js
+// webpack.config.js
+      {
+        test: /\.ts$/,
+        use: ["ts-loader"],
+      },
+```
+
 ## webpack 实战
 
 是一款模块打包工具
