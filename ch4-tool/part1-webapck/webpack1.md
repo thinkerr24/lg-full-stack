@@ -1155,6 +1155,14 @@ module.exports = {
   // ...
 }
 ```
+#### devtool详细说明
+[官网选项](https://www.webpackjs.com/configuration/devtool/#root)
+ `devtool: "eval-source-map" | "inline-source-map" | "cheap-source-map" | "cheap-module-source-map" | "hidden-source-map" |  "nosources-source-map"`
+
+```bash
+vue   默认: source-map
+react 默认: cheap-module-source-map
+```
 
 ## webpack 实战
 
