@@ -1188,6 +1188,8 @@ module.exports = {
       },
 ```
 
+#### babel-loader编译TS
+
 ## webpack 实战
 
 是一款模块打包工具
