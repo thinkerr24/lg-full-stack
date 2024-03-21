@@ -106,3 +106,13 @@ export default router
 [airbnb/javascript](https://github.com/airbnb/javascript) <br/>
 [.eslintrc.js](https://eslint.vuejs.org/) <br/>
 [Vue.js Style Guide.](https://v2.cn.vuejs.org/v2/style-guide/)
+
+#### 自定义检验规则
+[ESLint](https://zh-hans.eslint.org/docs/latest/) <br/>
+修改.eslintrc.js
+```js
+  rules: {
+    // ...
+    // 'simi': off  保留分号
+  }
+```
