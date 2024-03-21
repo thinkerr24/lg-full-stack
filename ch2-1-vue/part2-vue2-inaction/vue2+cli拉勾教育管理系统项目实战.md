@@ -47,7 +47,7 @@ edu-boss-fed
 │   │   └── index.js
 │   ├── store
 │   │   └── index.js
-│   ├── views
+│   ├── views             # 页面级组件目录，类似React中的pages目录
 │   │   ├── AboutView.vue
 │   │   └── HomeView.vue
 │   ├── App.vue
@@ -100,3 +100,9 @@ const router = new VueRouter({
 export default router
 
 ```
+
+#### 代码规范和风格指南
+[standardjs.com](https://standardjs.com/) <br/>
+[airbnb/javascript](https://github.com/airbnb/javascript) <br/>
+[.eslintrc.js](https://eslint.vuejs.org/) <br/>
+[Vue.js Style Guide.](https://v2.cn.vuejs.org/v2/style-guide/)
