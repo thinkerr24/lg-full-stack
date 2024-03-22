@@ -116,3 +116,31 @@ export default router
     // 'simi': off  保留分号
   }
 ```
+#### Element组件库(样式与布局)
+[官网](https://element.eleme.cn/#/zh-CN)<br/>
+`npm i element-ui -S`
+
+```js
+// main.js
+// 引入elementUI
+import ElementUI from 'element-ui'
+// 引入elementUI的主题(风格)文件
+import 'element-ui/lib/theme-chalk/index.css'
+
+// 将elementUI注册为Vue插件
+Vue.use(ElementUI)
+
+// App.vue
+<template>
+  <div id="app">
+    <h1>rr教育</h1>
+    <!-- 根路由出口 -->
+    <router-view />
+
+    <!-- 测试elementUI是否可用 -->
+    <el-row>
+      <el-button type="primary">主要按钮</el-button>
+    </el-row>
+  </div>
+</template>
+```
