@@ -102,21 +102,26 @@ export default router
 ```
 
 #### 代码规范和风格指南
+
 [standardjs.com](https://standardjs.com/) <br/>
 [airbnb/javascript](https://github.com/airbnb/javascript) <br/>
 [.eslintrc.js](https://eslint.vuejs.org/) <br/>
 [Vue.js Style Guide.](https://v2.cn.vuejs.org/v2/style-guide/)
 
 #### 自定义检验规则
+
 [ESLint](https://zh-hans.eslint.org/docs/latest/) <br/>
 修改.eslintrc.js
+
 ```js
-  rules: {
-    // ...
-    // 'simi': off  保留分号
-  }
+rules: {
+  // ...
+  // 'simi': off  保留分号
+}
 ```
-#### Element组件库(样式与布局)
+
+#### Element 组件库(样式与布局)
+
 [官网](https://element.eleme.cn/#/zh-CN)<br/>
 `npm i element-ui -S`
 
@@ -143,4 +148,15 @@ Vue.use(ElementUI)
     </el-row>
   </div>
 </template>
+```
+
+#### 样式处理
+
+src/styles/index.scss & src/styles/variables.scss(见 github)
+
+```js
+// src/main.js
+// import 'element-ui/lib/theme-chalk/index.css'
+// 引入自定义的全局样式文件
+import "./styles/index.scss";
 ```
