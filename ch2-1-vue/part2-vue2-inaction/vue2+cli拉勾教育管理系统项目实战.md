@@ -160,3 +160,5 @@ src/styles/index.scss & src/styles/variables.scss(见 github)
 // 引入自定义的全局样式文件
 import "./styles/index.scss";
 ```
+
+#### 共享全局样式变量
